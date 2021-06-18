@@ -1,25 +1,26 @@
 local addonName, RU = ...
 
-RU.CreateMiddleMarker = true
-RU.ShowMiddleMarker = false
+RU.MM = {}
+RU.MM.MM.CreateMiddleMarker = true
+RU.MM.ShowMiddleMarker = false
 
-function RU.ToggleMiddleMarker()
-	RU.ShowMiddleMarker = not RU.ShowMiddleMarker
-	if RU.CreateMiddleMarker then
-		RU.CreateMMFrame()
+function RU.MM.ToggleMiddleMarker()
+	RU.MM.ShowMiddleMarker = not RU.MM.ShowMiddleMarker
+	if RU.MM.CreateMiddleMarker then
+		RU.MM.CreateMMFrame()
 	end
-	if RU.ShowMiddleMarker then
-		RU.ShowMarkers()
+	if RU.MM.ShowMiddleMarker then
+		RU.MM.ShowMarkers()
 	else
-		RU.HideMarkers()
+		RU.MM.HideMarkers()
 	end
 end
 
-function RU.CreateMMFrame()
-	RU.MMFrame = CreateFrame('Frame', nil, UIParent)
-	RU.MMFrame:SetAllPoints(UIParent)
-	RU.MMFrame:SetFrameStrata('BACKGROUND')
-	RU.MMFrame:SetFrameLevel(0)
+function RU.MM.CreateMMFrame()
+	RU.MM.MMFrame = CreateFrame('Frame', nil, UIParent)
+	RU.MM.MMFrame:SetAllPoints(UIParent)
+	RU.MM.MMFrame:SetFrameStrata('BACKGROUND')
+	RU.MM.MMFrame:SetFrameLevel(0)
 	local screenWidth = GetScreenWidth()
 	local screenHeight = GetScreenHeight()
 	local widthMiddle = math.floor(screenWidth / 2)
@@ -27,28 +28,28 @@ function RU.CreateMMFrame()
 	local verticalLineLength = math.floor(screenHeight / 3)
 	local horizontalLineLength = math.floor(screenWidth / 3)
 	-- topMarker
-	RU.CreateLine(widthMiddle, screenHeight, widthMiddle, screenHeight - verticalLineLength)
+	RU.MM.CreateLine(widthMiddle, screenHeight, widthMiddle, screenHeight - verticalLineLength)
 	-- bottomMarker
-	RU.CreateLine(widthMiddle, 0, widthMiddle, verticalLineLength)	
+	RU.MM.CreateLine(widthMiddle, 0, widthMiddle, verticalLineLength)	
 	-- leftMarker
-	RU.CreateLine(0, heightMiddle, horizontalLineLength, heightMiddle)	
+	RU.MM.CreateLine(0, heightMiddle, horizontalLineLength, heightMiddle)	
 	-- rightMarker
-	RU.CreateLine(screenWidth, heightMiddle, screenWidth - horizontalLineLength, heightMiddle)
-	RU.CreateMiddleMarker = false
+	RU.MM.CreateLine(screenWidth, heightMiddle, screenWidth - horizontalLineLength, heightMiddle)
+	RU.MM.CreateMiddleMarker = false
 end
 
-function RU.CreateLine(startX, startY, endX, endY)
-	local line = RU.MMFrame:CreateLine(nil, 'BACKGROUND')
+function RU.MM.CreateLine(startX, startY, endX, endY)
+	local line = RU.MM.MMFrame:CreateLine(nil, 'BACKGROUND')
 	line:SetStartPoint('BOTTOMLEFT', startX, startY)
 	line:SetEndPoint('BOTTOMLEFT', endX, endY)
 	line:SetColorTexture(1, 0, 0, 0.4)
 	line:SetThickness(3)
 end
 
-function RU.ShowMarkers()
-	RU.MMFrame:Show()
+function RU.MM.ShowMarkers()
+	RU.MM.MMFrame:Show()
 end
 
-function RU.HideMarkers()
-	RU.MMFrame:Hide()
+function RU.MM.HideMarkers()
+	RU.MM.MMFrame:Hide()
 end

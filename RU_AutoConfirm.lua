@@ -1,0 +1,3 @@
+local addonName, RU = ...
+
+RU.AC = {}
