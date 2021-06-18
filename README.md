@@ -23,7 +23,7 @@ Example Usage: **\/ru at w**
 Output Format:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<target name\> \[\<target life percentage\>\] near \(\<player coords\>\) \<map pin\>  
 Example Output:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vyragosa \[53%\] near \(51\.4, 70\.8\) \[Map Pin Location\]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vyragosa \[Health 53%\] near \(51\.4, 70\.8\) \[Map Pin Location\]
 
 <h3 id='at-arguments'>Command Arugments</h3>
 

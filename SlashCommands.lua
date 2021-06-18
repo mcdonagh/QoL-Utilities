@@ -6,20 +6,20 @@ SlashCmdList['REDBEARDSUTILITIES'] = function (msg)
 end
 
 function RU.ParseInput(msg)
-	local words = {}
+	local args = {}
 	local count = 0
 	for word in s:gmatch('%w+') do 
-		table.insert(words, word)
+		table.insert(args, word)
 		RU.Log(word)
 		count = count + 1
 	end
-	local n = table.getn(words)
+	local n = table.getn(args)
 	RU.Log('count = ' .. count .. ' | getn = ' .. n)
-	local direction = words[1]
+	local direction = args[1]
 	if direction == 'mm' then
 		RU.ToggleMiddleMarker()
 	elseif direction == 'at' then
-		RU.AnnounceTarget(words)
+		RU.AnnounceTarget(args)
 	elseif direction == 'qm' then
 		RU.ToggleQuietMode()
 	elseif direction == 'ac' then

@@ -33,7 +33,7 @@ function mm.CreateMMFrame()
 	mm.CreateLine(0, heightMiddle, horizontalLineLength, heightMiddle)	
 	-- rightMarker
 	mm.CreateLine(screenWidth, heightMiddle, screenWidth - horizontalLineLength, heightMiddle)
-	mm.HideMarkers()
+	mm.MMFrame:Hide()
 end
 
 function mm.CreateLine(startX, startY, endX, endY)

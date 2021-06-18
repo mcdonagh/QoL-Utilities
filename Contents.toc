@@ -4,10 +4,10 @@
 ## SavedVariables: QuietModeActive, AutoConfirmActive
 ## Version: 0.0.0.1
 
-RU_AnnounceTarget.lua
-RU_AutoConfirm.lua
-RU_MiddleMarker.lua
-RU_QuietMode.lua
+AnnounceTarget.lua
+AutoConfirm.lua
+MiddleMarker.lua
+QuietMode.lua
 
-RU_SlashCommands.lua
-RU_Events.lua
+SlashCommands.lua
+Events.lua

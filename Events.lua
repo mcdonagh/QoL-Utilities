@@ -3,16 +3,17 @@ local addonName, RU = ...
 RU.EventFrame = CreateFrame('Frame')
 RU.Events = {}
 
+function RU.Events:PLAYER_ENTERING_WORLD(...)
+	RU.QM.ReportState()
+	RU.AC.ReportState()
+end
+
 function RU.Events:PARTY_INVITE_REQUEST(...)
 	RU.QM.DeclinePartyInvite(...)
 end
 
 function RU.Events:DUEL_REQUESTED(...)
 	RU.QM.DeclineDuel(...)
-end
-
-function RU.Events:PLAYER_ENTERING_WORLD(...)
-	RU.QM.ReportState()
 end
 
 function RU.Events:EQUIP_BIND_REFUNDABLE_CONFIRM(...)
