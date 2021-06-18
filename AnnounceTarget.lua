@@ -1,18 +1,19 @@
 local addonName, RU = ...
 
 RU.AT = {}
-RU.AT.S_TARGET = 'target'
-RU.AT.S_PLAYER = 'player'
+local at = RU.AT
+at.S_TARGET = 'target'
+at.S_PLAYER = 'player'
 
-function RU.AT.AnnounceTarget(words)
-	if UnitExists(RU.AT.S_TARGET) then
-		local destination, subdestination = RU.AT.GetDestination(msg)
-		local message = RU.AT.GenerateMessage();
+function at.AnnounceTarget(words)
+	if UnitExists(at.S_TARGET) then
+		local destination, subdestination = at.GetDestination(msg)
+		local message = at.GenerateMessage();
 		SendChatMessage(message, destination, nil, subdestination)
 	end
 end
 
-function RU.AT.GetDestination(msg)
+function at.GetDestination(msg)
 	local destination = 'CHANNEL'
 	local subdestination = nil
 	local indicator = 'c'
@@ -21,12 +22,12 @@ function RU.AT.GetDestination(msg)
 	end
 	if indicator == 'c' then
 		destination = 'CHANNEL'
-		subdestination = RU.AT.GetSubDestination(true, msg)
+		subdestination = at.GetSubDestination(true, msg)
 	elseif indicator == 'g' then
 		destination = 'GUILD'
 	elseif indicator == 'w' then
 		destination = 'WHISPER'
-		subdestination = RU.AT.GetSubDestination(false, msg)
+		subdestination = at.GetSubDestination(false, msg)
 	elseif indicator == 'p' then
 		destination = 'PARTY'
 	elseif indicator == 'r' then
@@ -41,7 +42,7 @@ function RU.AT.GetDestination(msg)
 	return destination, subdestination
 end
 
-function RU.AT.GetSubDestination(isChannel, msg)
+function at.GetSubDestination(isChannel, msg)
 	local subdestination
 	if isChannel then
 		subdestination = 1
@@ -49,7 +50,7 @@ function RU.AT.GetSubDestination(isChannel, msg)
 			subdestination = strsub(msg, 3)
 		end
 	else
-		subdestination = UnitName(RU.AT.S_PLAYER)
+		subdestination = UnitName(at.S_PLAYER)
 		if strlen(msg) >= 3 then
 			subdestination = strsub(msg, 3)
 		end
@@ -57,11 +58,11 @@ function RU.AT.GetSubDestination(isChannel, msg)
 	return subdestination
 end
 
-function RU.AT.GenerateMessage()
-	local name = UnitName(RU.AT.S_TARGET)
-	local health = UnitHealth(RU.AT.S_TARGET) / UnitHealthMax(RU.AT.S_TARGET)
-	local map = C_Map.GetBestMapForUnit(RU.AT.S_PLAYER)
-	local x, y = C_Map.GetPlayerMapPosition(map, RU.AT.S_PLAYER):GetXY()
+function at.GenerateMessage()
+	local name = UnitName(at.S_TARGET)
+	local health = UnitHealth(at.S_TARGET) / UnitHealthMax(at.S_TARGET)
+	local map = C_Map.GetBestMapForUnit(at.S_PLAYER)
+	local x, y = C_Map.GetPlayerMapPosition(map, at.S_PLAYER):GetXY()
 	local message = format('%s [%d%%] near (%.1f, %.1f) ', name, health * 100, x * 100, y * 100)
 	C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(map, x, y))
 	local waypoint = C_Map.GetUserWaypointHyperlink()

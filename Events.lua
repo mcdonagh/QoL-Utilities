@@ -12,36 +12,15 @@ function RU.Events:DUEL_REQUESTED(...)
 end
 
 function RU.Events:PLAYER_ENTERING_WORLD(...)
-	local isFirstLogin, isReload = ...
-	if isFirstLogin or isReload then
-		ReportState()
-	end
+	RU.QM.ReportState()
 end
 
 function RU.Events:EQUIP_BIND_REFUNDABLE_CONFIRM(...)
-	local confirmText = 'Okay'
-	for i = 1, 10 do
-		local popup = _G['StaticPopup' .. i]
-		if popup and popup.which and popup.IsShown and popup:IsShown() then
-			local button = _G['StaticPopup' .. i .. 'Button1']
-			if button and button.IsShown and button:IsShown() and button.GetText and (button:GetText() == confirmText) and button.Click then
-				button:Click('LeftButton')
-			end
-		end
-	end
+	RU.AC.ConfirmEquipRefundable()
 end
 
 function RU.Events:EQUIP_BIND_TRADEABLE_CONFIRM(...)
-	local confirmText = 'Okay'
-	for i = 1, 10 do
-		local popup = _G['StaticPopup' .. i]
-		if popup and popup.which and popup.IsShown and popup:IsShown() then
-			local button = _G['StaticPopup' .. i .. 'Button1']
-			if button and button.IsShown and button:IsShown() and button.GetText and (button:GetText() == confirmText) and button.Click then
-				button:Click('LeftButton')
-			end
-		end
-	end
+	RU.AC.ConfirmEquipTradeable()
 end
 
 RU.EventFrame:SetScript("OnEvent",

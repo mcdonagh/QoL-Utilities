@@ -1,13 +1,14 @@
 local addonName, RU = ...
 
 RU.QM = {}
+local qm = RU.QM
 
-function RU.QM.ToggleQuietMode()
+function qm.ToggleQuietMode()
 	QuietModeActive = not QuietModeActive
-	RU.QM.ReportState()
+	qm.ReportState()
 end
 
-function RU.QM.ReportState()
+function qm.ReportState()
 	if QuietModeActive then
 		RU.Log('now declining invites & duels')
 	else
@@ -15,22 +16,22 @@ function RU.QM.ReportState()
 	end	
 end
 
-function RU.QM.DeclinePartyInvite(...)
+function qm.DeclinePartyInvite(...)
 	if QuietModeActive then
 		local inviter = ...
 		StaticPopup_Hide("PARTY_INVITE")
-		RU.QM.Log('declined invite from ' .. inviter)
+		qm.Log('declined invite from ' .. inviter)
 	end
 end
 
-function RU.QM.DeclineDuel(...)
+function qm.DeclineDuel(...)
 	if QuietModeActive then
 		local inviter = ...
 		StaticPopup_Hide('DUEL_REQUESTED')
-		RU.QM.Log('declined duel from ' .. inviter)
+		qm.Log('declined duel from ' .. inviter)
 	end
 end
 
-function RU.QM.Log(message)
+function qm.Log(message)
 	RU.Log(message, 'QM')
 end
