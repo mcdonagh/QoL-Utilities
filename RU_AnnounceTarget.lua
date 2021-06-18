@@ -1,3 +1,5 @@
+local addonName, RU = ...
+
 local tar = 'target'
 local player = 'player'
 

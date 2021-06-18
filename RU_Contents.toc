@@ -1,0 +1,12 @@
+## Interface: 90000
+## Title: Quiet Mode
+## Author: Redbeard923
+## SavedVariables: QuietModeActive
+## Version: 0.0.0.1
+
+RU_AnnounceTarget.lua
+RU_MiddleMarker.lua
+RU_QuietMode.lua
+
+RU_SlashCommands.lua
+RU_Events.lua

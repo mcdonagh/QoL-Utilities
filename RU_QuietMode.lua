@@ -1,3 +1,5 @@
+local addonName, RU = ...
+
 SLASH_QUIETMODE1 = '/qm'
 SlashCmdList['QUIETMODE'] = function (msg)
 	QuietModeActive = not QuietModeActive
