@@ -93,8 +93,8 @@ The command **\/ru at w** ***\<player name\>*** will send the target information
 The subDestination for any channel is the number for that channel.  
 Simply using the command **\/ru at c** without a subDestination or **\/ru at** without either a destination or subDestination sends the target information to the first available channel \(channel 1\).
   
-Number | Default Channel
---- | ---
+Channel Number | Default Channel
+:---: | ---
 1 | General
 2 | Trade
 3 | Local Defense
@@ -105,7 +105,8 @@ Number | Default Channel
 Automatically clicks the confirmation button on the popup that shows when attempting to equip items that are still Refundable or Tradeable.  
 Functionality can be toggled on or off.  
 Current state of functionality is reported at player login and on reload.
-> Functionality is turned **off** by default.
+> Functionality is turned **off** by default.  
+> State is saved **per account**, ***NOT*** per character.
 
 <h3 id='ac-usage'>Usage & Output</h3>
 
@@ -132,10 +133,11 @@ No text is printed to the chat window.
 
 <h2 id='qm'>Quite Mode</h2>
 
-Automatically declines party invites and duel requests.
-Functionality can be toggled on or off.
-Current state of functionality is reported at player login and on reload.
-> Functionality is turned **off** by default.
+Automatically declines party invites and duel requests.  
+Functionality can be toggled on or off.  
+Current state of functionality is reported at player login and on reload.  
+> Functionality is turned **off** by default.  
+> State is saved **per account**, ***NOT*** per character.
 
 <h3 id='qm-usage'>Usage & Output</h3>
 
