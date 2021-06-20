@@ -2,11 +2,15 @@ local addonName, RU = ...
 
 RU.MM = {}
 local mm = RU.MM
-mm.CreateMMFrame()
+mm.InitialCreate = true
 mm.ShowMiddleMarker = false
 
 function mm.ToggleMiddleMarker()
 	mm.ShowMiddleMarker = not mm.ShowMiddleMarker
+	if mm.InitialCreate then
+		mm.InitialCreate = false
+		mm.CreateMMFrame()
+	end
 	if mm.ShowMiddleMarker then
 		mm.ShowMarkers()
 	else

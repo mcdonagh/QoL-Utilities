@@ -7,23 +7,18 @@ end
 
 function RU.ParseInput(msg)
 	local args = {}
-	local count = 0
-	for word in s:gmatch('%w+') do 
+	for word in msg:gmatch('%w+') do 
 		table.insert(args, word)
-		RU.Log(word)
-		count = count + 1
 	end
-	local n = table.getn(args)
-	RU.Log('count = ' .. count .. ' | getn = ' .. n)
 	local direction = args[1]
 	if direction == 'mm' then
-		RU.ToggleMiddleMarker()
+		RU.MM.ToggleMiddleMarker()
 	elseif direction == 'at' then
-		RU.AnnounceTarget(args)
+		RU.AT.AnnounceTarget(args)
 	elseif direction == 'qm' then
-		RU.ToggleQuietMode()
+		RU.QM.ToggleQuietMode()
 	elseif direction == 'ac' then
-		RU.ToggleAutoConfirm()
+		RU.AC.ToggleAutoConfirm()
 	end
 end
 

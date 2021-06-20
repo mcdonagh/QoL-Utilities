@@ -10,9 +10,9 @@ end
 
 function qm.ReportState()
 	if QuietModeActive then
-		RU.Log('now declining invites & duels')
+		qm.Log('now declining invites & duels')
 	else
-		RU.Log('now accepting invites & duels')
+		qm.Log('now accepting invites & duels')
 	end	
 end
 
