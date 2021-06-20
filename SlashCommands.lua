@@ -23,7 +23,7 @@ function RU.ParseInput(msg)
 	elseif direction == 'qm' then
 		RU.ToggleQuietMode()
 	elseif direction == 'ac' then
-		RU.ToggleAutoConfirm
+		RU.ToggleAutoConfirm()
 	end
 end
 
