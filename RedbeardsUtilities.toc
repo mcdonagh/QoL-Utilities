@@ -1,16 +1,16 @@
 ## Interface: 90000
-## Title: Redbeards Utilities
+## Title: QoL Utilities
 ## Author: Redbeard923
-## SavedVariables: QuietModeActive, AutoConfirmActive
+## SavedVariables: QOL_Config
 ## Version: 2.0.0.3
 
 SlashCommands.lua
 Events.lua
 Options.lua
-Options.xml
 
 AchievementTrackerCleaner.lua
 AnnounceTarget.lua
 AutoConfirm.lua
 MiddleMarker.lua
 QuietMode.lua
+VolumeCycler.lua

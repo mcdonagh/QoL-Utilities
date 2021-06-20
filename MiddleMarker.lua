@@ -1,7 +1,7 @@
-local addonName, RU = ...
+local addonName, QOLUtils = ...
 
-RU.MM = {}
-local mm = RU.MM
+QOLUtils.MM = {}
+local mm = QOLUtils.MM
 mm.InitialCreate = true
 mm.ShowMiddleMarker = false
 

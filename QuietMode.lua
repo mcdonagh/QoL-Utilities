@@ -1,7 +1,7 @@
-local addonName, RU = ...
+local addonName, QOLUtils = ...
 
-RU.QM = {}
-local qm = RU.QM
+QOLUtils.QM = {}
+local qm = QOLUtils.QM
 
 function qm.ToggleQuietMode()
 	QuietModeActive = not QuietModeActive
@@ -33,5 +33,5 @@ function qm.DeclineDuel(...)
 end
 
 function qm.Log(message)
-	RU.Log(message, 'QM')
+	QOLUtils.Log(message, 'QM')
 end

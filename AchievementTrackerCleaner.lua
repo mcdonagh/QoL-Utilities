@@ -1,7 +1,7 @@
-local addonName, RU = ...
+local addonName, QOLUtils = ...
 
-RU.ATC = {}
-local atc = RU.ATC
+QOLUtils.ATC = {}
+local atc = QOLUtils.ATC
 
 function atc.Clean(printRemoved)
 	local trackedAchievements = { GetTrackedAchievements() }
@@ -20,5 +20,5 @@ function atc.Clean(printRemoved)
 end
 
 function atc.Log(message)
-	RU.Log(message, 'ATC')
+	QOLUtils.Log(message, 'ATC')
 end

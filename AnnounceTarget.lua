@@ -1,7 +1,7 @@
-local addonName, RU = ...
+local addonName, QOLUtils = ...
 
-RU.AT = {}
-local at = RU.AT
+QOLUtils.AT = {}
+local at = QOLUtils.AT
 at.S_TARGET = 'target'
 at.S_PLAYER = 'player'
 

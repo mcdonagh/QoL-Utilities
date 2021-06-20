@@ -1,39 +1,39 @@
-local addonName, RU = ...
+local addonName, QOLUtils = ...
 
-SLASH_REDBEARDSUTILITIES1 = '/ru'
-SlashCmdList['REDBEARDSUTILITIES'] = function (msg)
-	RU.ParseInput(msg)
+SLASH_QOLUTILITIES1 = '/ru'
+SlashCmdList['QOLUTILITIES'] = function (msg)
+	QOLUtils.ParseInput(msg)
 end
 
-function RU.ParseInput(msg)
+function QOLUtils.ParseInput(msg)
 	local args = {}
 	for word in msg:gmatch('%w+') do 
 		table.insert(args, word)
 	end
 	local direction = args[1]
-	if RU.IsEmpty(msg) then
-		RU.OPT.OpenConfig()
+	if QOLUtils.IsEmpty(msg) then
+		QOLUtils.OPT.OpenConfig()
 	elseif direction == 'atc' then
-		RU.ATC.Clean(true)
+		QOLUtils.ATC.Clean(true)
 	elseif direction == 'ac' then
-		RU.AC.ToggleAutoConfirm()
+		QOLUtils.AC.ToggleAutoConfirm()
 	elseif direction == 'at' then
-		RU.AT.AnnounceTarget(args)
+		QOLUtils.AT.AnnounceTarget(args)
 	elseif direction == 'mm' then
-		RU.MM.ToggleMiddleMarker()
+		QOLUtils.MM.ToggleMiddleMarker()
 	elseif direction == 'qm' then
-		RU.QM.ToggleQuietMode()
+		QOLUtils.QM.ToggleQuietMode()
 	end
 end
 
-function RU.Log(message, subID)
-	local ID = '  [RU]  '
-	if not RU.IsEmpty(subID) then
-		ID = '  [RU-' .. subID .. ']  '
+function QOLUtils.Log(message, subID)
+	local ID = '  [QOLUtils]  '
+	if not QOLUtils.IsEmpty(subID) then
+		ID = '  [QOLUtils-' .. subID .. ']  '
 	end
 	print(date('%H:%M') .. ID .. message)
 end
 
-function RU.IsEmpty(val)
+function QOLUtils.IsEmpty(val)
 	return val == nil or val == ''
 end

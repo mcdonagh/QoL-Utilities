@@ -1,43 +1,56 @@
-local addonName, RU = ...
+local addonName, QOLUtils = ...
 
-RU.EventFrame = CreateFrame('Frame')
-RU.Events = {}
+QOLUtils.EventFrame = CreateFrame('Frame')
+QOLUtils.Events = {}
 
-function RU.Events:PLAYER_ENTERING_WORLD(...)
+function QOLUtils.Events:ADDON_LOADED(...)
+	local loadedAddon = ...
+	if loadedAddon == addonName then
+		if not QOL_Config then
+			QOL_Config = {}
+			QOL_Config.QuietModeActive = false
+			QOL_Config.AutoConfirmActive = false
+			QOL_Config.VolumeCycles = { 80, 20, 5 }
+		end
+		QOLUtils.OPT.CreateConfig()
+	end
+end
+
+function QOLUtils.Events:PLAYER_ENTERING_WORLD(...)
 	local isFirstLogin, isReload = ...
 	if isFirstLogin or isReload then
-		RU.ATC.Clean(false)
+		QOLUtils.ATC.Clean(false)
 	end
-	RU.QM.ReportState()
-	RU.AC.ReportState()
+	QOLUtils.QM.ReportState()
+	QOLUtils.AC.ReportState()
 end
 
-function RU.Events:ACHIEVEMENT_EARNED(...)
-	RU.ATC.Clean(false)
+function QOLUtils.Events:ACHIEVEMENT_EARNED(...)
+	QOLUtils.ATC.Clean(false)
 end
 
-function RU.Events:PARTY_INVITE_REQUEST(...)
-	RU.QM.DeclinePartyInvite(...)
+function QOLUtils.Events:PARTY_INVITE_REQUEST(...)
+	QOLUtils.QM.DeclinePartyInvite(...)
 end
 
-function RU.Events:DUEL_REQUESTED(...)
-	RU.QM.DeclineDuel(...)
+function QOLUtils.Events:DUEL_REQUESTED(...)
+	QOLUtils.QM.DeclineDuel(...)
 end
 
-function RU.Events:EQUIP_BIND_REFUNDABLE_CONFIRM(...)
-	RU.AC.ConfirmEquipRefundable()
+function QOLUtils.Events:EQUIP_BIND_REFUNDABLE_CONFIRM(...)
+	QOLUtils.AC.ConfirmEquipRefundable()
 end
 
-function RU.Events:EQUIP_BIND_TRADEABLE_CONFIRM(...)
-	RU.AC.ConfirmEquipTradeable()
+function QOLUtils.Events:EQUIP_BIND_TRADEABLE_CONFIRM(...)
+	QOLUtils.AC.ConfirmEquipTradeable()
 end
 
-RU.EventFrame:SetScript("OnEvent",
+QOLUtils.EventFrame:SetScript("OnEvent",
 	function(self, event, ...)
-		RU.Events[event](self, ...)
+		QOLUtils.Events[event](self, ...)
 	end
 )
 
-for k, v in pairs(RU.Events) do
-	RU.EventFrame:RegisterEvent(k)
+for k, v in pairs(QOLUtils.Events) do
+	QOLUtils.EventFrame:RegisterEvent(k)
 end

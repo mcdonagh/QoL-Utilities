@@ -1,7 +1,7 @@
-local addonName, RU = ...
+local addonName, QOLUtils = ...
 
-RU.AC = {}
-local ac = RU.AC
+QOLUtils.AC = {}
+local ac = QOLUtils.AC
 
 function ac.ToggleAutoConfirm()
 	AutoConfirmActive = not AutoConfirmActive
@@ -41,5 +41,5 @@ function ac.ReportState()
 end
 
 function ac.Log(message)
-	RU.Log(message, 'AC')
+	QOLUtils.Log(message, 'AC')
 end
