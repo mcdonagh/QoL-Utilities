@@ -11,14 +11,16 @@ function RU.ParseInput(msg)
 		table.insert(args, word)
 	end
 	local direction = args[1]
-	if direction == 'mm' then
-		RU.MM.ToggleMiddleMarker()
-	elseif direction == 'at' then
-		RU.AT.AnnounceTarget(args)
-	elseif direction == 'qm' then
-		RU.QM.ToggleQuietMode()
+	if direction == 'atc' then
+		RU.ATC.Clean(true)
 	elseif direction == 'ac' then
 		RU.AC.ToggleAutoConfirm()
+	elseif direction == 'at' then
+		RU.AT.AnnounceTarget(args)
+	elseif direction == 'mm' then
+		RU.MM.ToggleMiddleMarker()
+	elseif direction == 'qm' then
+		RU.QM.ToggleQuietMode()
 	end
 end
 

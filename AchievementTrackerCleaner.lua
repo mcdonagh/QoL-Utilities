@@ -3,7 +3,7 @@ local addonName, RU = ...
 RU.ATC = {}
 local atc = RU.ATC
 
-function atc.Clean()
+function atc.Clean(printRemoved)
 	local trackedAchievements = { GetTrackedAchievements() }
 	local removedCount = 0
 	for i, trackedAchievement in ipairs(trackedAchievements) do
@@ -14,7 +14,7 @@ function atc.Clean()
 			atc.Log('Stopped tracking ' .. GetAchievementLink(achievementID))			
 		end
 	end
-	if removedCount > 0 then
+	if removedCount > 0 or printRemoved then
 		atc.Log(removedCount .. ' completed achievements untracked.')
 	end
 end
