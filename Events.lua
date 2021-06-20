@@ -4,8 +4,16 @@ RU.EventFrame = CreateFrame('Frame')
 RU.Events = {}
 
 function RU.Events:PLAYER_ENTERING_WORLD(...)
+	local isFirstLogin, isReload = ...
+	if isFirstLogin or isReload then
+		RU.ATC.Clean()
+	end
 	RU.QM.ReportState()
 	RU.AC.ReportState()
+end
+
+function RU.Events:ACHIEVEMENT_EARNED(...)
+	RU.ATC.Clean()
 end
 
 function RU.Events:PARTY_INVITE_REQUEST(...)

@@ -1,16 +1,46 @@
 # RedbeardsUtilities
 WoW addon for minor quality of life changes
+1. [Achievement Tracker Cleaner](#atc)
+	- [Usage](#atc-usage)
 1. [Announce Target](#at)
 	- [Usage](#at-usage)
 	- [Slash Commands](#at-arguments)
 	- [Destinations](#at-destinations)
 	- [SubDestinations](#at-subdestinations)
-2. [Auto Confirm](#ac)
+1. [Auto Confirm](#ac)
 	- [Usage](#ac-usage)
-3. [Middle Marker](#mm)
+1. [Middle Marker](#mm)
 	- [Usage](#mm-usage)
-4. [Quiet Mode](#qm)
+1. [Quiet Mode](#qm)
 	- [Usage](#qm-usage)
+
+<h2 id='atc'>Achievement Tracker Cleaner</h2>
+
+Exactly what it says on the tin: Cleans the in-game achievement tracker by untracking completed achievements.  
+
+*Ever run into the issue of trying to track an achievement and get the message that you can only track 10 achievements at a time?
+And you only see 6 achievements being tracked?
+That means there's completed achievements that the game, for whatever reason, did not auto untrack.  
+This removes those hidden, but still tracked completed achievements from the tracker.*
+
+<h3 id='atc-usage'>Usage & Output</h3>
+
+Untracking completed achievements occurs at every player login, on reload, and on every achievement earned.  
+Manual execution is not needed, but is available.  
+If you want to trigger the cleaning manually, run the command **\/ru atc**  
+
+Each completed achievement that is untracked will be printed to the chat window on its own line with a link to the achievement.  
+The last line will print the total number of achievements untracked.  
+
+Output Format:  
+> Stopped tracking *\<achievement link\>*  
+> *\<num achievements removed\>* completed achievements untracked.
+
+Example Output:
+> Stopped tracking \[Field Photographer\]  
+> Stopped tracking \[Northern Explorer\]  
+> Stopped tracking \[Glory of the Hero\]  
+> 3 completed achievements untracked.
 
 <h2 id='at'>Announce Target</h2>
 
@@ -20,10 +50,12 @@ Sends your current target's life percentage and location to the designated chat.
 
 Example Usage: **\/ru at w**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will announce the targets life and location through a whisper to yourself.  
+
 Output Format:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<target name\> \[\<target life percentage\>\] near \(\<player coords\>\) \<map pin\>  
+> \<target name\> \[\<target life percentage\>\] near \(\<player coords\>\) \<map pin\>  
+
 Example Output:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vyragosa \[Health 53%\] near \(51\.4, 70\.8\) \[Map Pin Location\]
+> Vyragosa \[Health 53%\] near \(51\.4, 70\.8\) \[Map Pin Location\]
 
 <h3 id='at-arguments'>Command Arugments</h3>
 
@@ -94,7 +126,7 @@ Each line begins at the edge of the screen pointing towards the center of the sc
 
 <h3 id='mm-usage'>Usage & Output</h3>
 
-Command Format: **\/ru mm**
+Command Format: **\/ru mm**  
 Executing this command will toggle the visibility of the lines.  
 No text is printed to the chat window.  
 

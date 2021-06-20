@@ -2,11 +2,12 @@
 ## Title: Redbeards Utilities
 ## Author: Redbeard923
 ## SavedVariables: QuietModeActive, AutoConfirmActive
-## Version: 1.0.0.0
+## Version: 1.0.0.1
 
 SlashCommands.lua
 Events.lua
 
+AchievementTrackerCleaner.lua
 AnnounceTarget.lua
 AutoConfirm.lua
 MiddleMarker.lua
