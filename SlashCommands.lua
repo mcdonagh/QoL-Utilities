@@ -11,7 +11,9 @@ function RU.ParseInput(msg)
 		table.insert(args, word)
 	end
 	local direction = args[1]
-	if direction == 'atc' then
+	if RU.IsEmpty(msg) then
+		RU.OPT.OpenConfig()
+	elseif direction == 'atc' then
 		RU.ATC.Clean(true)
 	elseif direction == 'ac' then
 		RU.AC.ToggleAutoConfirm()
