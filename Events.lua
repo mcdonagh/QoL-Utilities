@@ -6,12 +6,7 @@ QOLUtils.Events = {}
 function QOLUtils.Events:ADDON_LOADED(...)
 	local loadedAddon = ...
 	if loadedAddon == addonName then
-		if not QOL_Config then
-			QOL_Config = {}
-			QOL_Config.QuietModeActive = false
-			QOL_Config.AutoConfirmActive = false
-			QOL_Config.VolumeCycles = { 80, 20, 5 }
-		end
+		QOLUtils.OPT.LoadDefaults()
 		QOLUtils.OPT.CreateConfig()
 	end
 end

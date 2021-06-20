@@ -3,9 +3,11 @@ local addonName, QOLUtils = ...
 QOLUtils.AC = {}
 local ac = QOLUtils.AC
 
-function ac.ToggleAutoConfirm()
+function ac.ToggleAutoConfirm(reportState)
 	AutoConfirmActive = not AutoConfirmActive
-	ac.ReportState()
+	if reportState then
+		ac.ReportState()
+	end
 end
 
 function ac.ConfirmEquipRefundable()

@@ -1,6 +1,6 @@
 local addonName, QOLUtils = ...
 
-SLASH_QOLUTILITIES1 = '/ru'
+SLASH_QOLUTILITIES1 = '/qol'
 SlashCmdList['QOLUTILITIES'] = function (msg)
 	QOLUtils.ParseInput(msg)
 end
@@ -16,20 +16,22 @@ function QOLUtils.ParseInput(msg)
 	elseif direction == 'atc' then
 		QOLUtils.ATC.Clean(true)
 	elseif direction == 'ac' then
-		QOLUtils.AC.ToggleAutoConfirm()
+		QOLUtils.AC.ToggleAutoConfirm(true)
 	elseif direction == 'at' then
 		QOLUtils.AT.AnnounceTarget(args)
 	elseif direction == 'mm' then
 		QOLUtils.MM.ToggleMiddleMarker()
 	elseif direction == 'qm' then
-		QOLUtils.QM.ToggleQuietMode()
+		QOLUtils.QM.ToggleQuietMode(true)
+	elseif direction == 'vc' then
+		QOLUTILITIES.VC.Cycle(args)
 	end
 end
 
 function QOLUtils.Log(message, subID)
-	local ID = '  [QOLUtils]  '
+	local ID = '  [QoLUtils]  '
 	if not QOLUtils.IsEmpty(subID) then
-		ID = '  [QOLUtils-' .. subID .. ']  '
+		ID = '  [QoL Utils-' .. subID .. ']  '
 	end
 	print(date('%H:%M') .. ID .. message)
 end

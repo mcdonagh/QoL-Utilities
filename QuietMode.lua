@@ -3,9 +3,11 @@ local addonName, QOLUtils = ...
 QOLUtils.QM = {}
 local qm = QOLUtils.QM
 
-function qm.ToggleQuietMode()
+function qm.ToggleQuietMode(reportState)
 	QuietModeActive = not QuietModeActive
-	qm.ReportState()
+	if reportState then
+		qm.ReportState()
+	end
 end
 
 function qm.ReportState()
