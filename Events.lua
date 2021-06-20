@@ -16,8 +16,9 @@ function QOLUtils.Events:PLAYER_ENTERING_WORLD(...)
 	if isFirstLogin or isReload then
 		QOLUtils.ATC.Clean(false)
 	end
-	QOLUtils.QM.ReportState()
 	QOLUtils.AC.ReportState()
+	QOLUtils.QM.ReportState()
+	QOLUtils.VC.LoadInitialVolume()
 end
 
 function QOLUtils.Events:ACHIEVEMENT_EARNED(...)

@@ -4,20 +4,20 @@ QOLUtils.AC = {}
 local ac = QOLUtils.AC
 
 function ac.ToggleAutoConfirm(reportState)
-	AutoConfirmActive = not AutoConfirmActive
-	if reportState then
+	QOL_Config.AutoConfirmActive = not QOL_Config.AutoConfirmActive
+	if reportState ~= nil and reportState then
 		ac.ReportState()
 	end
 end
 
 function ac.ConfirmEquipRefundable()
-	if AutoConfirmActive then
+	if QOL_Config.AutoConfirmActive then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
 
 function ac.ConfirmEquipTradeable()
-	if AutoConfirmActive then
+	if QOL_Config.AutoConfirmActive then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
@@ -35,10 +35,10 @@ function ac.ClickConfirm(confirmText, buttonType)
 end
 
 function ac.ReportState()
-	if AutoConfirmActive then
-		ac.Log('Refundable & Tradeable items now auto confirming to equip')
+	if QOL_Config.AutoConfirmActive then
+		ac.Log('Automatically confirming to equip Refundable & Tradeable items.')
 	else
-		ac.Log('Refundable & Tradeable items now requiring manual confirmation to equip')
+		ac.Log('Manual confirmation required to equip Refundable & Tradeable items.')
 	end
 end
 

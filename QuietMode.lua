@@ -4,33 +4,33 @@ QOLUtils.QM = {}
 local qm = QOLUtils.QM
 
 function qm.ToggleQuietMode(reportState)
-	QuietModeActive = not QuietModeActive
-	if reportState then
+	QOL_Config.QuietModeActive = not QOL_Config.QuietModeActive
+	if reportState ~= nil and reportState then
 		qm.ReportState()
 	end
 end
 
 function qm.ReportState()
-	if QuietModeActive then
-		qm.Log('now declining invites & duels')
+	if QOL_Config.QuietModeActive then
+		qm.Log('Automatically declining Party Invites & Duel Requests.')
 	else
-		qm.Log('now accepting invites & duels')
+		qm.Log('Manual confirmation required for Party Invites & Duel Requests.')
 	end	
 end
 
 function qm.DeclinePartyInvite(...)
-	if QuietModeActive then
+	if QOL_Config.QuietModeActive then
 		local inviter = ...
 		StaticPopup_Hide("PARTY_INVITE")
-		qm.Log('declined invite from ' .. inviter)
+		qm.Log('Declined Party Invite from ' .. inviter .. '.')
 	end
 end
 
 function qm.DeclineDuel(...)
-	if QuietModeActive then
+	if QOL_Config.QuietModeActive then
 		local inviter = ...
 		StaticPopup_Hide('DUEL_REQUESTED')
-		qm.Log('declined duel from ' .. inviter)
+		qm.Log('Declined Duel Request from ' .. inviter .. '.')
 	end
 end
 

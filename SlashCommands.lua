@@ -24,14 +24,14 @@ function QOLUtils.ParseInput(msg)
 	elseif direction == 'qm' then
 		QOLUtils.QM.ToggleQuietMode(true)
 	elseif direction == 'vc' then
-		QOLUTILITIES.VC.Cycle(args)
+		QOLUtils.VC.Cycle(args)
 	end
 end
 
 function QOLUtils.Log(message, subID)
 	local ID = '  [QoLUtils]  '
 	if not QOLUtils.IsEmpty(subID) then
-		ID = '  [QoL Utils-' .. subID .. ']  '
+		ID = '  [QoL Utils - ' .. subID .. ']  '
 	end
 	print(date('%H:%M') .. ID .. message)
 end
