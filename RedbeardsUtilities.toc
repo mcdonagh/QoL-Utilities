@@ -6,6 +6,8 @@
 
 SlashCommands.lua
 Events.lua
+Options.lua
+Options.xml
 
 AchievementTrackerCleaner.lua
 AnnounceTarget.lua
