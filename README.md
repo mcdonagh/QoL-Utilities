@@ -1,5 +1,5 @@
-# RedbeardsUtilities
-WoW addon for minor quality of life changes
+# QoL Utilities
+WoW addon for minor quality of life changes.  
 1. [Achievement Tracker Cleaner](#atc)
 	- [Usage](#atc-usage)
 1. [Announce Target](#at)
@@ -13,6 +13,9 @@ WoW addon for minor quality of life changes
 	- [Usage](#mm-usage)
 1. [Quiet Mode](#qm)
 	- [Usage](#qm-usage)
+1. [Volume Cycler](#vc)
+	- [Usage](#vc-usage)
+	- [Slash Commands](#vc-arguments)
 
 <h2 id='atc'>Achievement Tracker Cleaner</h2>
 

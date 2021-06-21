@@ -1,9 +1,10 @@
 ## Interface: 90000
 ## Title: QoL Utilities
-## Author: Redbeard923
+## Author: redbeard923
 ## SavedVariables: QOL_Config
-## Version: 2.0.0.3
+## Version: 2.0.1.1
 
+Constants.lua
 SlashCommands.lua
 Events.lua
 Options.lua

@@ -42,9 +42,15 @@ local uniqueID = 0
 function opt.CreateConfig()
 	local panel = CreateFrame('Frame', 'QoL Utilities', UIParent);
 	panel.name = 'QoL Utilities'
-	local acCheckBox = opt.CreateCheckBox(panel, 30, -30, 'Auto confirm when equipping Tradeable or Refundable equipment.', QOL_Config.AutoConfirmActive, QOLUtils.AC.ToggleAutoConfirm)
-	opt.CreateCheckBox(acCheckBox, 0, -30, 'Auto decline invites to join a party or to duel', QOL_Config.QuietModeActive, QOLUtils.QM.ToggleQuietMode)
+	local acCheckBox = opt.CreateCheckBox(panel, 30, -30, QOLUtils.Labels.OPT_AC, QOL_Config.AutoConfirmActive, QOLUtils.AC.ToggleAutoConfirm)
+	local qmCheckBox = opt.CreateCheckBox(acCheckBox, 0, -30, QOLUtils.Labels.OPT_QM, QOL_Config.QuietModeActive, QOLUtils.QM.ToggleQuietMode)
+	local vclEditBox = opt.CreateEditBox(qmCheckBox, 0, -30, QOLUtils.Labels.OPT_VCL, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
+	local vciEditBox = opt.CreateEditBox(vclEditBox, 0, -30, QOLUtils.Labels.OPT_VCI, QOL_Config.VCIndex, opt.ParseVolumeIndex)
 	opt.Panel = panel	
+	opt.ACCheckBox = acCheckBox
+	opt.QMCheckBox = qmCheckBox
+	opt.VCLEditBox = vclEditBox
+	opt.VCIEditBox = vciEditBox
 	InterfaceOptions_AddCategory(opt.Panel);
 end
 
@@ -60,4 +66,43 @@ function opt.CreateCheckBox(parent, x, y, text, checked, callback)
 	checkBox:SetChecked(checked)
 	checkBox:SetScript('OnClick', callback)
 	return checkBox
+end
+
+function opt.CreateEditBox(parent, x, y, label, text, callback)
+	uniqueID = uniqueID + 1
+	local editBox = CreateFrame('EditBox', 'QOLUtils_EditBox_' .. uniqueID, parent, 'InputBoxTemplate')
+	editBox:SetPoint('TOPLEFT', x, y)
+	editBox.Label:SetText(label)
+	editBox:SetScript('OnEditFocusLost', callback)
+	editBox:SetText(text)
+end
+
+function opt.ParseVolumeLevels()
+	QOL_Config.VCLevels = opt.StrToTable(opt.VCLEditBox, QOLUtils.Patterns.Numbers)
+end
+
+function opt.ParseVolumeIndex()
+	QOL_Config.VCIndex = opt.VCIEditBox:gmatch(QOLUtils.Patterns.Numbers)
+end
+
+function opt.StrToTable(s, pattern)	
+	local args = {}
+	for num in msg:gmatch(QOLUtils.Patterns.Numbers) do
+		if num:len() <= 3 then 
+			table.insert(args, num)
+		end
+	end
+	return args
+end
+
+function opt.TableToStr(t)
+	local s = ''
+	for i = 1, #t do
+		s = t[i] .. ' '
+	end	
+   return s:gsub(QOLUtils.Patterns.WhiteSpaceStart, ''):gsub(QOLUtils.Patterns.WhiteSpaceEnd, '')
+end
+
+function opt.UpdateCheckBox(checkBox, checked)
+	checkBox:SetChecked(checked)
 end

@@ -28,7 +28,7 @@ end
 
 function vc.SetVolume(level)
 	SetCVar('Sound_MasterVolume', (level / 100))
-	vc.Log('Master Volume set to ' .. level .. '%.')
+	vc.Log(format('Master Volume set to %d%%.', level))
 end
 
 function vc.Log(message)

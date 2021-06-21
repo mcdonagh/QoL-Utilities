@@ -3,11 +3,14 @@ local addonName, QOLUtils = ...
 QOLUtils.QM = {}
 local qm = QOLUtils.QM
 
-function qm.ToggleQuietMode(reportState)
+function qm.ToggleQuietModeAndReport()
+	qm.ToggleQuietMode()
+	qm.ReportState()
+end
+
+function qm.ToggleQuietMode()
 	QOL_Config.QuietModeActive = not QOL_Config.QuietModeActive
-	if reportState ~= nil and reportState then
-		qm.ReportState()
-	end
+	QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.QMCheckBox, QOL_Config.QuietModeActive)
 end
 
 function qm.ReportState()
@@ -21,8 +24,8 @@ end
 function qm.DeclinePartyInvite(...)
 	if QOL_Config.QuietModeActive then
 		local inviter = ...
-		StaticPopup_Hide("PARTY_INVITE")
-		qm.Log('Declined Party Invite from ' .. inviter .. '.')
+		StaticPopup_Hide('PARTY_INVITE')
+		qm.Log(format('Declined Party Invite from %s.', inviter))
 	end
 end
 
@@ -30,7 +33,7 @@ function qm.DeclineDuel(...)
 	if QOL_Config.QuietModeActive then
 		local inviter = ...
 		StaticPopup_Hide('DUEL_REQUESTED')
-		qm.Log('Declined Duel Request from ' .. inviter .. '.')
+		qm.Log(format('Declined Duel Request from %s', inviter))
 	end
 end
 

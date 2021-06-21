@@ -3,11 +3,14 @@ local addonName, QOLUtils = ...
 QOLUtils.AC = {}
 local ac = QOLUtils.AC
 
-function ac.ToggleAutoConfirm(reportState)
+function ac.ToggleAutoConfirmAndReport()
+	ac.ToggleAutoConfirm()
+	ac.ReportState()
+end
+
+function ac.ToggleAutoConfirm()
 	QOL_Config.AutoConfirmActive = not QOL_Config.AutoConfirmActive
-	if reportState ~= nil and reportState then
-		ac.ReportState()
-	end
+	QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.ACCheckBox, QOL_Config.AutoConfirmActive)
 end
 
 function ac.ConfirmEquipRefundable()
