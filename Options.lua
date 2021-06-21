@@ -73,7 +73,7 @@ function opt.CreateLabel(parent, x, y, text)
 	fontFrame:SetPoint('TOPLEFT', x, y)
 	-- fontFrame:SetText(text)
 	-- uniqueID = uniqueID + 1
-	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. uniqueID, 'OVERLAY', 'GameFontNormal')
+	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. uniqueID, 'ARTWORK', 'GameFontNormal')
 	fontString:SetPoint('CENTER')
 	fontString:SetText(text)
 	fontFrame.text = fontString

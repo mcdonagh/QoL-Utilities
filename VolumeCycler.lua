@@ -10,7 +10,7 @@ end
 
 function vc.Cycle(args)
 	local level = 100
-	if args[2] and vc.ValidLevel(args[2]) then
+	if args[2] then
 		level = args[2]
 	else
 		local indexCount = table.getn(QOL_Config.VCLevels)
@@ -29,9 +29,8 @@ function vc.ValidLevel(l)
 	return level >= 0 and level <= 100
 end
 
-function vc.SetVolume(l)
-	local level = tonumber(l)
-	if level then
+function vc.SetVolume(level)
+	if vc.ValidLevel(level) then
 		SetCVar('Sound_MasterVolume', (level / 100))
 		vc.Log(format('Master Volume set to %d%%.', level))
 	end
