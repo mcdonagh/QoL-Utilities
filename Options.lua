@@ -45,12 +45,10 @@ function opt.CreateConfig()
 	local acCheckBox = opt.CreateCheckBox(panel, 30, -30, QOLUtils.Labels.OPT_AC, QOL_Config.AutoConfirmActive, QOLUtils.AC.ToggleAutoConfirm)
 	local qmCheckBox = opt.CreateCheckBox(acCheckBox, 0, -30, QOLUtils.Labels.OPT_QM, QOL_Config.QuietModeActive, QOLUtils.QM.ToggleQuietMode)
 	local vclEditBox = opt.CreateEditBox(qmCheckBox, 0, -30, QOLUtils.Labels.OPT_VCL, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
-	local vciEditBox = opt.CreateEditBox(vclEditBox, 0, -30, QOLUtils.Labels.OPT_VCI, QOL_Config.VCIndex, opt.ParseVolumeIndex)
 	opt.Panel = panel	
 	opt.ACCheckBox = acCheckBox
 	opt.QMCheckBox = qmCheckBox
 	opt.VCLEditBox = vclEditBox
-	opt.VCIEditBox = vciEditBox
 	InterfaceOptions_AddCategory(opt.Panel);
 end
 
@@ -85,16 +83,6 @@ function opt.ParseVolumeLevels()
 			table.insert(validPresets, enteredPresets[i])
 	QOL_Config.VCLevels = validPresets
 	opt.VCLEditBox:SetText(opt.TableToStr(QOL_Config.VCLevels))
-end
-
-function opt.ParseVolumeIndex()
-	local index = opt.VCIEditBox:gmatch(QOLUtils.Patterns.Numbers)
-	if index < 1 then
-		index = 1
-	elseif index > #opt.VCLevels then
-		index = #opt.VCLevels
-	end
-	QOL_Config.VCIndex = index
 end
 
 function opt.StrToTable(s, pattern)	

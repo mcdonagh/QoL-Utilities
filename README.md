@@ -29,9 +29,7 @@ See the feature's details for more information on the corresponding slash comman
 
 **[Quiet Mode's](#qm)** in-game configuration is a checkbox to turn the feature on or off.  
 
-**[Volume Cycler's](#vc)** in-game configuration is comprised of two input fields.  
-The first is a list of preset volume percentages that you will be able to cycle through.  
-The second is the index of the preset that you currently wnat to use.
+**[Volume Cycler's](#vc)** in-game configuration is a single input field; a list of preset volume percentages that you will be able to cycle through.  
 
 <h2 id='atc'>Achievement Tracker Cleaner</h2>
 
