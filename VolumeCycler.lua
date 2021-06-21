@@ -9,8 +9,6 @@ function vc.LoadInitialVolume()
 end
 
 function vc.Cycle(args)
-		-- QOL_Config.VCLevels = { 80, 20, 5 }
-		-- QOL_Config.VCIndex = 1
 	local level = 100
 	if args[2] and vc.ValidLevel(args[2]) then
 		level = args[2]
@@ -26,13 +24,17 @@ function vc.Cycle(args)
 	vc.SetVolume(level)
 end
 
-function vc.ValidLevel(level)
+function vc.ValidLevel(l)
+	local level = tonumber(l)
 	return level >= 0 and level <= 100
 end
 
-function vc.SetVolume(level)
-	SetCVar('Sound_MasterVolume', (level / 100))
-	vc.Log(format('Master Volume set to %d%%.', level))
+function vc.SetVolume(l)
+	local level = tonumber(l)
+	if level then
+		SetCVar('Sound_MasterVolume', (level / 100))
+		vc.Log(format('Master Volume set to %d%%.', level))
+	end
 end
 
 function vc.Log(message)

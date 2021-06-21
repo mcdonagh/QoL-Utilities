@@ -44,7 +44,8 @@ function opt.CreateConfig()
 	panel.name = 'QoL Utilities'
 	local acCheckBox = opt.CreateCheckBox(panel, 30, -30, QOLUtils.Labels.OPT_AC, QOL_Config.AutoConfirmActive, QOLUtils.AC.ToggleAutoConfirm)
 	local qmCheckBox = opt.CreateCheckBox(acCheckBox, 0, -30, QOLUtils.Labels.OPT_QM, QOL_Config.QuietModeActive, QOLUtils.QM.ToggleQuietMode)
-	local vclEditBox = opt.CreateEditBox(qmCheckBox, 0, -30, QOLUtils.Labels.OPT_VCL, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
+	local vclEditBoxLabel = opt.CreateLabel(qmCheckBox, 0, -30, QOLUtils.Labels.OPT_VCL)
+	local vclEditBox = opt.CreateEditBox(vclEditBoxLabel, 0, -30, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
 	opt.Panel = panel	
 	opt.ACCheckBox = acCheckBox
 	opt.QMCheckBox = qmCheckBox
@@ -66,31 +67,45 @@ function opt.CreateCheckBox(parent, x, y, text, checked, callback)
 	return checkBox
 end
 
-function opt.CreateEditBox(parent, x, y, label, text, callback)
+function opt.CreateLabel(parent, x, y, text)
+	uniqueID = uniqueID + 1
+	local fontFrame = CreateFrame('Frame', 'QOLUtils_FontFrame_' .. uniqueID, parent)
+	fontFrame:SetPoint('TOPLEFT', x, y)
+	-- fontFrame:SetText(text)
+	-- uniqueID = uniqueID + 1
+	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. uniqueID, 'OVERLAY', 'GameFontNormal')
+	fontString:SetPoint('CENTER')
+	fontString:SetText(text)
+	fontFrame.text = fontString
+	return fontFrame
+end
+
+function opt.CreateEditBox(parent, x, y, text, callback)
 	uniqueID = uniqueID + 1
 	local editBox = CreateFrame('EditBox', 'QOLUtils_EditBox_' .. uniqueID, parent, 'InputBoxTemplate')
 	editBox:SetPoint('TOPLEFT', x, y)
-	editBox.Label:SetText(label)
+	-- editBox.Label:SetText(label)
 	editBox:SetScript('OnEditFocusLost', callback)
 	editBox:SetText(text)
+	return editBox
 end
 
 function opt.ParseVolumeLevels()
-	local enteredPresets = opt.StrToTable(opt.VCLEditBox, QOLUtils.Patterns.Numbers)
+	local enteredPresets = opt.StrToTable(opt.VCLEditBox:GetText(), QOLUtils.Patterns.Numbers)
 	local validPresets = {}
 	for i = 1, #enteredPresets do
 		if QOLUtils.VC.ValidLevel(enteredPresets[i]) then
 			table.insert(validPresets, enteredPresets[i])
+		end
+	end
 	QOL_Config.VCLevels = validPresets
 	opt.VCLEditBox:SetText(opt.TableToStr(QOL_Config.VCLevels))
 end
 
-function opt.StrToTable(s, pattern)	
+function opt.StrToTable(str, pattern)	
 	local args = {}
-	for num in msg:gmatch(QOLUtils.Patterns.Numbers) do
-		if num:len() <= 3 then 
-			table.insert(args, num)
-		end
+	for num in str:gmatch(QOLUtils.Patterns.Numbers) do
+		table.insert(args, num)
 	end
 	return args
 end
