@@ -1,10 +1,11 @@
 # QoL Utilities
 WoW addon for minor quality of life changes.  
+1. [Configuration](#config)
 1. [Achievement Tracker Cleaner](#atc)
 	- [Usage](#atc-usage)
 1. [Announce Target](#at)
 	- [Usage](#at-usage)
-	- [Slash Commands](#at-arguments)
+	- [Command Arguments](#at-arguments)
 	- [Destinations](#at-destinations)
 	- [SubDestinations](#at-subdestinations)
 1. [Auto Confirm](#ac)
@@ -15,7 +16,22 @@ WoW addon for minor quality of life changes.
 	- [Usage](#qm-usage)
 1. [Volume Cycler](#vc)
 	- [Usage](#vc-usage)
-	- [Slash Commands](#vc-arguments)
+	- [Command Arguments](#vc-arguments)
+
+<h2 id='config'>Configuration</h2>
+
+The following features are available for configuration on a **per account** basis.  
+Configuration is available through slash commands or via the in-game interface options.  
+See the feature's details for more information on the corresponding slash command.
+> *Features not mentioned have no configuration associated with them*  
+
+**[Auto Confirm's](#ac)** in-game configuration is a checkbox to turn the feature on or off.  
+
+**[Quiet Mode's](#qm)** in-game configuration is a checkbox to turn the feature on or off.  
+
+**[Volume Cycler's](#vc)** in-game configuration is comprised of two input fields.  
+The first is a list of preset volume percentages that you will be able to cycle through.  
+The second is the index of the preset that you currently wnat to use.
 
 <h2 id='atc'>Achievement Tracker Cleaner</h2>
 
@@ -30,7 +46,7 @@ This removes those hidden, but still tracked completed achievements from the tra
 
 Untracking completed achievements occurs at every player login, on reload, and on every achievement earned.  
 Manual execution is not needed, but is available.  
-If you want to trigger the cleaning manually, run the command **\/ru atc**  
+If you want to trigger the cleaning manually, run the command **\/qol atc**  
 
 Each completed achievement that is untracked will be printed to the chat window on its own line with a link to the achievement.  
 The last line will print the total number of achievements untracked.  
@@ -51,37 +67,36 @@ Sends your current target's life percentage and location to the designated chat.
 
 <h3 id='at-usage'>Usage & Output</h3>
 
-Example Usage: **\/ru at w**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will announce the targets life and location through a whisper to yourself.  
+The command **\/qol at w** will announce your targets life and location through a whisper to yourself.  
 
 Output Format:  
-> \<target name\> \[\<target life percentage\>\] near \(\<player coords\>\) \<map pin\>  
+> *\<target name\>* \[*\<target life percentage\>*\] near \(*\<player coords\>*\) *\<map pin\>*  
 
 Example Output:  
 > Vyragosa \[Health 53%\] near \(51\.4, 70\.8\) \[Map Pin Location\]
 
 <h3 id='at-arguments'>Command Arugments</h3>
 
-All *Announce Target* slash commands begin with ***\/ru at***.  
+All *Announce Target* slash commands begin with ***\/qol at***.  
 Additional command arguments are separated by whitespace.  
-  *subDestination is ****only available after**** specifying a destination*.
+*subDestination is ****only available after**** specifying a destination*.
 
-Command Format: \/ru at \[***optional:*** *destination*\] \[***optional:*** *subDestination*\]
+Command Format: \/qol at \[***optional:*** *destination*\] \[***optional:*** *subDestination*\]
 > *Running the comand with* ***no*** *optional arguments sends the target information to the first available chat channel.*
-> *The command* ***\/ru at*** *is equivalent to **\/ru at c 1**.*
+> *The command* ***\/qol at*** *is equivalent to **\/qol at c 1**.*
 
 <h3 id='at-destinations'>Destinations and Meaning</h3>
 
 Destination Argument | Destination Name | Example Command
----|---|---
-c | channel | *\/ru at c 1*
-g | guild    | *\/ru at g*
-w | whisper  | *\/ru at w*
-p | party    | *\/ru at p*
-r | raid     | *\/ru at r*
-s | say      | *\/ru at s*
-i | instance | *\/ru at i*
-y | yell     | *\/ru at y*
+:---:|---|---
+c | channel | *\/qol at c 1*
+g | guild    | *\/qol at g*
+w | whisper  | *\/qol at w*
+p | party    | *\/qol at p*
+r | raid     | *\/qol at r*
+s | say      | *\/qol at s*
+i | instance | *\/qol at i*
+y | yell     | *\/qol at y*
 
 <h3 id='at-subdestinations'>SubDestinations</h3>
 
@@ -89,12 +104,12 @@ SubDestinations are only available when using *whisper* and *channel* Destinatio
 
 #### Whispers
 The subDestination for any whisper command is the name of the player you want to send the target information.
-Simply using the command **\/ru at w** without a subDestination will send the target information to yourself in a whisper.
-The command **\/ru at w** ***\<player name\>*** will send the target information to the specified player.
+Simply using the command **\/qol at w** without a subDestination will send the target information to yourself in a whisper.
+The command **\/qol at w** ***\<player name\>*** will send the target information to the specified player.
 
 #### Channels
 The subDestination for any channel is the number for that channel.  
-Simply using the command **\/ru at c** without a subDestination or **\/ru at** without either a destination or subDestination sends the target information to the first available channel \(channel 1\).
+Simply using the command **\/qol at c** without a subDestination or **\/qol at** without either a destination or subDestination sends the target information to the first available channel \(channel 1\).
   
 Channel Number | Default Channel
 :---: | ---
@@ -113,13 +128,13 @@ Current state of functionality is reported at player login and on reload.
 
 <h3 id='ac-usage'>Usage & Output</h3>
 
-Command Format: **\/ru ac**  
+Command Format: **\/qol ac**  
 Executing this command will toggle the functionality on or off.  
 The output will be printed to the chat window and will either be  
-> Refundable & Tradeable items now auto confirming to equip
+> Automatically confirming to equip Refundable & Tradeable items.
 
 or  
-> Refundable & Tradeable items now requiring manual confirmation to equip
+> Manual confirmation required to equip Refundable & Tradeable items.
 
 <h2 id='mm'>Middle Marker</h2>
 
@@ -130,7 +145,7 @@ Each line begins at the edge of the screen pointing towards the center of the sc
 
 <h3 id='mm-usage'>Usage & Output</h3>
 
-Command Format: **\/ru mm**  
+Command Format: **\/qol mm**  
 Executing this command will toggle the visibility of the lines.  
 No text is printed to the chat window.  
 
@@ -144,16 +159,44 @@ Current state of functionality is reported at player login and on reload.
 
 <h3 id='qm-usage'>Usage & Output</h3>
 
-Command Format: **\/ru qm**  
+Command Format: **\/qol qm**  
 Executing this command will toggle the functionality on or off.  
 The output prints to the chat window and will either be
-> now accepting invites & duels
+> Automatically declining Party Invites & Duel Requests.
 
 or  
-> now declining invites & duels
+> Manual confirmation required for Party Invites & Duel Requests.
 
 When a party invite is declined this way the output reads
-> declined invite from *\<player name\>*
+> Declined Party Invite from *\<player name\>*
 
 When a duel request is declined this way the output reads
-> declined duel from *\<player name\>*
+> Declined Duel Request from *\<player name\>*
+
+<h2 id='vc'>Volume Cycler</h2>
+
+Allows you to cycle the master volume of the game through a list of preset values.  
+*The default values are 80%, 20%, and 5%.*  
+Also allows you to quickly set the master volume of the game to any percentage from 0 through 100.  
+
+<h3 id='vc-usage'>Usage & Output</h3>
+
+Command Format: **\/qol vc**
+Executing this command will set the in-game master volume to the next preset in the list.  
+If the last preset is reached, *Volume Cycler* will begin again at the start of the list.  
+The new volume setting is reported via the chat window.
+> Master Volume set to 20%.
+
+<h3 id='vc-arguments'>Command Arguemnts</h3>
+
+If you want to change the in-game volume to a level not currently in the configurable preset list, you can execute the command **\/qol vc** with the optional argument.  
+The slash command for *Volume Cycler* only looks for the first available optional argument. Any additional arguements are ignored.  
+
+Command Format
+> \/qol vc *\<custom volume percentage\>*
+
+Example Command
+> \/qol vc 46
+
+Example Output
+> Master Volume set to 46%.

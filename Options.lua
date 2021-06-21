@@ -78,11 +78,23 @@ function opt.CreateEditBox(parent, x, y, label, text, callback)
 end
 
 function opt.ParseVolumeLevels()
-	QOL_Config.VCLevels = opt.StrToTable(opt.VCLEditBox, QOLUtils.Patterns.Numbers)
+	local enteredPresets = opt.StrToTable(opt.VCLEditBox, QOLUtils.Patterns.Numbers)
+	local validPresets = {}
+	for i = 1, #enteredPresets do
+		if QOLUtils.VC.ValidLevel(enteredPresets[i]) then
+			table.insert(validPresets, enteredPresets[i])
+	QOL_Config.VCLevels = validPresets
+	opt.VCLEditBox:SetText(opt.TableToStr(QOL_Config.VCLevels))
 end
 
 function opt.ParseVolumeIndex()
-	QOL_Config.VCIndex = opt.VCIEditBox:gmatch(QOLUtils.Patterns.Numbers)
+	local index = opt.VCIEditBox:gmatch(QOLUtils.Patterns.Numbers)
+	if index < 1 then
+		index = 1
+	elseif index > #opt.VCLevels then
+		index = #opt.VCLevels
+	end
+	QOL_Config.VCIndex = index
 end
 
 function opt.StrToTable(s, pattern)	

@@ -12,7 +12,7 @@ function vc.Cycle(args)
 		-- QOL_Config.VCLevels = { 80, 20, 5 }
 		-- QOL_Config.VCIndex = 1
 	local level = 100
-	if args[2] then
+	if args[2] and vc.ValidLevel(args[2]) then
 		level = args[2]
 	else
 		local indexCount = table.getn(QOL_Config.VCLevels)
@@ -24,6 +24,10 @@ function vc.Cycle(args)
 		level = QOL_Config.VCLevels[desiredIndex]
 	end
 	vc.SetVolume(level)
+end
+
+function vc.ValidLevel(level)
+	return level >= 0 and level <= 100
 end
 
 function vc.SetVolume(level)
