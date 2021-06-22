@@ -2,7 +2,7 @@
 ## Title: QoL Utilities
 ## Author: redbeard923
 ## SavedVariables: QOL_Config
-## Version: 3.0.0.0
+## Version: 3.0.0.1
 
 Constants.lua
 SlashCommands.lua
