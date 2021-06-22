@@ -43,9 +43,9 @@ function opt.CreateConfig()
 	local panel = CreateFrame('Frame', 'QoL Utilities', UIParent);
 	panel.name = 'QoL Utilities'
 	local acCheckBox = opt.CreateCheckBox(panel, 30, -30, QOLUtils.Labels.OPT_AC, QOL_Config.AutoConfirmActive, QOLUtils.AC.ToggleAutoConfirm)
-	local qmCheckBox = opt.CreateCheckBox(acCheckBox, 0, -30, QOLUtils.Labels.OPT_QM, QOL_Config.QuietModeActive, QOLUtils.QM.ToggleQuietMode)
-	local vclEditBoxLabel = opt.CreateLabel(qmCheckBox, 0, -30, QOLUtils.Labels.OPT_VCL)
-	local vclEditBox = opt.CreateEditBox(vclEditBoxLabel, 0, -30, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
+	local qmCheckBox = opt.CreateCheckBox(acCheckBox, 0, -40, QOLUtils.Labels.OPT_QM, QOL_Config.QuietModeActive, QOLUtils.QM.ToggleQuietMode)
+	local vclEditBoxLabel = opt.CreateLabel(qmCheckBox, 0, -40, QOLUtils.Labels.OPT_VCL)
+	local vclEditBox = opt.CreateEditBox(vclEditBoxLabel, 30, -15, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
 	opt.Panel = panel	
 	opt.ACCheckBox = acCheckBox
 	opt.QMCheckBox = qmCheckBox
@@ -71,10 +71,10 @@ function opt.CreateLabel(parent, x, y, text)
 	uniqueID = uniqueID + 1
 	local fontFrame = CreateFrame('Frame', 'QOLUtils_FontFrame_' .. uniqueID, parent)
 	fontFrame:SetPoint('TOPLEFT', x, y)
-	-- fontFrame:SetText(text)
-	-- uniqueID = uniqueID + 1
-	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. uniqueID, 'ARTWORK', 'GameFontNormal')
-	fontString:SetPoint('CENTER')
+	fontFrame:SetSize(500, 30)
+	uniqueID = uniqueID + 1
+	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. uniqueID, 'ARTWORK', 'GameFontWhite')
+	fontString:SetPoint('TOPLEFT')
 	fontString:SetText(text)
 	fontFrame.text = fontString
 	return fontFrame
@@ -84,9 +84,12 @@ function opt.CreateEditBox(parent, x, y, text, callback)
 	uniqueID = uniqueID + 1
 	local editBox = CreateFrame('EditBox', 'QOLUtils_EditBox_' .. uniqueID, parent, 'InputBoxTemplate')
 	editBox:SetPoint('TOPLEFT', x, y)
-	-- editBox.Label:SetText(label)
-	editBox:SetScript('OnEditFocusLost', callback)
+	editBox:SetSize(200, 30)
+	editBox:SetMultiLine(false)
+	editBox:SetAutoFocus(false)
 	editBox:SetText(text)
+	editBox:SetCursorPosition(0)
+	editBox:SetScript('OnEditFocusLost', callback)
 	return editBox
 end
 
@@ -102,7 +105,7 @@ function opt.ParseVolumeLevels()
 	opt.VCLEditBox:SetText(opt.TableToStr(QOL_Config.VCLevels))
 end
 
-function opt.StrToTable(str, pattern)	
+function opt.StrToTable(str, pattern)
 	local args = {}
 	for num in str:gmatch(QOLUtils.Patterns.Numbers) do
 		table.insert(args, num)
@@ -113,9 +116,10 @@ end
 function opt.TableToStr(t)
 	local s = ''
 	for i = 1, #t do
-		s = t[i] .. ' '
-	end	
-   return s:gsub(QOLUtils.Patterns.WhiteSpaceStart, ''):gsub(QOLUtils.Patterns.WhiteSpaceEnd, '')
+		s = s .. t[i] .. ' '
+	end
+	s = s:gsub(QOLUtils.Patterns.WhiteSpaceStart, ''):gsub(QOLUtils.Patterns.WhiteSpaceEnd, '')
+	return s
 end
 
 function opt.UpdateCheckBox(checkBox, checked)

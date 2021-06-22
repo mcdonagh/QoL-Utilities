@@ -4,7 +4,7 @@ QOLUtils.Patterns = {}
 local ptrs = QOLUtils.Patterns
 ptrs.Words = '%w+'
 ptrs.Numbers = '%d+'
-ptrs.WhiteSpace = '$s+'
+ptrs.WhiteSpace = '%s+'
 ptrs.WhiteSpaceStart = '^' .. QOLUtils.Patterns.WhiteSpace
 ptrs.WhiteSpaceEnd = QOLUtils.Patterns.WhiteSpace .. '$'
 
