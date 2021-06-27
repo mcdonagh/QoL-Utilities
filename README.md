@@ -25,6 +25,8 @@ Configuration is available through slash commands or via the in-game interface o
 See the feature's details for more information on the corresponding slash command.
 > *Features not mentioned have no configuration associated with them*  
 
+>Use the command **\/qol** to quickly open the in-game configuration window.
+
 **[Auto Confirm's](#ac)** in-game configuration is a checkbox to turn the feature on or off.  
 
 **[Quiet Mode's](#qm)** in-game configuration is a checkbox to turn the feature on or off.  

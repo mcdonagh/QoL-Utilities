@@ -2,6 +2,7 @@
 ## Title: QoL Utilities
 ## Author: redbeard923
 ## SavedVariables: QOL_Config
+## SavedVariablesPerCharacter: QOL_Config_Toon
 ## Version: 3.0.0.1
 
 Constants.lua

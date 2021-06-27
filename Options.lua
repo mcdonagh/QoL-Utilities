@@ -4,23 +4,85 @@ QOLUtils.OPT = {}
 local opt = QOLUtils.OPT
 
 function opt.LoadDefaults()
+	opt.LoadAccountDefaults()
+	opt.LoadToonDefaults()
+end
+
+function opt.LoadAccountDefaults()
 	if QOL_Config == nil then
 		QOL_Config = {}
 	end
-	if QOL_Config.QuietModeActive == nil then
-		QOL_Config.QuietModeActive = false
+	if QOL_Config.AC == nil then
+		QOL_Config.AC = {}
 	end
-	if QOL_Config.AutoConfirmActive == nil then
-		QOL_Config.AutoConfirmActive = false
+	if QOL_Config.AC.RefundableActive == nil then
+		QOL_Config.AC.RefundableActive = false
 	end
-	if QOL_Config.VCLevels == nil then
+	if QOL_Config.AC.TradeableActive == nil then
+		QOL_Config.AC.TradeableActive = false
+	end
+	if QOL_Config.AC.BindableActive == nil then
+		QOL_Config.AC.BindableActive = false
+	end
+	if QOL_Config.QM == nil then
+		QOL_Config.QM = {}
+	end
+	if QOL_Config.QM.PartyActive == nil then
+		QOL_Config.QM.PartyActive = false
+	end
+	if QOL_Config.QM.DuelActive == nil then
+		QOL_Config.QM.DuelActive = false;
+	end
+	if QOL_Config.VC == nil then
+		QOL_Config.VC = {}
+	end
+	if QOL_Config.VC.Levels == nil then
 		QOL_Config.VCLevels = {}
 		table.insert(QOL_Config.VCLevels, 80)
 		table.insert(QOL_Config.VCLevels, 20)
 		table.insert(QOL_Config.VCLevels, 5)
 	end
-	if QOL_Config.VCIndex == nil then
-		QOL_Config.VCIndex = 1
+	if QOL_Config.VC.Index == nil then
+		QOL_Config.VC.Index = 1
+	end
+end
+
+function opt.LoadToonDefaults()
+	if QOL_Config_Toon == nil then
+		QOL_Config_Toon = {}
+	end
+	if QOL_Config_Toon.Active == nil then
+		QOL_Config_Toon.Active = false
+	end
+	if QOL_Config_Toon.AC == nil then
+		QOL_Config_Toon.AC = {}
+	end
+	if QOL_Config_Toon.AC.RefundableActive == nil then
+		QOL_Config_Toon.AC.RefundableActive = false
+	end
+	if QOL_Config_Toon.AC.TradeableActive == nil then
+		QOL_Config_Toon.AC.TradeableActive = false
+	end
+	if QOL_Config_Toon.AC.BindableActive == nil then
+		QOL_Config_Toon.AC.BindableActive = false
+	end
+	if QOL_Config_Toon.QM == nil then
+		QOL_Config_Toon.QM = {}
+	end
+	if QOL_Config_Toon.QM.PartyActive == nil then
+		QOL_Config_Toon.QM.PartyActive = false
+	end
+	if QOL_Config_Toon.QM.DuelActive == nil then
+		QOL_Config_Toon.QM.DuelActive = false;
+	end
+	if QOL_Config_Toon.VCLevels == nil then
+		QOL_Config_Toon.VCLevels = {}
+		table.insert(QOL_Config_Toon.VCLevels, 80)
+		table.insert(QOL_Config_Toon.VCLevels, 20)
+		table.insert(QOL_Config_Toon.VCLevels, 5)
+	end
+	if QOL_Config_Toon.VCIndex == nil then
+		QOL_Config_Toon.VCIndex = 1
 	end
 end
 

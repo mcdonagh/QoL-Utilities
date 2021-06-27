@@ -16,7 +16,7 @@ function QOLUtils.ParseInput(msg)
 	elseif direction == 'atc' then
 		QOLUtils.ATC.Clean(true)
 	elseif direction == 'ac' then
-		QOLUtils.AC.ToggleAutoConfirmAndReport()
+		QOLUtils.AC.ToggleAutoConfirmAndReport(args)
 	elseif direction == 'at' then
 		QOLUtils.AT.AnnounceTarget(args)
 	elseif direction == 'mm' then
