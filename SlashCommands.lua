@@ -16,13 +16,13 @@ function QOLUtils.ParseInput(msg)
 	elseif direction == 'atc' then
 		QOLUtils.ATC.Clean(true)
 	elseif direction == 'ac' then
-		QOLUtils.AC.ToggleAutoConfirmAndReport(args)
+		QOLUtils.AC.ToggleAndReport(args)
 	elseif direction == 'at' then
 		QOLUtils.AT.AnnounceTarget(args)
 	elseif direction == 'mm' then
 		QOLUtils.MM.ToggleMiddleMarker()
 	elseif direction == 'qm' then
-		QOLUtils.QM.ToggleQuietModeAndReport()
+		QOLUtils.QM.ToggleAndReport(args)
 	elseif direction == 'vc' then
 		QOLUtils.VC.Cycle(args)
 	end

@@ -107,19 +107,56 @@ local uniqueID = 0
 function opt.CreateConfig()
 	local panel = CreateFrame('Frame', 'QoL Utilities', UIParent);
 	panel.name = 'QoL Utilities'
-	local acCheckBox = opt.CreateCheckBox(panel, 30, -30, QOLUtils.Labels.OPT_AC, QOL_Config.AutoConfirmActive, QOLUtils.AC.ToggleAutoConfirm)
-	local qmCheckBox = opt.CreateCheckBox(acCheckBox, 0, -40, QOLUtils.Labels.OPT_QM, QOL_Config.QuietModeActive, QOLUtils.QM.ToggleQuietMode)
-	local vclEditBoxLabel = opt.CreateLabel(qmCheckBox, 0, -40, QOLUtils.Labels.OPT_VCL)
-	local vclEditBox = opt.CreateEditBox(vclEditBoxLabel, 30, -15, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
-	opt.Panel = panel	
-	opt.ACCheckBox = acCheckBox
-	opt.QMCheckBox = qmCheckBox
-	opt.VCLEditBox = vclEditBox
+	opt.Panel = panel
+	opt.Acct = {}
+	opt.Acct.AC = {}
+	opt.Acct.QM = {}
+	opt.Acct.VC = {}
+	local acctHeader = opt.CreateHeader(panel, 30, -30, QOLUtils.Labels.Acct)
+	local acctACHeader = opt.CreateHeader(acctHeader, 30, -60, QOLUtils.Labels.AC.Header)
+	opt.Acct.AC.CheckBoxRefundable = opt.CreateCheckBox(acctACHeader, 30, -40, QOLUtils.Labels.AC.Refundable, QOL_Config.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
+	opt.Acct.AC.CheckBoxTradeable = opt.CreateCheckBox(opt.Acct.AC.CheckBoxRefundable, 0, -40, QOLUtils.Labels.AC.Tradeable, QOL_Config.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
+	opt.Acct.AC.CheckBoxBindable = opt.CreateCheckBox(opt.Acct.AC.CheckBoxTradeable, 0, -40, QOLUtils.Labels.AC.Bindable, QOL_Config.AC.BindableActive, QOLUtils.AC.ToggleBindable)
+	local acctQMHeader = opt.CreateHeader(opt.Acct.AC.CheckBoxBindable, -30, -60, QOLUtils.Labels.QM.Header)
+	opt.Acct.QM.CheckBoxParty = opt.CreateCheckBox(acctQMHeader, 30, -40, QOLUtils.Labels.QM.Party, QOL_Config.QM.PartyActive, QOLUtils.QM.ToggleParty)
+	opt.Acct.QM.CheckBoxDuel = opt.CreateCheckBox(opt.Acct.QM.CheckBoxParty, 0, -40, QOLUtils.Labels.QM.Duel, QOL_Config.QM.DuelActive, QOLUtils.QM.ToggleDuel)
+	local acctVCHeader = opt.CreateHeader(opt.Acct.QM.CheckBoxDuel, -30, -60, QOLUtils.Labels.VC.Header)
+	local acctVCLabel = opt.CreateLabel(acctVCHeader, 30, -40, QOLUtils.Labels.OPT_VCL)
+	opt.Acct.VC.EditBoxLevels = opt.CreateEditBox(acctVCLabel, 30, -10, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
+	opt.Toon = {}
+	opt.Toon.AC = {}
+	opt.Toon.QM = {}
+	opt.Toon.VC = {}
+	local toonHeader = opt.CreateHeader(opt.Toon.VC.EditBoxLevels, -90, -60, QOLUtils.Labels.Toon)
+	opt.Toon.Active = opt.CreateCheckBox(toonHeader, 30, -40, QOLUtils.Labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
+	local toonACHeader = opt.CreateHeader(opt.Toon.Active, 0, -60, QOLUtils.Labels.AC.Header)
+	opt.Toon.AC.CheckBoxRefundable = opt.CreateCheckBox(toonACHeader, 30, -40, QOLUtils.Labels.AC.Refundable, QOL_Config.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
+	opt.Toon.AC.CheckBoxTradeable = opt.CreateCheckBox(opt.Toon.AC.CheckBoxRefundable, 0, -40, QOLUtils.Labels.AC.Tradeable, QOL_Config.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
+	opt.Toon.AC.CheckBoxBindable = opt.CreateCheckBox(opt.Toon.AC.CheckBoxTradeable, 0, -40, QOLUtils.Labels.AC.Bindable, QOL_Config.AC.BindableActive, QOLUtils.AC.ToggleBindable)
+	local toonQMHeader = opt.CreateHeader(opt.Toon.AC.CheckBoxBindable, -30, -60, QOLUtils.Labels.QM.Header)
+	opt.Toon.QM.CheckBoxParty = opt.CreateCheckBox(toonQMHeader, 30, -40, QOLUtils.Labels.QM.Party, QOL_Config.QM.PartyActive, QOLUtils.QM.ToggleParty)
+	opt.Toon.QM.CheckBoxDuel = opt.CreateCheckBox(opt.Toon.QM.CheckBoxParty, 0, -40, QOLUtils.Labels.QM.Duel, QOL_Config.QM.DuelActive, QOLUtils.QM.ToggleDuel)
+	local toonVCHeader = opt.CreateHeader(opt.Toon.QM.CheckBoxDuel, -30, -60, QOLUtils.Labels.VC.Header)
+	local toonVCLabel = opt.CreateLabel(toonVCHeader, 30, -40, QOLUtils.Labels.OPT_VCL)
+	opt.Toon.VC.EditBoxLevels = opt.CreateEditBox(toonVCLabel, 30, -10, opt.TableToStr(QOL_Config.VCLevels), opt.ParseVolumeLevels)
 	InterfaceOptions_AddCategory(opt.Panel);
 end
 
-function opt.CreateHeader()
-
+function opt.CreateHeader(parent, x, y, text)
+	uniqueID = uniqueID + 1
+	local fontFrame = CreateFrame('Frame', 'QOL_Utils_FontFrame_' .. uniqueID, parent)
+	fontFrame:SetPoint('TOPLEFT', x, y)
+	fontFrame:SetSize(500, 30)
+	uniqueID = uniqueID + 1
+	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. uniqueID, 'ARTWORK', 'GameFontWhite')
+	fontString:SetPoint('TOPLEFT')
+	fontString:SetText(text)
+	fontFrame.text = fontString
+	local underline = fontFrame:CreateLine(nil, 'BACKGROUND')
+	underline:SetStartPoint('TOPLEFT', x + 30, 0)
+	underline:SetEndPoint('TOPLEFT', x + 30, 50)
+	underline:SetColorTexture(0, 0, 0, 1)
+	underline:SetThickness(1)
 end
 
 function opt.CreateCheckBox(parent, x, y, text, checked, callback)
@@ -156,6 +193,11 @@ function opt.CreateEditBox(parent, x, y, text, callback)
 	editBox:SetCursorPosition(0)
 	editBox:SetScript('OnEditFocusLost', callback)
 	return editBox
+end
+
+function opt.ToggleToonSpecific()
+	QOL_Config_Toon.Active = not QOL_Config_Toon.Active
+	opt.UpdateCheckBox(opt.Toon.Active, QOL_Config_Toon.Active)
 end
 
 function opt.ParseVolumeLevels()
