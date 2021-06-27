@@ -37,10 +37,10 @@ function opt.LoadAccountDefaults()
 		QOL_Config.VC = {}
 	end
 	if QOL_Config.VC.Levels == nil then
-		QOL_Config.VCLevels = {}
-		table.insert(QOL_Config.VCLevels, 80)
-		table.insert(QOL_Config.VCLevels, 20)
-		table.insert(QOL_Config.VCLevels, 5)
+		QOL_Config.VC.Levels = {}
+		table.insert(QOL_Config.VC.Levels, 80)
+		table.insert(QOL_Config.VC.Levels, 20)
+		table.insert(QOL_Config.VC.Levels, 5)
 	end
 	if QOL_Config.VC.Index == nil then
 		QOL_Config.VC.Index = 1
@@ -75,14 +75,17 @@ function opt.LoadToonDefaults()
 	if QOL_Config_Toon.QM.DuelActive == nil then
 		QOL_Config_Toon.QM.DuelActive = false;
 	end
-	if QOL_Config_Toon.VCLevels == nil then
-		QOL_Config_Toon.VCLevels = {}
-		table.insert(QOL_Config_Toon.VCLevels, 80)
-		table.insert(QOL_Config_Toon.VCLevels, 20)
-		table.insert(QOL_Config_Toon.VCLevels, 5)
+	if QOL_Config_Toon.VC == nil then
+		QOL_Config_Toon.VC = {}
 	end
-	if QOL_Config_Toon.VCIndex == nil then
-		QOL_Config_Toon.VCIndex = 1
+	if QOL_Config_Toon.VC.Levels == nil then
+		QOL_Config_Toon.VC.Levels = {}
+		table.insert(QOL_Config_Toon.VC.Levels, 80)
+		table.insert(QOL_Config_Toon.VC.Levels, 20)
+		table.insert(QOL_Config_Toon.VC.Levels, 5)
+	end
+	if QOL_Config_Toon.VC.Index == nil then
+		QOL_Config_Toon.VC.Index = 1
 	end
 end
 
