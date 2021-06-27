@@ -20,18 +20,21 @@ WoW addon for minor quality of life changes.
 
 <h2 id='config'>Configuration</h2>
 
-The following features are available for configuration on a **per account** basis.  
+The following features are available for configuration on a **per account** or **per character** basis.  
 Configuration is available through slash commands or via the in-game interface options.  
-See the feature's details for more information on the corresponding slash command.
-> *Features not mentioned have no configuration associated with them*  
-
 >Use the command **\/qol** to quickly open the in-game configuration window.
 
-**[Auto Confirm's](#ac)** in-game configuration is a checkbox to turn the feature on or off.  
+Turning *per character* settings on or off is only possible through the in-game configuration window.  
+When using *per character* settings, Slash Commands only affect the current character's settings.  
+See the feature's details for more information on the corresponding slash commands.
+> *Features not mentioned have no configuration associated with them*  
 
-**[Quiet Mode's](#qm)** in-game configuration is a checkbox to turn the feature on or off.  
 
-**[Volume Cycler's](#vc)** in-game configuration is a single input field; a list of preset volume percentages that you will be able to cycle through.  
+**[Auto Confirm's](#ac)** in-game configuration is three (3) checkboxes. One to turn the ability to automatically confirm equipping Refundable items on or off, one for Tradeable items, and one for "Bind on Equip" items.
+
+**[Quiet Mode's](#qm)** in-game configuration is two (2) checkboxex. One to turn the ability to automatically decline Party Invites on or off, and one for Duel Requests.
+
+**[Volume Cycler's](#vc)** in-game configuration is a single input field; a list of preset volume percentages that you will be able to cycle through in the listed order.  
 
 <h2 id='atc'>Achievement Tracker Cleaner</h2>
 
@@ -120,21 +123,38 @@ Channel Number | Default Channel
 
 <h2 id='ac'>Auto Confirm</h2>
 
-Automatically clicks the confirmation button on the popup that shows when attempting to equip items that are still Refundable or Tradeable.  
+Automatically clicks the confirmation button on the popup that shows when attempting to equip items that are still Refundable, Tradeable, or items that are "Bind on Equip".  
 Functionality can be toggled on or off.  
-Current state of functionality is reported at player login and on reload.
+Current state of functionality is reported at player login and on reload. 
 > Functionality is turned **off** by default.  
-> State is saved **per account**, ***NOT*** per character.
 
 <h3 id='ac-usage'>Usage & Output</h3>
 
 Command Format: **\/qol ac**  
-Executing this command will toggle the functionality on or off.  
+Executing this command *without* the optional subargument will toggle the functionality on or off for *all* items.  
 The output will be printed to the chat window and will either be  
-> Automatically confirming to equip Refundable & Tradeable items.
+> Automatically confirming to equip Refundable, Tradeable, and "Bind on Equip" items.
 
 or  
-> Manual confirmation required to equip Refundable & Tradeable items.
+> Manual confirmation required to equip Refundable, Tradeable, and "Bind on Equip" items.
+
+<h3 id='ac-arguments'>Command Arugments</h3>
+
+All *Auto Confirm* slash commands begin with ***\/qol ac***.  
+Additional command arguments are separated by whitespace.  
+
+Command Format: \/qol ac \[***optional:*** *feature*\]
+> *Running the comand with* ***no*** *optional arguments toggles the functionality for all items.*
+
+### Optional Arguments
+
+Optional Argument | Argument Description | Example Command
+:---:|---|---
+r | Toggle functionality on/off for Refundable items | *\/qol ac r*
+t | Toggle functionality on/off for Tradeable items | *\/qol ac t*
+b | Toggle functionality on/off for *Bind on Equip* items | *\/qol ac b*
+on | Turn functionality *on* for all items | *\/qol ac on*
+off | Turn functionality *off* for all items | *\/qol ac off*
 
 <h2 id='mm'>Middle Marker</h2>
 
@@ -155,23 +175,39 @@ Automatically declines party invites and duel requests.
 Functionality can be toggled on or off.  
 Current state of functionality is reported at player login and on reload.  
 > Functionality is turned **off** by default.  
-> State is saved **per account**, ***NOT*** per character.
 
 <h3 id='qm-usage'>Usage & Output</h3>
 
 Command Format: **\/qol qm**  
-Executing this command will toggle the functionality on or off.  
-The output prints to the chat window and will either be
-> Automatically declining Party Invites & Duel Requests.
+Executing this command *without* the optional subargument will toggle the functionality on or off for *all* requests.  
+The output will be printed to the chat window and will either be  
+> Automatically declining Party Invites and Duel Requests.
 
 or  
-> Manual confirmation required for Party Invites & Duel Requests.
+> Manual confirmation required for Party Invites and Duel Requests.
 
 When a party invite is declined this way the output reads
 > Declined Party Invite from *\<player name\>*
 
 When a duel request is declined this way the output reads
 > Declined Duel Request from *\<player name\>*
+
+<h3 id='ac-arguments'>Command Arugments</h3>
+
+All *Quiet Mode* slash commands begin with ***\/qol qm***.  
+Additional command arguments are separated by whitespace.  
+
+Command Format: \/qol qm \[***optional:*** *feature*\]
+> *Running the comand with* ***no*** *optional arguments toggles the functionality for all items.*
+
+### Optional Arguments
+
+Optional Argument | Argument Description | Example Command
+:---:|---|---
+p | Toggle functionality on/off for Party Invites | *\/qol qm p*
+d | Toggle functionality on/off for Duel Requests | *\/qol qm d*
+on | Turn functionality *on* for all requests | *\/qol qm on*
+off | Turn functionality *off* for all requests | *\/qol qm off*
 
 <h2 id='vc'>Volume Cycler</h2>
 

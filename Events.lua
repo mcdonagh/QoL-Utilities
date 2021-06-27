@@ -15,8 +15,8 @@ function QOLUtils.Events:PLAYER_ENTERING_WORLD(...)
 	local isFirstLogin, isReload = ...
 	if isFirstLogin or isReload then
 		QOLUtils.ATC.Clean(false)
-		QOLUtils.AC.ReportState()
-		QOLUtils.QM.ReportState()
+		QOLUtils.AC.ReportInitial()
+		QOLUtils.QM.ReportInitial()
 		QOLUtils.VC.LoadInitialVolume()
 	end
 end

@@ -95,6 +95,11 @@ function qm.ReportAll()
 	end
 end
 
+function qm.ReportInitial()
+	qm.ReportParty()
+	qm.ReportDuel()
+end
+
 function qm.DeclinePartyInvite(...)
 	if QOL_Config.QuietModeActive then
 		local inviter = ...

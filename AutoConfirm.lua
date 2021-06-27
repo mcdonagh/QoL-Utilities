@@ -126,6 +126,12 @@ function ac.ReportAll()
 	end
 end
 
+function ac.ReportInitial()
+	ac.ReportRefundable()
+	ac.ReportTradeable()
+	ac.ReportBindable()
+end
+
 function ac.ConfirmEquipRefundable()
 	if QOL_Config.AutoConfirmActive then
 		ac.ClickConfirm('Okay', 'LeftButton')
