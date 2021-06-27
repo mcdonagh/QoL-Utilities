@@ -3,7 +3,7 @@
 ## Author: redbeard923
 ## SavedVariables: QOL_Config
 ## SavedVariablesPerCharacter: QOL_Config_Toon
-## Version: 3.0.0.1
+## Version: 3.1.0
 
 Constants.lua
 SlashCommands.lua

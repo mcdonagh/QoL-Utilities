@@ -10,10 +10,12 @@ WoW addon for minor quality of life changes.
 	- [SubDestinations](#at-subdestinations)
 1. [Auto Confirm](#ac)
 	- [Usage](#ac-usage)
+	- [Command Arguments](#ac-arguments)
 1. [Middle Marker](#mm)
 	- [Usage](#mm-usage)
 1. [Quiet Mode](#qm)
 	- [Usage](#qm-usage)
+	- [Command Arguments](#qm-arguments)
 1. [Volume Cycler](#vc)
 	- [Usage](#vc-usage)
 	- [Command Arguments](#vc-arguments)
@@ -226,7 +228,7 @@ The new volume setting is reported via the chat window.
 <h3 id='vc-arguments'>Command Arguemnts</h3>
 
 If you want to change the in-game volume to a level not currently in the configurable preset list, you can execute the command **\/qol vc** with the optional argument.  
-The slash command for *Volume Cycler* only looks for the first available optional argument. Any additional arguements are ignored.  
+The slash command for *Volume Cycler* only looks for the first available optional argument. Any additional arguments are ignored.  
 
 Command Format
 > \/qol vc *\<custom volume percentage\>*
