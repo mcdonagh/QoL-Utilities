@@ -33,6 +33,7 @@ function qm.DeclineDuel(...)
 	if QOL_Config.QuietModeActive then
 		local inviter = ...
 		StaticPopup_Hide('DUEL_REQUESTED')
+		CancelDuel()
 		qm.Log(format('Declined Duel Request from %s', inviter))
 	end
 end

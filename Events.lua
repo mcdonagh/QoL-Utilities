@@ -41,6 +41,10 @@ function QOLUtils.Events:EQUIP_BIND_TRADEABLE_CONFIRM(...)
 	QOLUtils.AC.ConfirmEquipTradeable()
 end
 
+function QOLUtils.Events:EQUIP_BIND_CONFIRM(...)
+	QOLUtils.AC.ConfirmEquipBind()
+end
+
 QOLUtils.EventFrame:SetScript('OnEvent',
 	function(self, event, ...)
 		QOLUtils.Events[event](self, ...)

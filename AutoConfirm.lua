@@ -25,6 +25,12 @@ function ac.ConfirmEquipTradeable()
 	end
 end
 
+function ac.ConfirmEquipBind()
+	if QOL_Config.AutoConfirmActive then
+		ac.ClickConfirm('Okay', 'LeftButton')
+	end
+end
+
 function ac.ClickConfirm(confirmText, buttonType)
 	for i = 1, 10 do
 		local popup = _G['StaticPopup' .. i]
