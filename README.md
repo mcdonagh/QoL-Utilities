@@ -214,7 +214,9 @@ off | Turn functionality *off* for all requests | *\/qol qm off*
 <h2 id='vc'>Volume Cycler</h2>
 
 Allows you to cycle the master volume of the game through a list of preset values.  
-*The default values are 80%, 20%, and 5%.*  
+> *The default values are 80%, 20%, and 5%.*  
+> No limit is set on the number of preset values you can enter, but it is suggested you keep the list small to allow for quicker cycling
+
 Also allows you to quickly set the master volume of the game to any percentage from 0 through 100.  
 
 <h3 id='vc-usage'>Usage & Output</h3>
