@@ -6,10 +6,7 @@ SlashCmdList['QOLUTILITIES'] = function (msg)
 end
 
 function QOLUtils.ParseInput(msg)
-	local args = {}
-	for word in msg:gmatch(QOLUtils.Patterns.Words) do 
-		table.insert(args, word)
-	end
+	local args = QOLUtils.OPT.StrToTable(msg, QOLUtils.Patterns.Words)
 	local direction = args[1]
 	if QOLUtils.IsEmpty(msg) then
 		QOLUtils.OPT.OpenConfig()

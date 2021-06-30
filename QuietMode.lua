@@ -54,7 +54,7 @@ function qm.ToggleDuel(state)
 		else
 			QOL_Config.QM.DuelActive = state
 		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.QM.CheckBoxDuel, QOL_Config.QM.DuelActive
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.QM.CheckBoxDuel, QOL_Config.QM.DuelActive)
 	end
 end
 
@@ -67,6 +67,16 @@ function qm.ToggleAll(state)
 		local combinedState = state or QOL_Config.QM.PartyActive or QOL_Config.QM.DuelActive
 		qm.ToggleParty(combinedState)
 		qm.ToggleDuel(combinedState);
+	end
+end
+
+function qm.ToggleReport()
+	if QOL_Config_Toon.Active then
+		QOL_Config_Toon.QM.ReportAtLogon = not QOL_Config_Toon.QM.ReportAtLogon
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.QM.CheckBoxReport, QOL_Config_Toon.QM.ReportAtLogon)
+	else
+		QOL_Config.QM.ReportAtLogon = not QOL_Config.QM.ReportAtLogon
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.QM.CheckBoxReport, QOL_Config.QM.ReportAtLogon)
 	end
 end
 
@@ -88,7 +98,7 @@ end
 
 function qm.ReportAll()
 	if QOL_Config_Toon.Active and QOL_Config_Toon.QM.PartyActive and QOL_Config_Toon.QM.DuelActive
-		or not QOL_Config_Toon.Active and QOL_Config.QM.PartyActive and QOL_Config.QM.DuelActive
+		or not QOL_Config_Toon.Active and QOL_Config.QM.PartyActive and QOL_Config.QM.DuelActive then
 		qm.Log('Automatically declining Party Invites and Duel Requests.')
 	else
 		qm.Log('Manual confirmation required for Party Invites and Duel Requests.')
@@ -96,12 +106,14 @@ function qm.ReportAll()
 end
 
 function qm.ReportInitial()
-	qm.ReportParty()
-	qm.ReportDuel()
+	if QOL_Config_Toon.Active and QOL_Config_Toon.QM.ReportAtLogon or not QOL_Config_Toon.Active and QOL_Config.QM.ReportAtLogon then
+		qm.ReportParty()
+		qm.ReportDuel()
+	end
 end
 
 function qm.DeclinePartyInvite(...)
-	if QOL_Config.QuietModeActive then
+	if QOL_Config_Toon.Active and QOL_Config_Toon.QM.PartyActive or not QOL_Config_Toon.Active and QOL_Config.QM.PartyActive then
 		local inviter = ...
 		StaticPopup_Hide('PARTY_INVITE')
 		qm.Log(format('Declined Party Invite from %s.', inviter))
@@ -109,7 +121,7 @@ function qm.DeclinePartyInvite(...)
 end
 
 function qm.DeclineDuel(...)
-	if QOL_Config.QuietModeActive then
+	if QOL_Config_Toon.Active and QOL_Config_Toon.QM.DuelActive or not QOL_Config_Toon.Active and QOL_Config.QM.DuelActive then
 		local inviter = ...
 		StaticPopup_Hide('DUEL_REQUESTED')
 		CancelDuel()

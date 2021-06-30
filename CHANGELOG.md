@@ -1,15 +1,30 @@
 # QoL Utilities Change Log
+1. [Future Plans](#fp)
 1. [Latest Release](#c002)
 1. [Previous Release](#c001)
-1. [Older](#c001)
 
-<h3 id='c002'>2021-06-27</h3>
+<h2 id='fp'>Future Plans</h2>
 
-- Added functionality for *per character* settings
-- Added functionality to Auto Confirm for "Bind on Equip" items
-- Minor fix to Quiet Mode's decline duel
-	- Added the api call to *CancelDuel()*, thought it worked the same as party invites where just hiding the window also declines.
+> *No dates available for any planned features. I work on this project in my spare time and will get to them when I get to them.*
 
-<h3 id='c001'>2021-06-24</h3>
+- Add the option to screen requests for *Quiet Mode* to allow the option for different level of requests to come through.
+	- Such as allowing requests from guildies only, or requests from guildies and people on your friends list.
+- Add color configuration to *Middle Marker* instead of having it hardcoded to red.
+
+#### Leave a Suggestion
+If there's anything you'd like to see added or changed, feel free to leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
+> *Not all suggestions will be implemented, but they all will be taken into consideration.*
+
+<h2 id='c002'>2021-06-27</h2>
+
+- Configuration update:
+	- Added functionality for *per character* settings
+	- Added functionality to configure toggling on/off specific *Quiet Mode* and *Auto Confirm* features
+	- Added checkbox to turn on/off the status report for *Quiet Mode* and *Auto Confirm* at player logon/reload
+- Added *Auto Confirm* functionality for "Bind on Equip" items
+- Minor fix to *Quiet Mode*'s decline duel
+	- Added the api call to *CancelDuel()*. Thought it worked the same as party invites where just hiding the window also declines. Nope, need the api call.
+
+<h2 id='c001'>2021-06-24</h2>
 
 Initial public release.

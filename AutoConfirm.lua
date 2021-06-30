@@ -93,6 +93,16 @@ function ac.ToggleAll(state)
 	end
 end
 
+function ac.ToggleReport()
+	if QOL_Config_Toon.Active then
+		QOL_Config_Toon.AC.ReportAtLogon = not QOL_Config_Toon.AC.ReportAtLogon
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.AC.CheckBoxReport, QOL_Config_Toon.AC.ReportAtLogon)
+	else
+		QOL_Config.AC.ReportAtLogon = not QOL_Config.AC.ReportAtLogon
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.AC.CheckBoxReport, QOL_Config.AC.ReportAtLogon)
+	end
+end
+
 function ac.ReportRefundable()
 	if QOL_Config_Toon.Active and QOL_Config_Toon.AC.RefundableActive or not QOL_Config_Toon.Active and QOL_Config.AC.RefundableActive then
 		ac.Log('Automatically confirming to equip Refundable items.')
@@ -127,25 +137,27 @@ function ac.ReportAll()
 end
 
 function ac.ReportInitial()
-	ac.ReportRefundable()
-	ac.ReportTradeable()
-	ac.ReportBindable()
+	if QOL_Config_Toon.Active and QOL_Config_Toon.AC.ReportAtLogon or not QOL_Config_Toon.Active and QOL_Config.AC.ReportAtLogon then
+		ac.ReportRefundable()
+		ac.ReportTradeable()
+		ac.ReportBindable()
+	end
 end
 
 function ac.ConfirmEquipRefundable()
-	if QOL_Config.AutoConfirmActive then
+	if QOL_Config_Toon.Active and QOL_Config_Toon.AC.RefundableActive or not QOL_Config_Toon.Active and QOL_Config.AC.RefundableActive then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
 
 function ac.ConfirmEquipTradeable()
-	if QOL_Config.AutoConfirmActive then
+	if QOL_Config_Toon.Active and QOL_Config_Toon.AC.TradeableActive or not QOL_Config_Toon.Active and QOL_Config.AC.TradeableActive then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
 
 function ac.ConfirmEquipBind()
-	if QOL_Config.AutoConfirmActive then
+	if QOL_Config_Toon.Active and QOL_Config_Toon.AC.BindableActive or not QOL_Config_Toon.Active and QOL_Config.AC.BindableActive then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end

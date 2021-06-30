@@ -32,11 +32,11 @@ See the feature's details for more information on the corresponding slash comman
 > *Features not mentioned have no configuration associated with them*  
 
 
-**[Auto Confirm's](#ac)** in-game configuration is three (3) checkboxes. One to turn the ability to automatically confirm equipping Refundable items on or off, one for Tradeable items, and one for "Bind on Equip" items.
+**[Auto Confirm's](#ac)** in-game configuration consists of four checkboxes. The first is to toggle on/off the report that is shown at player logon and on reload. The other three are to toggle on/off the ability to automatically confirm equipping different items. One for Refundable items, one for Tradeable items, and one for "Bind on Equip" items.
 
-**[Quiet Mode's](#qm)** in-game configuration is two (2) checkboxex. One to turn the ability to automatically decline Party Invites on or off, and one for Duel Requests.
+**[Quiet Mode's](#qm)** in-game configuration consists of three checkboxex. The first is to toggle on/off the report that is shown at player logon and on reload. The other two are to toggle on/off the ability to automatically decline certain requests. One for decling Party Invites, and one for declining Duel Requests.
 
-**[Volume Cycler's](#vc)** in-game configuration is a single input field; a list of preset volume percentages that you will be able to cycle through in the listed order.  
+**[Volume Cycler's](#vc)** in-game configuration consists of a single input field. A list of preset volume percentages that you will be able to cycle through, in the order in which they are entered.  
 
 <h2 id='atc'>Achievement Tracker Cleaner</h2>
 
