@@ -39,6 +39,12 @@ function opt.LoadAccountDefaults()
 	if QOL_Config.QM.DuelActive == nil then
 		QOL_Config.QM.DuelActive = false;
 	end
+	if QOL_Config.SMN == nil then
+		QOL_Config.SMN = {}
+	end
+	if QOL_Config.SMN.OnlyFavoritePets == nil then
+		QOL_Config.SMN.OnlyFavoritePets = false
+	end
 	if QOL_Config.VC == nil then
 		QOL_Config.VC = {}
 	end
@@ -86,6 +92,12 @@ function opt.LoadToonDefaults()
 	end
 	if QOL_Config_Toon.QM.DuelActive == nil then
 		QOL_Config_Toon.QM.DuelActive = false;
+	end
+	if QOL_Config_Toon.SMN == nil then
+		QOL_Config_Toon.SMN = {}
+	end
+	if QOL_Config_Toon.SMN.OnlyFavoritePets == nil then
+		QOL_Config_Toon.SMN.OnlyFavoritePets = false
 	end
 	if QOL_Config_Toon.VC == nil then
 		QOL_Config_Toon.VC = {}

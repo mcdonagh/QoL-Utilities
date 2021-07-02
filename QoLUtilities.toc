@@ -5,6 +5,7 @@
 ## SavedVariablesPerCharacter: QOL_Config_Toon
 ## Version: 3.1.0
 
+Common.lua
 Constants.lua
 SlashCommands.lua
 Events.lua
@@ -15,4 +16,5 @@ AnnounceTarget.lua
 AutoConfirm.lua
 MiddleMarker.lua
 QuietMode.lua
+Summon.lua
 VolumeCycler.lua

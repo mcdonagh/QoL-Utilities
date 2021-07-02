@@ -170,14 +170,10 @@ function ac.ConfirmEquipBind()
 end
 
 function ac.ClickConfirm(confirmText, buttonType)
-	for i = 1, 10 do
-		local popup = _G['StaticPopup' .. i]
-		if popup and popup.which and popup.IsShown and popup:IsShown() then
-			local button = _G['StaticPopup' .. i .. 'Button1']
-			if button and button.IsShown and button:IsShown() and button.GetText and (button:GetText() == confirmText) and button.Click then
-				button:Click(buttonType)
-			end
-		end
+	local popup, i = QOLUtils.GetFrame('StaticPopup')
+	local button = _G['StaticPopup' .. i .. 'Button1']
+	if button and button.IsShown and button:IsShown() and button.GetText and (button:GetText() == confirmText) and button.Click then
+		button:Click(buttonType)
 	end
 end
 

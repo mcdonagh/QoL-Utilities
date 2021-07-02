@@ -20,19 +20,9 @@ function QOLUtils.ParseInput(msg)
 		QOLUtils.MM.ToggleMiddleMarker()
 	elseif direction == 'qm' then
 		QOLUtils.QM.ToggleAndReport(args)
+	elseif direction == 'smn' then
+		QOLUtils.SMN.Summon(args)
 	elseif direction == 'vc' then
 		QOLUtils.VC.Cycle(args)
 	end
-end
-
-function QOLUtils.Log(message, subID)
-	local ID = '[QoLUtils]'
-	if not QOLUtils.IsEmpty(subID) then
-		ID = format('[QoL Utils - %s]', subID)
-	end
-	print(format('%s  %s  %s', date('%H:%M'), ID, message))
-end
-
-function QOLUtils.IsEmpty(val)
-	return val == nil or val == ''
 end
