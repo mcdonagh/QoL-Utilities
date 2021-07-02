@@ -11,6 +11,7 @@ ptrs.WhiteSpaceEnd = QOLUtils.Patterns.WhiteSpace .. '$'
 QOLUtils.Labels = {}
 QOLUtils.Labels.AC = {}
 QOLUtils.Labels.QM = {}
+QOLUtils.Labels.SMN = {}
 QOLUtils.Labels.VC = {}
 
 local lb = QOLUtils.Labels
@@ -30,6 +31,10 @@ qm.Header = 'Quiet Mode'
 qm.Report = 'Report Quiet Mode status at player logon and on reload.'
 qm.Party = 'Automatically decline Party Invites.'
 qm.Duel = 'Automatically decline Duel Requests.'
+
+local smn = QOLUtils.Labels.SMN
+smn.Header = 'Summon Mount & Pet'
+smn.OnlyFavoritePets = 'Only summon favorite pets when summoning a random pet.'
 
 local vc = QOLUtils.Labels.VC
 vc.Header = 'Volume Cycler'

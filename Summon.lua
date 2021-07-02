@@ -42,11 +42,7 @@ end
 
 function smn.Pet()
 	local onlyFavorites = QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoritePets or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoritePets
-	if onlyFavorites then
-	
-	else
-	
-	end
+	C_PetJournal.SummonRandomPet(onlyFavorites)
 end
 
 function smn.ToggleFavoritePets(state)
