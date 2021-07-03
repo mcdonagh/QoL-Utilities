@@ -4,124 +4,67 @@ QOLUtils.OPT = {}
 local opt = QOLUtils.OPT
 
 function opt.LoadDefaults()
-	opt.LoadAccountDefaults()
-	opt.LoadToonDefaults()
-end
-
-function opt.LoadAccountDefaults()
-	if QOL_Config == nil then
-		QOL_Config = {}
-	end
-	if QOL_Config.AC == nil then
-		QOL_Config.AC = {}
-	end
-	if QOL_Config.AC.ReportAtLogon == nil then
-		QOL_Config.AC.ReportAtLogon = true
-	end
-	if QOL_Config.AC.RefundableActive == nil then
-		QOL_Config.AC.RefundableActive = false
-	end
-	if QOL_Config.AC.TradeableActive == nil then
-		QOL_Config.AC.TradeableActive = false
-	end
-	if QOL_Config.AC.BindableActive == nil then
-		QOL_Config.AC.BindableActive = false
-	end
-	if QOL_Config.QM == nil then
-		QOL_Config.QM = {}
-	end
-	if QOL_Config.QM.ReportAtLogon == nil then
-		QOL_Config.QM.ReportAtLogon = true
-	end
-	if QOL_Config.QM.PartyActive == nil then
-		QOL_Config.QM.PartyActive = false
-	end
-	if QOL_Config.QM.DuelActive == nil then
-		QOL_Config.QM.DuelActive = false;
-	end
-	if QOL_Config.SMN == nil then
-		QOL_Config.SMN = {}
-	end
-	if QOL_Config.SMN.ReportAtLogon == nil then
-		QOL_Config.SMN.ReportAtLogon = false
-	end
-	if QOL_Config.SMN.OnlyFavoritePets == nil then
-		QOL_Config.SMN.OnlyFavoritePets = false
-	end
-	if QOL_Config.SMN.OnlyFavoriteMounts == nil then
-		QOL_Config.SMN.OnlyFavoriteMounts = true
-	end
-	if QOL_Config.VC == nil then
-		QOL_Config.VC = {}
-	end
-	if QOL_Config.VC.Levels == nil then
-		QOL_Config.VC.Levels = {}
-		table.insert(QOL_Config.VC.Levels, 80)
-		table.insert(QOL_Config.VC.Levels, 20)
-		table.insert(QOL_Config.VC.Levels, 5)
-	end
-	if QOL_Config.VC.Index == nil then
-		QOL_Config.VC.Index = 1
-	end
-end
-
-function opt.LoadToonDefaults()
-	if QOL_Config_Toon == nil then
-		QOL_Config_Toon = {}
-	end
+	opt.GenerateDefaults(QOL_Config)
+	opt.GenerateDefaults(QOL_Config_Toon)
 	if QOL_Config_Toon.Active == nil then
 		QOL_Config_Toon.Active = false
 	end
-	if QOL_Config_Toon.AC == nil then
-		QOL_Config_Toon.AC = {}
+end
+
+function opt.GenerateDefaults(config)
+	if config == nil then
+		config = {}
 	end
-	if QOL_Config_Toon.AC.ReportAtLogon == nil then
-		QOL_Config_Toon.AC.ReportAtLogon = true
+	if config.AC == nil then
+		config.AC = {}
 	end
-	if QOL_Config_Toon.AC.RefundableActive == nil then
-		QOL_Config_Toon.AC.RefundableActive = false
+	if config.AC.ReportAtLogon == nil then
+		config.AC.ReportAtLogon = true
 	end
-	if QOL_Config_Toon.AC.TradeableActive == nil then
-		QOL_Config_Toon.AC.TradeableActive = false
+	if config.AC.RefundableActive == nil then
+		config.AC.RefundableActive = false
 	end
-	if QOL_Config_Toon.AC.BindableActive == nil then
-		QOL_Config_Toon.AC.BindableActive = false
+	if config.AC.TradeableActive == nil then
+		config.AC.TradeableActive = false
 	end
-	if QOL_Config_Toon.QM == nil then
-		QOL_Config_Toon.QM = {}
+	if config.AC.BindableActive == nil then
+		config.AC.BindableActive = false
 	end
-	if QOL_Config_Toon.QM.ReportAtLogon == nil then
-		QOL_Config_Toon.QM.ReportAtLogon = true
+	if config.QM == nil then
+		config.QM = {}
 	end
-	if QOL_Config_Toon.QM.PartyActive == nil then
-		QOL_Config_Toon.QM.PartyActive = false
+	if config.QM.ReportAtLogon == nil then
+		config.QM.ReportAtLogon = true
 	end
-	if QOL_Config_Toon.QM.DuelActive == nil then
-		QOL_Config_Toon.QM.DuelActive = false;
+	if config.QM.PartyActive == nil then
+		config.QM.PartyActive = false
 	end
-	if QOL_Config_Toon.SMN == nil then
-		QOL_Config_Toon.SMN = {}
+	if config.QM.DuelActive == nil then
+		config.QM.DuelActive = false;
 	end
-	if QOL_Config_Toon.SMN.ReportAtLogon == nil then
-		QOL_Config_Toon.SMN.ReportAtLogon = false
+	if config.SMN == nil then
+		config.SMN = {}
 	end
-	if QOL_Config_Toon.SMN.OnlyFavoritePets == nil then
-		QOL_Config_Toon.SMN.OnlyFavoritePets = false
+	if config.SMN.ReportAtLogon == nil then
+		config.SMN.ReportAtLogon = false
 	end
-	if QOL_Config_Toon.SMN.OnlyFavoriteMounts == nil then
-		QOL_Config_Toon.SMN.OnlyFavoriteMounts = true
+	if config.SMN.OnlyFavoritePets == nil then
+		config.SMN.OnlyFavoritePets = false
 	end
-	if QOL_Config_Toon.VC == nil then
-		QOL_Config_Toon.VC = {}
+	if config.SMN.OnlyFavoriteMounts == nil then
+		config.SMN.OnlyFavoriteMounts = true
 	end
-	if QOL_Config_Toon.VC.Levels == nil then
-		QOL_Config_Toon.VC.Levels = {}
-		table.insert(QOL_Config_Toon.VC.Levels, 80)
-		table.insert(QOL_Config_Toon.VC.Levels, 20)
-		table.insert(QOL_Config_Toon.VC.Levels, 5)
+	if config.VC == nil then
+		config.VC = {}
 	end
-	if QOL_Config_Toon.VC.Index == nil then
-		QOL_Config_Toon.VC.Index = 1
+	if config.VC.Levels == nil then
+		config.VC.Levels = {}
+		table.insert(config.VC.Levels, 80)
+		table.insert(config.VC.Levels, 20)
+		table.insert(config.VC.Levels, 5)
+	end
+	if config.VC.Index == nil then
+		config.VC.Index = 1
 	end
 end
 
@@ -135,64 +78,56 @@ function opt.CreateConfig()
 	local headerGap = 30
 	local itemGap = 20
 	local indent = 30
-	opt.Panel = CreateFrame('Frame', 'QoL Utilities', UIParent)
-	opt.Panel.name = 'QoL Utilities'	
-	opt.Panel.ScrollFrame = CreateFrame('ScrollFrame', 'QOL_Utils_ScrollFrame_' .. opt.GetUniqueID(), opt.Panel, 'UIPanelScrollFrameTemplate')
-	opt.Panel.ScrollFrame:SetPoint('TOPLEFT', opt.Panel, 'TOPLEFT')
-	opt.Panel.ScrollFrame:SetPoint('BOTTOMRIGHT', opt.Panel, 'BOTTOMRIGHT')	
-	opt.Panel.ScrollFrame.ScrollBar:ClearAllPoints()
-	opt.Panel.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', opt.Panel.ScrollFrame, 'TOPRIGHT', -5, -22)
-	opt.Panel.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', opt.Panel.ScrollFrame, 'BOTTOMRIGHT', -5, 22)	
-	local scrollchild = CreateFrame('Frame', 'QOL_Utils_ScrollChild_' .. opt.GetUniqueID(), opt.Panel.ScrollFrame)
-	scrollchild:SetSize(400, 750)
-	scrollchild:SetPoint('TOPLEFT', opt.Panel.ScrollFrame, 'TOPLEFT', -30, 30)
-	opt.Panel.ScrollFrame:SetScrollChild(scrollchild)	
+	local scrollchild = opt.CreateScrollFrame()
 	opt.Acct = {}
 	opt.Acct.AC = {}
 	local acctHeader = opt.CreateHeader(scrollchild, scrollchild, indent, -sectionGap, QOLUtils.Labels.Acct)
 	local acctACHeader = opt.CreateHeader(scrollchild, acctHeader, indent, -itemGap, QOLUtils.Labels.AC.Header)
-	opt.Acct.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, acctACHeader, indent, -itemGap, QOLUtils.Labels.AC.Report, QOL_Config.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReport)
-	opt.Acct.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, opt.Acct.AC.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.AC.Refundable, QOL_Config.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
-	opt.Acct.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, opt.Acct.AC.CheckBoxRefundable, 0, -itemGap, QOLUtils.Labels.AC.Tradeable, QOL_Config.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
-	opt.Acct.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, opt.Acct.AC.CheckBoxTradeable, 0, -itemGap, QOLUtils.Labels.AC.Bindable, QOL_Config.AC.BindableActive, QOLUtils.AC.ToggleBindable)
-	opt.Acct.QM = {}
-	local acctQMHeader = opt.CreateHeader(scrollchild, opt.Acct.AC.CheckBoxBindable, -indent, -headerGap, QOLUtils.Labels.QM.Header)
-	opt.Acct.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, acctQMHeader, indent, -itemGap, QOLUtils.Labels.QM.Report, QOL_Config.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReport)
-	opt.Acct.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, opt.Acct.QM.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.QM.Party, QOL_Config.QM.PartyActive, QOLUtils.QM.ToggleParty)
-	opt.Acct.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, opt.Acct.QM.CheckBoxParty, 0, -itemGap, QOLUtils.Labels.QM.Duel, QOL_Config.QM.DuelActive, QOLUtils.QM.ToggleDuel)
-	opt.Acct.SMN = {}
-	local acctSMNHeader = opt.CreateHeader(scrollchild, opt.Acct.QM.CheckBoxDuel, -indent, -headerGap, QOLUtils.Labels.SMN.Header)
-	opt.Acct.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, acctSMNHeader, indent, -itemGap, QOLUtils.Labels.SMN.Report, QOL_Config.SMN.ReportAtLogon, QOLUtils.SMN.ToggleLogonReport)
-	opt.Acct.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, opt.Acct.SMN.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoritePets, QOL_Config.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePets)
-	opt.Acct.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, opt.Acct.SMN.CheckBoxPets, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoriteMounts, QOL_Config.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMounts)
-	opt.Acct.VC = {}
-	local acctVCHeader = opt.CreateHeader(scrollchild, opt.Acct.SMN.CheckBoxMounts, -indent, -headerGap, QOLUtils.Labels.VC.Header)
-	local acctVCLabel = opt.CreateLabel(scrollchild, acctVCHeader, indent, -itemGap, QOLUtils.Labels.VC.Levels)
-	opt.Acct.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, acctVCLabel, indent, -10, QOLUtils.TableToStr(QOL_Config.VC.Levels), opt.ParseVolumeLevels)
+	opt.CreateConfigItems(scrollchild, acctACHeader, QOL_Config, opt.Acct, indent, headerGap, itemGap)
 	opt.Toon = {}
-	opt.Toon.AC = {}
 	local toonHeader = opt.CreateHeader(scrollchild, opt.Acct.VC.EditBoxLevels, -indent * 3, -sectionGap, QOLUtils.Labels.Toon)
 	opt.Toon.Active = opt.CreateCheckBox(scrollchild, toonHeader, indent, -itemGap, QOLUtils.Labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
-	local toonACHeader = opt.CreateHeader(scrollchild, opt.Toon.Active, 0, -headerGap, QOLUtils.Labels.AC.Header)
-	opt.Toon.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, toonACHeader, indent, -itemGap, QOLUtils.Labels.AC.Report, QOL_Config_Toon.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReport)
-	opt.Toon.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, opt.Toon.AC.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.AC.Refundable, QOL_Config_Toon.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
-	opt.Toon.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, opt.Toon.AC.CheckBoxRefundable, 0, -itemGap, QOLUtils.Labels.AC.Tradeable, QOL_Config_Toon.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
-	opt.Toon.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, opt.Toon.AC.CheckBoxTradeable, 0, -itemGap, QOLUtils.Labels.AC.Bindable, QOL_Config_Toon.AC.BindableActive, QOLUtils.AC.ToggleBindable)
-	opt.Toon.QM = {}
-	local toonQMHeader = opt.CreateHeader(scrollchild, opt.Toon.AC.CheckBoxBindable, -indent, -headerGap, QOLUtils.Labels.QM.Header)
-	opt.Toon.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, toonQMHeader, indent, -itemGap, QOLUtils.Labels.QM.Report, QOL_Config_Toon.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReport)
-	opt.Toon.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, opt.Toon.QM.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.QM.Party, QOL_Config_Toon.QM.PartyActive, QOLUtils.QM.ToggleParty)
-	opt.Toon.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, opt.Toon.QM.CheckBoxParty, 0, -itemGap, QOLUtils.Labels.QM.Duel, QOL_Config_Toon.QM.DuelActive, QOLUtils.QM.ToggleDuel)
-	opt.Toon.SMN = {}
-	local toonSMNHeader = opt.CreateHeader(scrollchild, opt.Toon.QM.CheckBoxDuel, -indent, -headerGap, QOLUtils.Labels.SMN.Header)
-	opt.Toon.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, toonSMNHeader, indent, -itemGap, QOLUtils.Labels.SMN.Report, QOL_Config_Toon.SMN.ReportAtLogon, QOLUtils.SMN.ToggleLogonReport)
-	opt.Toon.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, opt.Toon.SMN.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePets)
-	opt.Toon.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, opt.Toon.SMN.CheckBoxPets, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMounts)
-	opt.Toon.VC = {}
-	local toonVCHeader = opt.CreateHeader(scrollchild, opt.Toon.SMN.CheckBoxMounts, -indent, -headerGap, QOLUtils.Labels.VC.Header)
-	local toonVCLabel = opt.CreateLabel(scrollchild, toonVCHeader, indent, -itemGap, QOLUtils.Labels.VC.Levels)
-	opt.Toon.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, toonVCLabel, indent, -10, QOLUtils.TableToStr(QOL_Config_Toon.VC.Levels), opt.ParseVolumeLevels)
+	local toonACHeader = opt.CreateHeader(scrollchild, storage.Active, 0, -headerGap, QOLUtils.Labels.AC.Header)
+	opt.CreateConfigItems(scrollchild, toonACHeader, QOL_Config_Toon, opt.Toon, indent, headerGap, itemGap)
 	InterfaceOptions_AddCategory(opt.Panel);
+end
+
+function opt.CreateScrollFrame()
+	opt.Panel = CreateFrame('Frame', 'QoL Utilities', UIParent)
+	opt.Panel.name = 'QoL Utilities'
+	opt.Panel.ScrollFrame = CreateFrame('ScrollFrame', 'QOL_Utils_ScrollFrame_' .. opt.GetUniqueID(), opt.Panel, 'UIPanelScrollFrameTemplate')
+	opt.Panel.ScrollFrame:SetPoint('TOPLEFT', opt.Panel, 'TOPLEFT')
+	opt.Panel.ScrollFrame:SetPoint('BOTTOMRIGHT', opt.Panel, 'BOTTOMRIGHT')
+	opt.Panel.ScrollFrame.ScrollBar:ClearAllPoints()
+	opt.Panel.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', opt.Panel.ScrollFrame, 'TOPRIGHT', -5, -22)
+	opt.Panel.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', opt.Panel.ScrollFrame, 'BOTTOMRIGHT', -5, 22)
+	local scrollchild = CreateFrame('Frame', 'QOL_Utils_ScrollChild_' .. opt.GetUniqueID(), opt.Panel.ScrollFrame)
+	scrollchild:SetSize(400, 800)
+	scrollchild:SetPoint('TOPLEFT', opt.Panel.ScrollFrame, 'TOPLEFT', -30, 30)
+	opt.Panel.ScrollFrame:SetScrollChild(scrollchild)
+	return scrollchild
+end
+
+function opt.CreateConfigItems(scrollchild, firstRelativeParent, config, storage, indent, headerGap, itemGap)
+	storage.AC = {}
+	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, firstRelativeParent, indent, -itemGap, QOLUtils.Labels.AC.Report, config.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReport)
+	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.AC.Refundable, config.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
+	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxRefundable, 0, -itemGap, QOLUtils.Labels.AC.Tradeable, config.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
+	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxTradeable, 0, -itemGap, QOLUtils.Labels.AC.Bindable, config.AC.BindableActive, QOLUtils.AC.ToggleBindable)
+	storage.QM = {}
+	local qmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -indent, -headerGap, QOLUtils.Labels.QM.Header)
+	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, qmHeader, indent, -itemGap, QOLUtils.Labels.QM.Report, config.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReport)
+	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.QM.Party, config.QM.PartyActive, QOLUtils.QM.ToggleParty)
+	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxParty, 0, -itemGap, QOLUtils.Labels.QM.Duel, config.QM.DuelActive, QOLUtils.QM.ToggleDuel)
+	storage.SMN = {}
+	local smnHeader = opt.CreateHeader(scrollchild, storage.QM.CheckBoxDuel, -indent, -headerGap, QOLUtils.Labels.SMN.Header)
+	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, smnHeader, indent, -itemGap, QOLUtils.Labels.SMN.Report, config.SMN.ReportAtLogon, QOLUtils.SMN.ToggleLogonReport)
+	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoritePets, config.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePets)
+	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxPets, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoriteMounts, config.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMounts)
+	storage.VC = {}
+	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -indent, -headerGap, QOLUtils.Labels.VC.Header)
+	local toonVCLabel = opt.CreateLabel(scrollchild, vcHeader, indent, -itemGap, QOLUtils.Labels.VC.Levels)
+	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, toonVCLabel, indent, -10, QOLUtils.TableToStr(config.VC.Levels), opt.ParseVolumeLevels)
 end
 
 function opt.CreateHeader(parent, relativeParent, x, y, text)

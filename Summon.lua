@@ -78,22 +78,24 @@ function smn.Mount()
 			if QOLUtils.TableIsNilOrEmpty(usableMounts) then
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 			end
+		else
+			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 		end
 		C_MountJournal.SummonByID(usableMounts[math.random(table.getn(usableMounts))])
 	end
 end
 
 function smn.HasRidingSkill()
-	return smn.CanRideGroundMounts()
-		or smn.CanRideFlyingMounts()
+	return smn.HasRidingSkillGround()
+		or smn.HasRidingSkillFlight()
 end
 
-function smn.CanRideGroundMounts()
+function smn.HasRidingSkillGround()
 	return C_Spell.DoesSpellExist(33388)
 		or C_Spell.DoesSpellExist(33391)
 end
 
-function smn.CanRideFlyingMounts()
+function smn.HasRidingSkillFlight()
 	return C_Spell.DoesSpellExist(34090)
 		or C_Spell.DoesSpellExist(34091)
 		or C_Spell.DoesSpellExist(90265)

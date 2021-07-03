@@ -107,7 +107,7 @@ Command Format: \/qol at \[***optional:*** *destination* \[***optional:*** *subD
 
 <h3 id='at-destinations'>Destinations and Meaning</h3>
 
-Destination Argument | Destination Name | Example Command
+Argument: *destination* | Argument Name | Example Command
 :---:|---|---
 c | channel | *\/qol at c 1*
 g | guild    | *\/qol at g*
@@ -165,7 +165,7 @@ Command Format: \/qol ac \[***optional:*** *feature*\]
 
 ### Optional Arguments
 
-Optional Argument | Argument Description | Example Command
+Argument: *feature* | Description | Example Command
 :---:|---|---
 r | Toggle functionality on/off for Refundable items | *\/qol ac r*
 t | Toggle functionality on/off for Tradeable items | *\/qol ac t*
@@ -219,7 +219,7 @@ Command Format: \/qol qm \[***optional:*** *feature*\]
 
 ### Optional Arguments
 
-Optional Argument | Argument Description | Example Command
+Argument: *feature* | Description | Example Command
 :---:|---|---
 p | Toggle functionality on/off for Party Invites | *\/qol qm p*
 d | Toggle functionality on/off for Duel Requests | *\/qol qm d*
@@ -229,9 +229,9 @@ off | Turn functionality *off* for all requests | *\/qol qm off*
 <h2 id='smn'>Summoning Mounts & Pets</h2>
 
 Pretty much exactly what the title says: allows you to summon Mounts and Battle Pets.  
-Mount summoning is done based on current location and riding skill, eg. summoning a ground mount when you have the riding skill for flying but are in an area where you cannot fly.  
+Mount summoning is done based on current location and riding skill, ie. summoning a ground mount when you have the riding skill for flying but are in an area where you cannot fly.  
 You can also restrict mount summoning further by limiting the choices to your favorited mounts.  
-Battle Pet summoning is based soley on whether you are choosing to summon favorted pets.  
+Battle Pet summoning is based soley on whether you are choosing to summon favorited pets.  
 Current state of summoning is reported at player logon and on reload.  
 > The logon/reload report is turned **off** by default.  
 > Mount summoning being restricted to favorites is turned **on** by default.  
@@ -256,24 +256,23 @@ All *Summoning* slash commands begin with ***\/qol smn***.
 Additional command arguments are separated by whitespace.
 
 Command Format: \/qol smn \[***optional:*** *summonType* \[***optional:*** *state*\]\]
-> *Optional argument* ***state*** *is only used when preceded by the optional arguement* ***summonType****.*
-
-> **Running the command with NO optional arguments summons both a Battle Pet and a Mount.  
+> *Optional argument* ***state*** *is only used when preceded by the optional arguement* ***summonType****\.*  
+> **Running the command with NO optional arguments summons both a Battle Pet and a Mount.**  
 > Running the command with the optional argument *summonType*, but without the optional argument *state*, summons only the specified type.
 
-Optional Arguments
+### Optional Arguments
 
-summonType | state | Description | Example Command
+Argument: *summonType* | Argument: *state* | Description | Example Command
 :---: | :---: | --- | ---
-p | f | Toggles the *favorite* setting on/off for Battle Pets | *\/qol smn p f*
-p | on | Turns the *favorite* setting for summoning Battle Pets *on* | *\/qol smn p on*
-p | off | Turns the *favorite* setting for summoning Battle Pets *off* | *\/qol smn p off*
-p | - | Summons a random Battle Pet, if favorites is turned on, only a favorite Battle Pet will be summoned | *\/qol smn p*
-m | f | Toggles the *favorite* setting on/off for Mounts | *\/qol smn m f*
-m | on | Turns the *favorite* setting for summoning Mounts *on* | *\/qol smn m on*
-m | off | Turns the *favorite* setting for summoning Mounts *off* | *\/qol smn m off*
-m | - | Summons a random Mount, if favorites is turned on, only a favorite Mount will be summoned | *\/qol smn m*
-\- | - | Summons both random Battle Pet and Mount | *\/qol smn*
+p | f | Toggles the *favorites* setting on/off for Battle Pets | *\/qol smn p f*
+p | on | Turns the *favorites* setting for summoning Battle Pets *on* | *\/qol smn p on*
+p | off | Turns the *favorites* setting for summoning Battle Pets *off* | *\/qol smn p off*
+p | - | Summons a random Battle Pet. If *favorites* is turned on, only a favorite Battle Pet will be summoned | *\/qol smn p*
+m | f | Toggles the *favorites* setting on/off for Mounts | *\/qol smn m f*
+m | on | Turns the *favorites* setting for summoning Mounts *on* | *\/qol smn m on*
+m | off | Turns the *favorites* setting for summoning Mounts *off* | *\/qol smn m off*
+m | - | Summons a random Mount. If *favorites* is turned on, only a favorite Mount will be summoned | *\/qol smn m*
+\- | - | Summons both a random Battle Pet and Mount, respective of each types' *favorites* status. | *\/qol smn*
 
 <h2 id='vc'>Volume Cycler</h2>
 
