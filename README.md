@@ -16,6 +16,9 @@ WoW addon for minor quality of life changes.
 1. [Quiet Mode](#qm)
 	- [Usage](#qm-usage)
 	- [Command Arguments](#qm-arguments)
+1. [Summoning Mounts & Battle Pets](#smn)
+	- [Usage](#smn-usage)
+	- [Command Arguments](#smn-arguments)
 1. [Volume Cycler](#vc)
 	- [Usage](#vc-usage)
 	- [Command Arguments](#vc-arguments)
@@ -32,11 +35,23 @@ See the feature's details for more information on the corresponding slash comman
 > *Features not mentioned have no configuration associated with them*  
 
 
-**[Auto Confirm's](#ac)** in-game configuration consists of four checkboxes. The first is to toggle on/off the report that is shown at player logon and on reload. The other three are to toggle on/off the ability to automatically confirm equipping different items. One for Refundable items, one for Tradeable items, and one for "Bind on Equip" items.
+**[Auto Confirm's](#ac)** in-game configuration consists of four checkboxes.
+The first is to toggle on/off the report that is shown at player logon and on reload.
+The other three are to toggle on/off the ability to automatically confirm equipping different items.
+One for Refundable items, one for Tradeable items, and one for "Bind on Equip" items.
 
-**[Quiet Mode's](#qm)** in-game configuration consists of three checkboxex. The first is to toggle on/off the report that is shown at player logon and on reload. The other two are to toggle on/off the ability to automatically decline certain requests. One for decling Party Invites, and one for declining Duel Requests.
+**[Quiet Mode's](#qm)** in-game configuration consists of three checkboxes.
+The first is to toggle on/off the report that is shown at player logon and on reload.
+The other two are to toggle on/off the ability to automatically decline certain requests.
+One for decling Party Invites, and one for declining Duel Requests.
 
-**[Volume Cycler's](#vc)** in-game configuration consists of a single input field. A list of preset volume percentages that you will be able to cycle through, in the order in which they are entered.  
+**[Summoning Mounts & Battle Pets'](#smn)** in-game configuration consists of three checkboxes.
+The first is to toggle on/off the report that is shown at player logon and on reload.
+The other two are to toggle on/off the restriction of summoning to favorited summons.
+One for mounts, and one for battle pets.
+
+**[Volume Cycler's](#vc)** in-game configuration consists of a single input field.
+A list of preset volume percentages that you will be able to cycle through, in the order in which they are entered.  
 
 <h2 id='atc'>Achievement Tracker Cleaner</h2>
 
@@ -86,7 +101,7 @@ All *Announce Target* slash commands begin with ***\/qol at***.
 Additional command arguments are separated by whitespace.  
 *subDestination is ****only available after**** specifying a destination*.
 
-Command Format: \/qol at \[***optional:*** *destination*\] \[***optional:*** *subDestination*\]
+Command Format: \/qol at \[***optional:*** *destination* \[***optional:*** *subDestination*\]\]
 > *Running the comand with* ***no*** *optional arguments sends the target information to the first available chat channel.*
 > *The command* ***\/qol at*** *is equivalent to **\/qol at c 1**.*
 
@@ -210,6 +225,55 @@ p | Toggle functionality on/off for Party Invites | *\/qol qm p*
 d | Toggle functionality on/off for Duel Requests | *\/qol qm d*
 on | Turn functionality *on* for all requests | *\/qol qm on*
 off | Turn functionality *off* for all requests | *\/qol qm off*
+
+<h2 id='smn'>Summoning Mounts & Pets</h2>
+
+Pretty much exactly what the title says: allows you to summon Mounts and Battle Pets.  
+Mount summoning is done based on current location and riding skill, eg. summoning a ground mount when you have the riding skill for flying but are in an area where you cannot fly.  
+You can also restrict mount summoning further by limiting the choices to your favorited mounts.  
+Battle Pet summoning is based soley on whether you are choosing to summon favorted pets.  
+Current state of summoning is reported at player logon and on reload.  
+> The logon/reload report is turned **off** by default.  
+> Mount summoning being restricted to favorites is turned **on** by default.  
+> Battle Pet summoning being restricted to favorites is turned **off** by default.
+
+<h3 id='smn-usage'>Usage & Output</h3>
+
+Command Format: **\/qol smn**
+Executing this command will summon a random battle pet, and cause you to dismount or mount.  
+Executing this command with certain optional arguments will only summon a mount, or a battle pet, or toggle the *favorite* restriction.
+Only commands that toggle the *favorite* setting have output printed to the chat window; no other functionality has output.
+
+Example Command:
+> \/qol smn m on
+
+Example Output:
+> Only appropriate and favorited mounts will be summoned.
+
+<h3 id='smn-arguments'>Command Arguments</h3>
+
+All *Summoning* slash commands begin with ***\/qol smn***.  
+Additional command arguments are separated by whitespace.
+
+Command Format: \/qol smn \[***optional:*** *summonType* \[***optional:*** *state*\]\]
+> *Optional argument* ***state*** *is only used when preceded by the optional arguement* ***summonType****.*
+
+> **Running the command with NO optional arguments summons both a Battle Pet and a Mount.  
+> Running the command with the optional argument *summonType*, but without the optional argument *state*, summons only the specified type.
+
+Optional Arguments
+
+summonType | state | Description | Example Command
+:---: | :---: | --- | ---
+p | f | Toggles the *favorite* setting on/off for Battle Pets | *\/qol smn p f*
+p | on | Turns the *favorite* setting for summoning Battle Pets *on* | *\/qol smn p on*
+p | off | Turns the *favorite* setting for summoning Battle Pets *off* | *\/qol smn p off*
+p | - | Summons a random Battle Pet, if favorites is turned on, only a favorite Battle Pet will be summoned | *\/qol smn p*
+m | f | Toggles the *favorite* setting on/off for Mounts | *\/qol smn m f*
+m | on | Turns the *favorite* setting for summoning Mounts *on* | *\/qol smn m on*
+m | off | Turns the *favorite* setting for summoning Mounts *off* | *\/qol smn m off*
+m | - | Summons a random Mount, if favorites is turned on, only a favorite Mount will be summoned | *\/qol smn m*
+\- | - | Summons both random Battle Pet and Mount | *\/qol smn*
 
 <h2 id='vc'>Volume Cycler</h2>
 
