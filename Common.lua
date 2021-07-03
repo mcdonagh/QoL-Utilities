@@ -16,7 +16,7 @@ end
 function QOLUtils.ValueOrDefault(val, default)
 	local result = nil
 	if QOLUtils.IsNilOrWhitespace(val) then
-		if QOLUtils.IsNilOrWhitespace(default) then
+		if default == nil then
 			result = 'NIL'
 		else
 			result = default

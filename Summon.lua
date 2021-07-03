@@ -176,7 +176,7 @@ end
 
 function smn.ReportFavoriteMounts()
 	if QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoriteMounts
-			or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoriteMountsthen
+			or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoriteMounts then
 		smn.Log('Only appropiate and favorited mounts will be summoned.')
 	else
 		smn.Log('Any appropiate mount will be summoned.')
