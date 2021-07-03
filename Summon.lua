@@ -10,12 +10,24 @@ function smn.Summon(args)
 		smn.ScanJournal()
 	elseif subdirection == 'p' and state == 'on' then
 		smn.ToggleFavoritePets(true)
+		smn.ReportFavoritePets()
 	elseif subdirection == 'p' and state == 'off' then
 		smn.ToggleFavoritePets(false)
+		smn.ReportFavoritePets()
 	elseif subdirection == 'p' and state == 'f' then
 		smn.ToggleFavoritePets(nil)
+		smn.ReportFavoritePets()
 	elseif subdirection == 'p' then
 		smn.Pet()
+	elseif subdirection == 'm' and state == 'on' then
+		smn.ToggleFavoriteMounts(true)
+		smn.ReportFavoriteMounts()
+	elseif subdirection == 'm' and state == 'off' then
+		smn.ToggleFavoriteMounts(false)
+		smn.ReportFavoriteMounts()
+	elseif subdirection == 'm' and state == 'f' then
+		smn.ToggleFavoriteMounts(nil)
+		smn.ReportFavoriteMounts()
 	elseif subdirection == 'm' then
 		smn.Mount()
 	else
@@ -27,24 +39,6 @@ end
 function smn.Pet()
 	local onlyFavorites = QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoritePets or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoritePets
 	C_PetJournal.SummonRandomPet(onlyFavorites)
-end
-
-function smn.ToggleFavoritePets(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.SMN.OnlyFavoritePets = not QOL_Config_Toon.SMN.OnlyFavoritePets
-		else
-			QOL_Config_Toon.SMN.OnlyFavoritePets = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.CheckBoxFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets)
-	else
-		if state == nil then
-			QOL_Config.SMN.OnlyFavoritePets = not QOL_Config.OnlyFavoritePets
-		else
-			QOL_Config.SMN.OnlyFavoritePets = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.CheckBoxFavoritePets, QOL_Config.SMN.OnlyFavoritePets)
-	end
 end
 
 smn.Types = {}
@@ -123,6 +117,78 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 		table.insert(usableMounts, v)
 	end
 	return usableMounts
+end
+
+function smn.ToggleFavoritePets(state)
+	if QOL_Config_Toon.Active then
+		if state == nil then
+			QOL_Config_Toon.SMN.OnlyFavoritePets = not QOL_Config_Toon.SMN.OnlyFavoritePets
+		else
+			QOL_Config_Toon.SMN.OnlyFavoritePets = state
+		end
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.CheckBoxPets, QOL_Config_Toon.SMN.OnlyFavoritePets)
+	else
+		if state == nil then
+			QOL_Config.SMN.OnlyFavoritePets = not QOL_Config.OnlyFavoritePets
+		else
+			QOL_Config.SMN.OnlyFavoritePets = state
+		end
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.CheckBoxPets, QOL_Config.SMN.OnlyFavoritePets)
+	end
+end
+
+function smn.ToggleFavoriteMounts(state)
+	if QOL_Config_Toon.Active then
+		if state == nil then
+			QOL_Config_Toon.SMN.OnlyFavoriteMounts = not QOL_Config_Toon.SMN.OnlyFavoriteMounts
+		else
+			QOL_Config_Toon.SMN.OnlyFavoriteMounts = state
+		end
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.CheckBoxMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts)
+	else
+		if state == nil then
+			QOL_Config.SMN.OnlyFavoriteMounts = not QOL_Config.SMN.OnlyFavoriteMounts
+		else
+			QOL_Config.SMN.OnlyFavoriteMounts = state
+		end
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.CheckBoxMounts, QOL_Config.SMN.OnlyFavoriteMounts)
+	end
+end
+
+function smn.ToggleLogonReport()
+	if QOL_Config_Toon.Active then
+		QOL_Config_Toon.SMN.ReportAtLogon = not QOL_Config_Toon.SMN.ReportAtLogon
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.SMN.CheckBoxReport, QOL_Config_Toon.SMN.ReportAtLogon)
+	else
+		QOL_Config.SMN.ReportAtLogon = not QOL_Config.SMN.ReportAtLogon
+		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.SMN.CheckBoxReport, QOL_Config.SMN.ReportAtLogon)
+	end
+end
+
+function smn.ReportFavoritePets()
+	if QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoritePets
+			or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoritePets then
+		smn.Log('Only favorited pets will be summoned.')
+	else
+		smn.Log('Any pet will be summoned.')
+	end
+end
+
+function smn.ReportFavoriteMounts()
+	if QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoriteMounts
+			or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoriteMountsthen
+		smn.Log('Only favorited appropiate mounts will be summoned.')
+	else
+		smn.Log('Any appropiate mount will be summoned.')
+	end
+end
+
+function smn.ReportInitial()
+	if QOL_Config_Toon.Active and QOL_Config_Toon.SMN.ReportAtLogon
+			or not QOL_Config_Toon.Active and QOL_Config.SMN.ReportAtLogon then
+		smn.ReportFavoritePets()
+		smn.ReportFavoriteMounts()
+	end
 end
 
 function smn.Log(msg)

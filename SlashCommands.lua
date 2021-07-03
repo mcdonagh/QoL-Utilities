@@ -6,9 +6,9 @@ SlashCmdList['QOLUTILITIES'] = function (msg)
 end
 
 function QOLUtils.ParseInput(msg)
-	local args = QOLUtils.OPT.StrToTable(msg, QOLUtils.Patterns.Words)
+	local args = QOLUtils.StrToTable(msg, QOLUtils.Patterns.Words)
 	local direction = args[1]
-	if QOLUtils.IsEmpty(msg) then
+	if QOLUtils.IsNilOrWhitespace(msg) then
 		QOLUtils.OPT.OpenConfig()
 	elseif direction == 'atc' then
 		QOLUtils.ATC.Clean(true)

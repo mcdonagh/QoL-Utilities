@@ -33,8 +33,10 @@ qm.Party = 'Automatically decline Party Invites.'
 qm.Duel = 'Automatically decline Duel Requests.'
 
 local smn = QOLUtils.Labels.SMN
-smn.Header = 'Summon Mount & Pet'
+smn.Header = 'Summon Mounts & Pets'
+smn.Report = 'Report Summon status at player logon and on reload.'
 smn.OnlyFavoritePets = 'Only summon favorite pets when summoning a random pet.'
+smn.OnlyFavoriteMounts = 'Only summon favorite mounts when summoning a mount.'
 
 local vc = QOLUtils.Labels.VC
 vc.Header = 'Volume Cycler'

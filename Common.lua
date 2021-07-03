@@ -2,27 +2,51 @@ local addonName, QOLUtils = ...
 
 function QOLUtils.Log(message, subID)
 	local ID = '[QoLUtils]'
-	if not QOLUtils.IsEmpty(subID) then
+	if not QOLUtils.IsNilOrWhitespace(subID) then
 		ID = format('[QoL Utils - %s]', subID)
 	end
-	message = QOLUtils.ValueOrNIL(message)
+	message = QOLUtils.ValueOrDefault(message)
 	print(format('%s  %s  %s', date('%H:%M'), ID, message))
 end
 
-function QOLUtils.IsEmpty(val)
-	return val == nil or val == ''
+function QOLUtils.IsNilOrWhitespace(val)
+	return val == nil or val:gsub(QOLUtils.Patterns.WhiteSpaceStart, '') == ''
 end
 
-function QOLUtils.ValueOrNIL(val)
-	if QOLUtils.IsEmpty(val) then
-		return 'NIL'
+function QOLUtils.ValueOrDefault(val, default)
+	local result = nil
+	if QOLUtils.IsNilOrWhitespace(val) then
+		if QOLUtils.IsNilOrWhitespace(default) then
+			result = 'NIL'
+		else
+			result = default
+		end
 	else
-		return val
+		result = val
 	end
+	return result
 end
 
 function QOLUtils.TableIsNilOrEmpty(t)
 	return t == nil or table.getn(t) < 1
+end
+
+function QOLUtils.StrToTable(str, pattern)
+	local args = {}
+	for num in str:gmatch(pattern) do
+		table.insert(args, num)
+	end
+	return args
+end
+
+function QOLUtils.TableToStr(t, separator)
+	local str = ''
+	local sep = QOLUtils.ValueOrDefault(separator, ' ')
+	for i = 1, table.getn(t) do
+		str = str .. tostring(t[i]) .. sep
+	end
+	str = str:gsub(QOLUtils.Patterns.WhiteSpaceStart, ''):gsub(QOLUtils.Patterns.WhiteSpaceEnd, '')
+	return str
 end
 
 function QOLUtils.GetFrame(name)
