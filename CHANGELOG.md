@@ -19,6 +19,19 @@
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
 
+<h2 id='c003'>2021-07-03</h2>
+- Added ability to summon battle pets
+	- Will summon either any battle pet or any favorited battle pet
+- Added ability to summon mounts based on current ability and location
+	- Will summon any qualifying mount, or only favorited qualifying mounts
+	- Only summons ground mounts where you can't fly
+	- Only summons flying mounts where you can fly
+	- Only summons underwater mounts when submerged
+	- Special mounts Chauffeur or Racial/Class mounts will be summoned when you are under leveled or have not yet trained the riding skill
+	- Special mounts Qiraji Battle Tanks will be summoned when you are in the Temple of Ahn'Qiraj
+- Added configuration options for summoning favorite pets/mounts
+- Backend changes to the code base for easier maintenance and cleaner division of functionality
+
 <h2 id='c002'>2021-07-01</h2>
 
 - Configuration update:

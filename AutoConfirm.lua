@@ -4,19 +4,20 @@ QOLUtils.AC = {}
 local ac = QOLUtils.AC
 
 function ac.ToggleAndReport(args)
-	if args[2] == 'r' then
+	local indicator = args[2]
+	if indicator == 'r' then
 		ac.ToggleRefundable(nil)
 		ac.ReportRefundable()
-	elseif args[2] == 't' then
+	elseif indicator == 't' then
 		ac.ToggleTradeable(nil)
 		ac.ReportTradeable()
-	elseif args[2] == 'b' then
+	elseif indicator == 'b' then
 		ac.ToggleBindable(nil)
 		ac.ReportBindable()
 	else
-		if args[2] == 'on' then
+		if indicator == 'on' then
 			ac.ToggleAll(true)
-		elseif args[2] == 'off' then
+		elseif indicator == 'off' then
 			ac.ToggleAll(false)
 		else
 			ac.ToggleAll(nil)

@@ -4,16 +4,17 @@ QOLUtils.QM = {}
 local qm = QOLUtils.QM
 
 function qm.ToggleQuietModeAndReport(args)
-	if args[2] == 'p' then
+	local indicator = args[2]
+	if indicator == 'p' then
 		qm.ToggleParty(nil)
 		qm.ReportParty()
-	elseif args[2] == 'd' then
+	elseif indicator == 'd' then
 		qm.ToggleDuel(nil)
 		qm.ReportDuel()
 	else
-		if args[2] == 'on' then
+		if indicator == 'on' then
 			qm.ToggleAll(true)
-		elseif args[2] == 'off' then
+		elseif indicator == 'off' then
 			qm.ToggleAll(false)
 		else
 			qm.ToggleAll(nil)
