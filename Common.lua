@@ -21,6 +21,10 @@ function QOLUtils.ValueOrNIL(val)
 	end
 end
 
+function QoLUtils.TableIsNilOrEmpty(t)
+	return t == nil or table.getn(t) < 1
+end
+
 function QOLUtils.GetFrame(name)
 	QOLUtils.Log(name)
 	local frame = _G[name]
