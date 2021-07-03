@@ -247,7 +247,7 @@ end
 function opt.TableToStr(t)
 	local s = ''
 	for i = 1, table.getn(t) do
-		s = s .. t[i] .. ' '
+		s = s .. tostring(t[i]) .. ' '
 	end
 	s = s:gsub(QOLUtils.Patterns.WhiteSpaceStart, ''):gsub(QOLUtils.Patterns.WhiteSpaceEnd, '')
 	return s

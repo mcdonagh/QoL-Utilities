@@ -5,14 +5,20 @@ function QOLUtils.Log(message, subID)
 	if not QOLUtils.IsEmpty(subID) then
 		ID = format('[QoL Utils - %s]', subID)
 	end
-	if QOLUtils.IsEmpty(message) then
-		message = 'NIL'
-	end
+	message = QOLUtils.ValueOrNIL(message)
 	print(format('%s  %s  %s', date('%H:%M'), ID, message))
 end
 
 function QOLUtils.IsEmpty(val)
 	return val == nil or val == ''
+end
+
+function QOLUtils.ValueOrNIL(val)
+	if QOLUtils.IsEmpty(val) then
+		return 'NIL'
+	else
+		return val
+	end
 end
 
 function QOLUtils.GetFrame(name)
