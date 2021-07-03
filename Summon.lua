@@ -4,17 +4,19 @@ QOLUtils.SMN = {}
 local smn = QOLUtils.SMN
 
 function smn.Summon(args)
-	if args[2] == 'update' then
+	local subdirection = args[2]
+	local state = QOLUtils.ValueOrNIL(args[3])
+	if subdirection == 'update' then
 		smn.ScanJournal()
-	elseif args[2] == 'p' and args[3] 'on' then
+	elseif subdirection == 'p' and state == 'on' then
 		smn.ToggleFavoritePets(true)
-	elseif args[2] == 'p' and args[3] == 'off' then
+	elseif subdirection == 'p' and state == 'off' then
 		smn.ToggleFavoritePets(false)
-	elseif args[2] == 'p' and args[3] == 'f' then
+	elseif subdirection == 'p' and state == 'f' then
 		smn.ToggleFavoritePets(nil)
-	elseif args[2] == 'p' then
+	elseif subdirection == 'p' then
 		smn.Pet()
-	elseif args[2] == 'm' then
+	elseif subdirection == 'm' then
 		smn.Mount()
 	else
 		smn.Pet()
@@ -75,7 +77,7 @@ function smn.Mount()
 			if not smn.CanRideFlyingMounts() then
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 			else
-				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Flying, smn.Tyeps.Water)
+				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Flying, smn.Types.Water)
 			end
 		elseif GetZoneText() == 'Temple of Ahn\'Qiraj' then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Qiraj)
@@ -110,7 +112,7 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 	end
 	local foundMounts = {}
 	local onlyFavorites = QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoriteMounts or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoriteMounts
-	for mountID in C_MountJournal.GetMountIDs() do
+	for i, mountID in pairs(C_MountJournal.GetMountIDs()) do
 		local _, _, _, _, isUsable, _, isFavorite = C_MountJournal.GetMountInfoByID(mountID)
 		local _, _, _, _, typeID = C_MountJournal.GetMountInfoExtraByID(mountID)
 		if isUsable and ((validTypeA and validTypeA[typeID]) or (validTypeB and validTypeB[typeID])) and ((onlyFavorites and isFavorite) or not onlyFavorites) then

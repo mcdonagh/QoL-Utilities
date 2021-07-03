@@ -21,7 +21,7 @@ function QOLUtils.ValueOrNIL(val)
 	end
 end
 
-function QoLUtils.TableIsNilOrEmpty(t)
+function QOLUtils.TableIsNilOrEmpty(t)
 	return t == nil or table.getn(t) < 1
 end
 
