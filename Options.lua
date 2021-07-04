@@ -117,20 +117,20 @@ end
 
 function opt.CreateConfigItems(scrollchild, firstRelativeParent, config, storage, indent, headerGap, itemGap)
 	storage.AC = {}
-	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, firstRelativeParent, indent, -itemGap, QOLUtils.Labels.AC.Report, config.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReport)
-	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.AC.Refundable, config.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
-	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxRefundable, 0, -itemGap, QOLUtils.Labels.AC.Tradeable, config.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
-	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxTradeable, 0, -itemGap, QOLUtils.Labels.AC.Bindable, config.AC.BindableActive, QOLUtils.AC.ToggleBindable)
+	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, firstRelativeParent, indent, -itemGap, QOLUtils.Labels.AC.Report, config.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReportOnClick)
+	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.AC.Refundable, config.AC.RefundableActive, QOLUtils.AC.ToggleRefundableOnClick)
+	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxRefundable, 0, -itemGap, QOLUtils.Labels.AC.Tradeable, config.AC.TradeableActive, QOLUtils.AC.ToggleTradeableOnClick)
+	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxTradeable, 0, -itemGap, QOLUtils.Labels.AC.Bindable, config.AC.BindableActive, QOLUtils.AC.ToggleBindableOnClick)
 	storage.QM = {}
 	local qmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -indent, -headerGap, QOLUtils.Labels.QM.Header)
-	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, qmHeader, indent, -itemGap, QOLUtils.Labels.QM.Report, config.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReport)
-	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.QM.Party, config.QM.PartyActive, QOLUtils.QM.ToggleParty)
-	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxParty, 0, -itemGap, QOLUtils.Labels.QM.Duel, config.QM.DuelActive, QOLUtils.QM.ToggleDuel)
+	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, qmHeader, indent, -itemGap, QOLUtils.Labels.QM.Report, config.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReportOnClick)
+	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.QM.Party, config.QM.PartyActive, QOLUtils.QM.TogglePartyOnClick)
+	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxParty, 0, -itemGap, QOLUtils.Labels.QM.Duel, config.QM.DuelActive, QOLUtils.QM.ToggleDuelOnClick)
 	storage.SMN = {}
 	local smnHeader = opt.CreateHeader(scrollchild, storage.QM.CheckBoxDuel, -indent, -headerGap, QOLUtils.Labels.SMN.Header)
-	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, smnHeader, indent, -itemGap, QOLUtils.Labels.SMN.Report, config.SMN.ReportAtLogon, QOLUtils.SMN.ToggleLogonReport)
-	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoritePets, config.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePets)
-	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxPets, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoriteMounts, config.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMounts)
+	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, smnHeader, indent, -itemGap, QOLUtils.Labels.SMN.Report, config.SMN.ReportAtLogon, QOLUtils.SMN.ToggleLogonReportOnClick)
+	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoritePets, config.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePetsOnClick)
+	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxPets, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoriteMounts, config.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMountsOnClick)
 	storage.VC = {}
 	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -indent, -headerGap, QOLUtils.Labels.VC.Header)
 	local toonVCLabel = opt.CreateLabel(scrollchild, vcHeader, indent, -itemGap, QOLUtils.Labels.VC.Levels)

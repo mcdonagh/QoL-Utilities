@@ -106,6 +106,18 @@ function qm.DeclineDuel(...)
 	end
 end
 
+function qm.TogglePartyOnClick()
+	qm.ToggleParty()
+end
+
+function qm.ToggleDuelOnClick()
+	qm.ToggleDuel()
+end
+
+function qm.ToggleLogonReportOnClick()
+	qm.ToggleLogonReport()
+end
+
 function qm.Log(message)
 	QOLUtils.Log(message, 'QM')
 end

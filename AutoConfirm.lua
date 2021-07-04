@@ -138,6 +138,22 @@ function ac.ClickConfirm(confirmText, buttonType)
 	end
 end
 
+function ac.ToggleRefundableOnClick()
+	ac.ToggleRefundable()
+end
+
+function ac.ToggleTradeableOnClick()
+	ac.ToggleTradeable()
+end
+
+function ac.ToggleBindableOnClick()
+	ac.ToggleBindable()
+end
+
+function ac.ToggleLogonReportOnClick()
+	ac.ToggleLogonReport()
+end
+
 function ac.Log(message)
 	QOLUtils.Log(message, 'AC')
 end

@@ -170,6 +170,18 @@ function smn.ReportInitial()
 	end
 end
 
+function smn.ToggleFavoritePetsOnClick()
+	smn.ToggleFavoritePets()
+end
+
+function smn.ToggleFavoriteMountsOnClick()
+	smn.ToggleFavoriteMounts()
+end
+
+function smn.ToggleLogonReportOnClick()
+	smn.ToggleLogonReport()
+end
+
 function smn.Log(msg)
 	QOLUtils.Log(msg, 'SMN')
 end
