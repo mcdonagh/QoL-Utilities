@@ -2,8 +2,6 @@ local addonName, QOLUtils = ...
 
 QOLUtils.AC = {}
 local ac = QOLUtils.AC
-local configAcct = QOL_Config.AC
-local configToon = QOL_Config_Toon.AC
 local configWindowAcct = QOLUtils.OPT.Acct.AC
 local configWindowToon = QOLUtils.OPT.Toon.AC
 
@@ -31,40 +29,40 @@ function ac.ToggleAndReport(args)
 end
 
 function ac.ToggleRefundable(state)
-	configAcct.RefundableActive, configToon.RefundableActive =
+	QOL_Config.AC.RefundableActive, QOL_Config_Toon.AC.RefundableActive =
 	QOLUtils.ToggleSetting(state,
-		configAcct.RefundableActive,
-		configToon.RefundableActive,
+		QOL_Config.AC.RefundableActive,
+		QOL_Config_Toon.AC.RefundableActive,
 		configWindowAcct.CheckBoxRefundable,
 		configWindowToon.CheckBoxRefundable)
 end
 
 function ac.ToggleTradeable(state)
-	configAcct.TradeableActive, configToon.TradeableActive =
+	QOL_Config.AC.TradeableActive, QOL_Config_Toon.AC.TradeableActive =
 	QOLUtils.ToggleSetting(state,
-		configAcct.TradeableActive,
-		configToon.TradeableActive,
+		QOL_Config.AC.TradeableActive,
+		QOL_Config_Toon.AC.TradeableActive,
 		configWindowAcct.CheckBoxTradeable,
 		configWindowToon.CheckBoxTradeable)
 end
 
 function ac.ToggleBindable(state)
-	configAcct.BindableActive, configToon.BindableActive =
+	QOL_Config.AC.BindableActive, QOL_Config_Toon.AC.BindableActive =
 	QOLUtils.ToggleSetting(state,
-		configAcct.BindableActive,
-		configToon.BindableActive,
+		QOL_Config.AC.BindableActive,
+		QOL_Config_Toon.AC.BindableActive,
 		configWindowAcct.CheckBoxBindable,
 		configWindowToon.CheckBoxBindable)
 end
 
 function ac.ToggleAll(state)
 	if QOL_Config_Toon.Active then
-		local combinedState = state or configToon.RefundableActive or configToon.TradeableActive or configToon.BindableActive
+		local combinedState = state or QOL_Config_Toon.AC.RefundableActive or QOL_Config_Toon.AC.TradeableActive or QOL_Config_Toon.AC.BindableActive
 		ac.ToggleRefundable(combinedState)
 		ac.ToggleTradeable(combinedState)
 		ac.ToggleBindable(combinedState)
 	else
-		local combinedState = state or configAcct.RefundableActive or configAcct.TradeableActive or configAcct.BindableActive
+		local combinedState = state or QOL_Config.AC.RefundableActive or QOL_Config.AC.TradeableActive or QOL_Config.AC.BindableActive
 		ac.ToggleRefundable(combinedState)
 		ac.ToggleTradeable(combinedState)
 		ac.ToggleBindable(combinedState)
@@ -72,16 +70,16 @@ function ac.ToggleAll(state)
 end
 
 function ac.ToggleLogonReport()
-	configAcct.ReportAtLogon, configToon.ReportAtLogon =
+	QOL_Config.AC.ReportAtLogon, QOL_Config_Toon.AC.ReportAtLogon =
 	QOLUtils.ToggleSetting(nil,
-		configAcct.ReportAtLogon,
-		configToon.ReportAtLogon,
+		QOL_Config.AC.ReportAtLogon,
+		QOL_Config_Toon.AC.ReportAtLogon,
 		configWindowAcct.CheckBoxReport,
 		configWindowToon.CheckBoxReport)
 end
 
 function ac.ReportRefundable()
-	if QOLUtils.SettingIsTrue(configAcct.RefundableActive, configToon.RefundableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.RefundableActive, QOL_Config_Toon.AC.RefundableActive) then
 		ac.Log('Automatically confirming to equip Refundable items.')
 	else
 		ac.Log('Manual confirmation required to equip Refundable items.')
@@ -89,7 +87,7 @@ function ac.ReportRefundable()
 end
 
 function ac.ReportTradeable()
-	if QOLUtils.SettingIsTrue(configAcct.TradeableActive, configToon.TradeableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.TradeableActive, QOL_Config_Toon.AC.TradeableActive) then
 		ac.Log('Automatically confirming to equip Tradeable items.')
 	else
 		ac.Log('Manual confirmation required to equip Tradeable items.')
@@ -97,7 +95,7 @@ function ac.ReportTradeable()
 end
 
 function ac.ReportBindable()
-	if QOLUtils.SettingIsTrue(configAcct.BindableActive, configToon.BindableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.BindableActive, QOL_Config_Toon.AC.BindableActive) then
 		ac.Log('Automatically confirming to equip "Bind on Equip" items.')
 	else
 		ac.Log('Manual confirmation required to equip "Bind on Equip" items.')
@@ -105,7 +103,7 @@ function ac.ReportBindable()
 end
 
 function ac.ReportInitial()
-	if QOLUtils.SettingIsTrue(configAcct.ReportAtLogon, configToon.ReportAtLogon) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.ReportAtLogon, QOL_Config_Toon.AC.ReportAtLogon) then
 		ac.ReportAll()
 	end
 end
@@ -117,19 +115,19 @@ function ac.ReportAll()
 end
 
 function ac.ConfirmEquipRefundable()
-	if QOLUtils.SettingIsTrue(configAcct.RefundableActive, configToon.RefundableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.RefundableActive, QOL_Config_Toon.AC.RefundableActive) then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
 
 function ac.ConfirmEquipTradeable()
-	if QOLUtils.SettingIsTrue(configAcct.TradeableActive, configToon.TradeableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.TradeableActive, QOL_Config_Toon.AC.TradeableActive) then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
 
 function ac.ConfirmEquipBind()
-	if QOLUtils.SettingIsTrue(configAcct.BindableActive, configToon.BindableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.BindableActive, QOL_Config_Toon.AC.BindableActive) then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
@@ -143,23 +141,23 @@ function ac.ClickConfirm(confirmText, buttonType)
 end
 
 function ac.ToggleRefundableOnClick()
-	configAcct.RefundableActive = configWindowAcct.CheckBoxRefundable:GetChecked()
-	configToon.RefundableActive = configWindowToon.CheckBoxRefundable:GetChecked()
+	QOL_Config.AC.RefundableActive = configWindowAcct.CheckBoxRefundable:GetChecked()
+	QOL_Config_Toon.AC.RefundableActive = configWindowToon.CheckBoxRefundable:GetChecked()
 end
 
 function ac.ToggleTradeableOnClick()
-	configAcct.TradeableActive = configWindowAcct.CheckBoxTradeable:GetChecked()
-	configToon.TradeableActive = configWindowAcct.CheckBoxTradeable:GetChecked()
+	QOL_Config.AC.TradeableActive = configWindowAcct.CheckBoxTradeable:GetChecked()
+	QOL_Config_Toon.AC.TradeableActive = configWindowAcct.CheckBoxTradeable:GetChecked()
 end
 
 function ac.ToggleBindableOnClick()
-	configAcct.BindableActive = configWindowAcct.CheckBoxBindable:GetChecked()
-	configToon.BindableActive = configWindowToon.CheckBoxBindable:GetChecked()
+	QOL_Config.AC.BindableActive = configWindowAcct.CheckBoxBindable:GetChecked()
+	QOL_Config_Toon.AC.BindableActive = configWindowToon.CheckBoxBindable:GetChecked()
 end
 
 function ac.ToggleLogonReportOnClick()
-	configAcct.ReportAtLogon = configWindowAcct.CheckBoxReport:GetChecked()
-	configToon.ReportAtLogon = configWindowToon.CheckBoxReport:GetChecked()
+	QOL_Config.AC.ReportAtLogon = configWindowAcct.CheckBoxReport:GetChecked()
+	QOL_Config_Toon.AC.ReportAtLogon = configWindowToon.CheckBoxReport:GetChecked()
 end
 
 function ac.Log(message)

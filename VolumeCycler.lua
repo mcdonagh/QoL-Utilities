@@ -2,11 +2,9 @@ local addonName, QOLUtils = ...
 
 QOLUtils.VC = {}
 local vc = QOLUtils.VC
-local configAcct = QOL_Config.VC
-local configToon = QOL_Config_Toon.VC
 
 function vc.LoadInitialVolume()
-	local level = QOL_Config_Toon.Active and configToon.Levels[configToon.Index] or configAcct.Levels[configAcct.Index]
+	local level = QOL_Config_Toon.Active and QOL_Config_Toon.VC.Levels[QOL_Config_Toon.VC.Index] or QOL_Config.VC.Levels[QOL_Config.VC.Index]
 	vc.SetVolume(level)
 end
 
@@ -15,19 +13,19 @@ function vc.Cycle(args)
 	if args[2] then
 		level = args[2]
 	else
-		local t = QOL_Config_Toon.Active and configToon.Levels or configAcct.Levels
-		local i = QOL_Config_Toon.Active and configToon.Index or configAcct.Index
+		local t = QOL_Config_Toon.Active and QOL_Config_Toon.VC.Levels or QOL_Config.VC.Levels
+		local i = QOL_Config_Toon.Active and QOL_Config_Toon.VC.Index or QOL_Config.VC.Index
 		local indexCount = table.getn(t)
 		local desiredIndex = (i + 1) % indexCount
 		if desiredIndex == 0 then
 			desiredIndex = indexCount
 		end
 		if QOL_Config_Toon.Active then
-			configToon.Index = desiredIndex
+			QOL_Config_Toon.VC.Index = desiredIndex
 		else
-			configAcct.Index = desiredIndex
+			QOL_Config.VC.Index = desiredIndex
 		end
-		level = QOL_Config_Toon.Active and configToon.Levels[desiredIndex] or configAcct.Levels[desiredIndex]
+		level = QOL_Config_Toon.Active and QOL_Config_Toon.VC.Levels[desiredIndex] or QOL_Config.VC.Levels[desiredIndex]
 	end
 	vc.SetVolume(level)
 end
