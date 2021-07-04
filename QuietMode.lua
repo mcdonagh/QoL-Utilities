@@ -24,6 +24,7 @@ function qm.ToggleQuietModeAndReport(args)
 end
 
 function qm.ToggleParty(state)
+	QOL_Config..QM.PartyActive, QOL_Config_Toon.QM.PartyActive =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.QM.PartyActive,
 		QOL_Config_Toon.QM.PartyActive,
@@ -32,6 +33,7 @@ function qm.ToggleParty(state)
 end
 
 function qm.ToggleDuel(state)
+	QOL_Config.QM.DuelActive, QOL_Config_Toon.QM.DuelActive =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.QM.DuelActive,
 		QOL_Config_Toon.QM.DuelActive,
@@ -52,6 +54,7 @@ function qm.ToggleAll(state)
 end
 
 function qm.ToggleLogonReport()
+	QOL_Config.QM.ReportAtLogon, QOL_Config_Toon.QM.ReportAtLogon =
 	QOLUtils.ToggleSetting(nil,
 		QOL_Config.QM.ReportAtLogon,
 		QOL_Config_Toon.QM.ReportAtLogon,

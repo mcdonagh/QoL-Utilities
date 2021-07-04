@@ -72,19 +72,22 @@ function QOLUtils.SettingIsTrue(acctSetting, toonSetting)
 end
 
 function QOLUtils.ToggleSetting(state, acctSetting, toonSetting, acctCheckBox, toonCheckBox)
+	local modifiedToonSetting = toonSetting
+	local modifiedAcctSetting = acctSetting
 	if QOL_Config_Toon.Active then
 		if state == nil then
-			toonSetting = not toonSetting
+			modifiedToonSetting = not toonSetting
 		else
-			toonSetting = state
+			modifiedToonSetting = state
 		end
-		QOLUtils.OPT.UpdateCheckBox(toonCheckBox, toonSetting)
+		QOLUtils.OPT.UpdateCheckBox(toonCheckBox, modifiedToonSetting)
 	else
 		if state == nil then
-			acctSetting = not acctSetting
+			modifiedAcctSetting = not acctSetting
 		else
-			acctSetting = state
+			modifiedAcctSetting = state
 		end
-		QOLUtils.OPT.UpdateCheckBox(acctCheckBox, acctSetting)
+		QOLUtils.OPT.UpdateCheckBox(acctCheckBox, modifiedAcctSetting)
 	end
+	return modifiedAcctSetting, modifiedToonSetting
 end

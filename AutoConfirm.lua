@@ -27,6 +27,7 @@ function ac.ToggleAndReport(args)
 end
 
 function ac.ToggleRefundable(state)
+	QOL_Config.AC.RefundableActive, QOL_Config_Toon.AC.RefundableActive =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.AC.RefundableActive,
 		QOL_Config_Toon.AC.RefundableActive,
@@ -35,6 +36,7 @@ function ac.ToggleRefundable(state)
 end
 
 function ac.ToggleTradeable(state)
+	QOL_Config.AC.TradeableActive, QOL_Config_Toon.AC.TradeableActive =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.AC.TradeableActive,
 		QOL_Config_Toon.AC.TradeableActive,
@@ -43,6 +45,7 @@ function ac.ToggleTradeable(state)
 end
 
 function ac.ToggleBindable(state)
+	QOL_Config.AC.BindableActive, QOL_Config_Toon.AC.BindableActive =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.AC.BindableActive,
 		QOL_Config_Toon.AC.BindableActive,
@@ -65,6 +68,7 @@ function ac.ToggleAll(state)
 end
 
 function ac.ToggleLogonReport()
+	QOL_Config.AC.ReportAtLogon, QOL_Config_Toon.AC.ReportAtLogon =
 	QOLUtils.ToggleSetting(nil,
 		QOL_Config.AC.ReportAtLogon,
 		QOL_Config_Toon.AC.ReportAtLogon,

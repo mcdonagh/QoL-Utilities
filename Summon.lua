@@ -121,13 +121,16 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 end
 
 function smn.ToggleFavoritePets(state)
+	QOL_Config.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.SMN.OnlyFavoritePets,
 		QOL_Config_Toon.SMN.OnlyFavoritePets,
-		QOLUtils.OPT.Acct.SMN.OnlyFavoritePets)
+		QOLUtils.OPT.Acct.SMN.OnlyFavoritePets,
+		QOLUtils.OPT.Toon.SMN.OnlyFavoritePets)
 end
 
 function smn.ToggleFavoriteMounts(state)
+	QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.SMN.OnlyFavoriteMounts,
 		QOL_Config_Toon.SMN.OnlyFavoriteMounts,
@@ -136,6 +139,7 @@ function smn.ToggleFavoriteMounts(state)
 end
 
 function smn.ToggleLogonReport()
+	QOL_Config.SMN.ReportAtLogon, QOL_Config_Toon.SMN.ReportAtLogon =
 	QOLUtils.ToggleSetting(nil,
 		QOL_Config.SMN.ReportAtLogon,
 		QOL_Config_Toon.SMN.ReportAtLogon,
