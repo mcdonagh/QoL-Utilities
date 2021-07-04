@@ -75,7 +75,7 @@ function smn.Mount()
 			else
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Flying, smn.Types.Nazjatar)
 			end
-		elseif GetZoneText() == 'Temple of Ahn\'Qiraj' then
+		elseif GetZoneText() == 'Ahn\'Qiraj' then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Qiraj)
 			if QOLUtils.TableIsNilOrEmpty(usableMounts) then
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
