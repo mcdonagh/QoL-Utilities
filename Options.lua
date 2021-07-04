@@ -87,7 +87,7 @@ function opt.CreateConfig()
 	opt.Toon = {}
 	local toonHeader = opt.CreateHeader(scrollchild, opt.Acct.VC.EditBoxLevels, -indent * 3, -sectionGap, QOLUtils.Labels.Toon)
 	opt.Toon.Active = opt.CreateCheckBox(scrollchild, toonHeader, indent, -itemGap, QOLUtils.Labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
-	local toonACHeader = opt.CreateHeader(scrollchild, storage.Active, 0, -headerGap, QOLUtils.Labels.AC.Header)
+	local toonACHeader = opt.CreateHeader(scrollchild, opt.Toon.Active, 0, -headerGap, QOLUtils.Labels.AC.Header)
 	opt.CreateConfigItems(scrollchild, toonACHeader, QOL_Config_Toon, opt.Toon, indent, headerGap, itemGap)
 	InterfaceOptions_AddCategory(opt.Panel);
 end

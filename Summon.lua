@@ -10,7 +10,7 @@ function smn.Summon(args)
 		if not smn.ProcessState(state, smn.ToggleFavoritePets, smn.ReportFavoritePets) then
 			smn.Pet()
 		end
-	elseif subdirection == 'm'
+	elseif subdirection == 'm' then
 		if not smn.ProcessState(state, smn.ToggleFavoriteMounts, smn.ReportFavoriteMounts) then
 			smn.Mount()
 		end
