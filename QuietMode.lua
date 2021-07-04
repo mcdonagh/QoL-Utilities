@@ -2,8 +2,6 @@ local addonName, QOLUtils = ...
 
 QOLUtils.QM = {}
 local qm = QOLUtils.QM
-local configWindowAcct = QOLUtils.OPT.Acct.QM
-local configWindowToon = QOLUtils.OPT.Toon.QM
 
 function qm.ToggleQuietModeAndReport(args)
 	local indicator = args[2]
@@ -30,8 +28,8 @@ function qm.ToggleParty(state)
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.QM.PartyActive,
 		QOL_Config_Toon.QM.PartyActive,
-		configWindowAcct.CheckBoxParty,
-		configWindowToon.CheckBoxParty)
+		QOLUtils.OPT.Acct.QM.CheckBoxParty,
+		QOLUtils.OPT.Toon.QM.CheckBoxParty)
 end
 
 function qm.ToggleDuel(state)
@@ -39,8 +37,8 @@ function qm.ToggleDuel(state)
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.QM.DuelActive,
 		QOL_Config_Toon.QM.DuelActive,
-		configWindowAcct.CheckBoxDuel,
-		configWindowToon.CheckBoxDuel)
+		QOLUtils.OPT.Acct.QM.CheckBoxDuel,
+		QOLUtils.OPT.Toon.QM.CheckBoxDuel)
 end
 
 function qm.ToggleAll(state)
@@ -60,8 +58,8 @@ function qm.ToggleLogonReport()
 	QOLUtils.ToggleSetting(nil,
 		QOL_Config.QM.ReportAtLogon,
 		QOL_Config_Toon.QM.ReportAtLogon,
-		configWindowAcct.CheckBoxReport,
-		configWindowToon.CheckBoxReport)
+		QOLUtils.OPT.Acct.QM.CheckBoxReport,
+		QOLUtils.OPT.Toon.QM.CheckBoxReport)
 end
 
 function qm.ReportParty()
@@ -109,18 +107,18 @@ function qm.DeclineDuel(...)
 end
 
 function qm.TogglePartyOnClick()
-	QOL_Config.QM.PartyActive = configWindowAcct.CheckBoxParty:GetChecked()
-	QOL_Config_Toon.QM.PartyActive = configWindowToon.CheckBoxParty:GetChecked()
+	QOL_Config.QM.PartyActive = QOLUtils.OPT.Acct.QM.CheckBoxParty:GetChecked()
+	QOL_Config_Toon.QM.PartyActive = QOLUtils.OPT.Toon.QM.CheckBoxParty:GetChecked()
 end
 
 function qm.ToggleDuelOnClick()
-	QOL_Config.QM.DuelActive = configWindowAcct.CheckBoxDuel:GetChecked()
-	QOL_Config_Toon.QM.DuelActive = configWindowToon.CheckBoxDuel:GetChecked()
+	QOL_Config.QM.DuelActive = QOLUtils.OPT.Acct.QM.CheckBoxDuel:GetChecked()
+	QOL_Config_Toon.QM.DuelActive = QOLUtils.OPT.Toon.QM.CheckBoxDuel:GetChecked()
 end
 
 function qm.ToggleLogonReportOnClick()
-	QOL_Config.QM.ReportAtLogon = configWindowAcct.CheckBoxReport:GetChecked()
-	QOL_Config_Toon.QM.ReportAtLogon = configWindowToon.CheckBoxReport:GetChecked()
+	QOL_Config.QM.ReportAtLogon = QOLUtils.OPT.Acct.QM.CheckBoxReport:GetChecked()
+	QOL_Config_Toon.QM.ReportAtLogon = QOLUtils.OPT.Toon.QM.CheckBoxReport:GetChecked()
 end
 
 function qm.Log(message)

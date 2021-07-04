@@ -2,8 +2,6 @@ local addonName, QOLUtils = ...
 
 QOLUtils.SMN = {}
 local smn = QOLUtils.SMN
-local configWindowAcct = QOLUtils.OPT.Acct.SMN
-local configWindowToon = QOLUtils.OPT.Toon.SMN
 
 function smn.Summon(args)
 	local subdirection = args[2]
@@ -127,8 +125,8 @@ function smn.ToggleFavoritePets(state)
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.SMN.OnlyFavoritePets,
 		QOL_Config_Toon.SMN.OnlyFavoritePets,
-		configWindowAcct.CheckBoxPets,
-		configWindowToon.CheckBoxPets)
+		QOLUtils.OPT.Acct.SMN.CheckBoxPets,
+		QOLUtils.OPT.Toon.SMN.CheckBoxPets)
 end
 
 function smn.ToggleFavoriteMounts(state)
@@ -136,8 +134,8 @@ function smn.ToggleFavoriteMounts(state)
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.SMN.OnlyFavoriteMounts,
 		QOL_Config_Toon.SMN.OnlyFavoriteMounts,
-		configWindowAcct.CheckBoxMounts,
-		configWindowToon.CheckBoxMounts)
+		QOLUtils.OPT.Acct.SMN.CheckBoxMounts,
+		QOLUtils.OPT.Toon.SMN.CheckBoxMounts)
 end
 
 function smn.ToggleLogonReport()
@@ -145,8 +143,8 @@ function smn.ToggleLogonReport()
 	QOLUtils.ToggleSetting(nil,
 		QOL_Config.SMN.ReportAtLogon,
 		QOL_Config_Toon.SMN.ReportAtLogon,
-		configWindowAcct.CheckBoxReport,
-		configWindowToon.CheckBoxReport)
+		QOLUtils.OPT.Acct.SMN.CheckBoxReport,
+		QOLUtils.OPT.Toon.SMN.CheckBoxReport)
 end
 
 function smn.ReportFavoritePets()
@@ -173,18 +171,18 @@ function smn.ReportInitial()
 end
 
 function smn.ToggleFavoritePetsOnClick()
-	QOL_Config.SMN.OnlyFavoritePets = configWindowAcct.CheckBoxPets:GetChecked()
-	QOL_Config_Toon.SMN.OnlyFavoritePets = configWindowToon.CheckBoxPets:GetChecked()
+	QOL_Config.SMN.OnlyFavoritePets = QOLUtils.OPT.Acct.SMN.CheckBoxPets:GetChecked()
+	QOL_Config_Toon.SMN.OnlyFavoritePets = QOLUtils.OPT.Toon.SMN.CheckBoxPets:GetChecked()
 end
 
 function smn.ToggleFavoriteMountsOnClick()
-	QOL_Config.SMN.OnlyFavoriteMounts = configWindowAcct.CheckBoxMounts:GetChecked()
-	QOL_Config_Toon.SMN.OnlyFavoriteMounts = configWindowToon.CheckBoxMounts:GetChecked()
+	QOL_Config.SMN.OnlyFavoriteMounts = QOLUtils.OPT.Acct.SMN.CheckBoxMounts:GetChecked()
+	QOL_Config_Toon.SMN.OnlyFavoriteMounts = QOLUtils.OPT.Toon.SMN.CheckBoxMounts:GetChecked()
 end
 
 function smn.ToggleLogonReportOnClick()
-	QOL_Config.SMN.ReportAtLogon = configWindowAcct.CheckBoxReport:GetChecked()
-	QOL_Config_Toon.SMN.ReportAtLogon = configWindowToon.CheckBoxReport:GetChecked()
+	QOL_Config.SMN.ReportAtLogon = QOLUtils.OPT.Acct.SMN.CheckBoxReport:GetChecked()
+	QOL_Config_Toon.SMN.ReportAtLogon = QOLUtils.OPT.Toon.SMN.CheckBoxReport:GetChecked()
 end
 
 function smn.Log(msg)
