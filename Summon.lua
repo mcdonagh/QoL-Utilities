@@ -41,24 +41,30 @@ function smn.Pet()
 end
 
 smn.Types = {}
-smn.Types.Ground = {}
-smn.Types.Ground[230] = true   -- for most ground mounts
-smn.Types.Ground[269] = true   -- for  [Reins of the Azure Water Strider] and  [Reins of the Crimson Water Strider]
-smn.Types.Flying = {}
-smn.Types.Flying[242] = true   -- for Swift Spectral Gryphon (hidden in the mount journal, used while dead in certain zones)
-smn.Types.Flying[247] = true   -- for  [Disc of the Red Flying Cloud]
-smn.Types.Flying[248] = true   -- for most flying mounts, including those that change capability based on riding skill
-smn.Types.Water = {}
-smn.Types.Water[231] = true    -- for  [Riding Turtle] and  [Sea Turtle]
-smn.Types.Water[232] = true    -- for  [Vashj'ir Seahorse] (was named Abyssal Seahorse prior to Warlords of Draenor)
-smn.Types.Water[254] = true    -- for  [Reins of Poseidus],  [Brinedeep Bottom-Feeder] and  [Fathom Dweller]
-smn.Types.Nazjatar = {}
-smn.Types.Nazjatar[232] = true
-smn.Types.Nazjatar[254] = true
-smn.Types.Qiraj = {}
-smn.Types.Qiraj[241] = true    -- for Blue, Green, Red, and Yellow Qiraji Battle Tank (restricted to use inside Temple of Ahn'Qiraj)
-smn.Types.LowLevel = {}
-smn.Types.LowLevel[284] = true -- for  [Chauffeured Chopper] and Chauffeured Mechano-Hog
+smn.Types.Ground = {
+	[230] = true,    -- for most ground mounts
+	[269] = true     -- for  [Reins of the Azure Water Strider] and  [Reins of the Crimson Water Strider]
+}
+smn.Types.Flying = {
+	[242] = true,    -- for Swift Spectral Gryphon (hidden in the mount journal, used while dead in certain zones)
+	[247] = true,    -- for [Disc of the Red Flying Cloud]
+	[248] = true     -- for most flying mounts, including those that change capability based on riding skill
+}
+smn.Types.Water = {
+	[231] = true,    -- for  [Riding Turtle] and  [Sea Turtle]
+	[232] = true,    -- for  [Vashj'ir Seahorse] (was named Abyssal Seahorse prior to Warlords of Draenor)
+	[254] = true     -- for  [Reins of Poseidus],  [Brinedeep Bottom-Feeder] and  [Fathom Dweller]
+}
+smn.Types.Nazjatar = {
+	[232] = true,
+	[254] = true
+}
+smn.Types.Qiraj = {
+	[241] = true     -- for Blue, Green, Red, and Yellow Qiraji Battle Tank (restricted to use inside Temple of Ahn'Qiraj)
+}
+smn.Types.LowLevel = {
+	[284] = true     -- for  [Chauffeured Chopper] and Chauffeured Mechano-Hog
+}
 
 function smn.Mount()
 	if IsMounted() then
@@ -67,7 +73,7 @@ function smn.Mount()
 		local usableMounts = {}
 		if not smn.HasRidingSkill() then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.LowLevel, smn.Types.Ground)
-		elseif IsSubmerged() then
+		elseif smn.IsUnderWater() then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Water)
 		elseif IsFlyableArea() then 
 			if not smn.HasRidingSkillFlight() then
@@ -103,22 +109,42 @@ function smn.HasRidingSkillFlight()
 		or C_Spell.DoesSpellExist(90265)
 end
 
+local breathingBuffs = {
+	[5697] = true,
+	[7178] = true,
+	[11789] = true,
+	[222105] = true
+}
+
+function smn.IsUnderWater()
+	local _, _, _, _, paused = GetMirrorTimerInfo(2)
+	local holdingBreath = paused > 0
+	local hasBuff = false
+	local _, buffSlots = UnitAuraSlots('PLAYER', 'HELPFUL')
+	smn.Log('type = ' .. type(buffSlots))
+	smn.Log(type(buffSlots) == 'table' and QOLUtils.TableToStr(buffSlots) or buffSlots)
+	for slot in buffSlots do
+		local _, _, _, _, _, _, _, _, _, spellID = UnitAuraBySlot('PLAYER', slot)
+		smn.Log(spellID)
+		if breathingBuffs[spellID] then
+			hasBuff = true
+		end
+	end
+	return IsSubmerged() and (holdingBreath or hasBuff)
+end
+
 function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 	local usableMounts = {}
 	for i, v in ipairs(existingMounts) do
 		table.insert(usableMounts, v)
 	end
-	local foundMounts = {}
 	local onlyFavorites = QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts)
 	for i, mountID in pairs(C_MountJournal.GetMountIDs()) do
 		local _, _, _, _, isUsable, _, isFavorite = C_MountJournal.GetMountInfoByID(mountID)
 		local _, _, _, _, typeID = C_MountJournal.GetMountInfoExtraByID(mountID)
 		if isUsable and ((validTypeA and validTypeA[typeID]) or (validTypeB and validTypeB[typeID])) and ((onlyFavorites and isFavorite) or not onlyFavorites) then
-			table.insert(foundMounts, mountID)
+			table.insert(usableMounts, mountID)
 		end
-	end
-	for i, v in ipairs(foundMounts) do
-		table.insert(usableMounts, v)
 	end
 	return usableMounts
 end
