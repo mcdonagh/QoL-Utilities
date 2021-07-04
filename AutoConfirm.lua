@@ -27,57 +27,27 @@ function ac.ToggleAndReport(args)
 end
 
 function ac.ToggleRefundable(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.AC.RefundableActive = not QOL_Config_Toon.AC.RefundableActive
-		else
-			QOL_Config_Toon.AC.RefundableActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.AC.CheckBoxRefundable, QOL_Config_Toon.AC.RefundableActive)
-	else
-		if state == nil then
-			QOL_Config.AC.RefundableActive = not QOL_Config.AC.RefundableActive
-		else
-			QOL_Config.AC.RefundableActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.AC.CheckBoxRefundable, QOL_Config.AC.RefundableActive)
-	end
+	QOLUtils.ToggleSetting(state,
+		QOL_Config.AC.RefundableActive,
+		QOL_Config_Toon.AC.RefundableActive,
+		QOLUtils.OPT.Acct.AC.CheckBoxRefundable,
+		QOLUtils.OPT.Toon.AC.CheckBoxRefundable)
 end
 
 function ac.ToggleTradeable(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.AC.TradeableActive = not QOL_Config_Toon.AC.TradeableActive
-		else
-			QOL_Config_Toon.AC.TradeableActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.AC.CheckBoxTradeable, QOL_Config_Toon.AC.TradeableActive)
-	else
-		if state == nil then
-			QOL_Config.AC.TradeableActive = not QOL_Config.AC.TradeableActive
-		else
-			QOL_Config.AC.TradeableActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.AC.CheckBoxTradeable, QOL_Config.AC.TradeableActive)
-	end
+	QOLUtils.ToggleSetting(state,
+		QOL_Config.AC.TradeableActive,
+		QOL_Config_Toon.AC.TradeableActive,
+		QOLUtils.OPT.Acct.AC.CheckBoxTradeable,
+		QOLUtils.OPT.Toon.AC.CheckBoxTradeable)
 end
 
 function ac.ToggleBindable(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.AC.BindableActive = not QOL_Config_Toon.AC.BindableActive
-		else
-			QOL_Config_Toon.AC.BindableActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.AC.CheckBoxBindable, QOL_Config_Toon.AC.BindableActive)
-	else
-		if state == nil then
-			QOL_Config.AC.BindableActive = not QOL_Config.AC.BindableActive
-		else
-			QOL_Config.AC.BindableActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.AC.CheckBoxBindable, QOL_Config.AC.BindableActive)
-	end
+	QOLUtils.ToggleSetting(state,
+		QOL_Config.AC.BindableActive,
+		QOL_Config_Toon.AC.BindableActive,
+		QOLUtils.OPT.Acct.AC.CheckBoxBindable,
+		QOLUtils.OPT.Toon.AC.CheckBoxBindable)
 end
 
 function ac.ToggleAll(state)
@@ -95,13 +65,11 @@ function ac.ToggleAll(state)
 end
 
 function ac.ToggleLogonReport()
-	if QOL_Config_Toon.Active then
-		QOL_Config_Toon.AC.ReportAtLogon = not QOL_Config_Toon.AC.ReportAtLogon
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.AC.CheckBoxReport, QOL_Config_Toon.AC.ReportAtLogon)
-	else
-		QOL_Config.AC.ReportAtLogon = not QOL_Config.AC.ReportAtLogon
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.AC.CheckBoxReport, QOL_Config.AC.ReportAtLogon)
-	end
+	QOLUtils.ToggleSetting(nil,
+		QOL_Config.AC.ReportAtLogon,
+		QOL_Config_Toon.AC.ReportAtLogon,
+		QOLUtils.OPT.Acct.AC.CheckBoxReport,
+		QOLUtils.OPT.Toon.AC.CheckBoxReport)
 end
 
 function ac.ReportRefundable()

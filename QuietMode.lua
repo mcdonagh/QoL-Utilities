@@ -24,39 +24,19 @@ function qm.ToggleQuietModeAndReport(args)
 end
 
 function qm.ToggleParty(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.QM.PartyActive = not QOL_Config_Toon.QM.PartyActive
-		else
-			QOL_Config_Toon.QM.PartyActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.QM.CheckBoxParty, QOL_Config_Toon.QM.PartyActive)
-	else
-		if state == nil then
-			QOL_Config.QM.PartyActive = not QOL_Config.QM.PartyActive
-		else
-			QOL_Config.QM.PartyActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.QM.CheckBoxParty, QOL_Config.QM.PartyActive)
-	end
+	QOLUtils.ToggleSetting(state,
+		QOL_Config.QM.PartyActive,
+		QOL_Config_Toon.QM.PartyActive,
+		QOLUtils.OPT.Acct.QM.CheckBoxParty,
+		QOLUtils.OPT.Toon.QM.CheckBoxParty)
 end
 
 function qm.ToggleDuel(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.QM.DuelActive = not QOL_Config_Toon.QM.DuelActive
-		else
-			QOL_Config_Toon.QM.DuelActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.QM.CheckBoxDuel, QOL_Config_Toon.QM.DuelActive)
-	else
-		if state == nil then
-			QOL_Config.QM.DuelActive = not QOL_Config.QM.DuelActive
-		else
-			QOL_Config.QM.DuelActive = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.QM.CheckBoxDuel, QOL_Config.QM.DuelActive)
-	end
+	QOLUtils.ToggleSetting(state,
+		QOL_Config.QM.DuelActive,
+		QOL_Config_Toon.QM.DuelActive,
+		QOLUtils.OPT.Acct.QM.CheckBoxDuel,
+		QOLUtils.OPT.Toon.QM.CheckBoxDuel)
 end
 
 function qm.ToggleAll(state)
@@ -72,13 +52,11 @@ function qm.ToggleAll(state)
 end
 
 function qm.ToggleLogonReport()
-	if QOL_Config_Toon.Active then
-		QOL_Config_Toon.QM.ReportAtLogon = not QOL_Config_Toon.QM.ReportAtLogon
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.QM.CheckBoxReport, QOL_Config_Toon.QM.ReportAtLogon)
-	else
-		QOL_Config.QM.ReportAtLogon = not QOL_Config.QM.ReportAtLogon
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.QM.CheckBoxReport, QOL_Config.QM.ReportAtLogon)
-	end
+	QOLUtils.ToggleSetting(nil,
+		QOL_Config.QM.ReportAtLogon,
+		QOL_Config_Toon.QM.ReportAtLogon,
+		QOLUtils.OPT.Acct.QM.CheckBoxReport,
+		QOLUtils.OPT.Toon.QM.CheckBoxReport)
 end
 
 function qm.ReportParty()

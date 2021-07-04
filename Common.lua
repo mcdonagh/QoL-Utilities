@@ -70,3 +70,21 @@ end
 function QOLUtils.SettingIsTrue(acctSetting, toonSetting)
 	return QOL_Config_Toon.Active and toonSetting or not QOL_Config_Toon.Active and acctSetting
 end
+
+function QOLUtils.ToggleSetting(state, acctSetting, toonSetting, acctCheckBox, toonCheckBox)
+	if QOL_Config_Toon.Active then
+		if state == nil then
+			toonSetting = not toonSetting
+		else
+			toonSetting = state
+		end
+		QOLUtils.OPT.UpdateCheckBox(toonCheckBox, toonSetting)
+	else
+		if state == nil then
+			acctSetting = not acctSetting
+		else
+			acctSetting = state
+		end
+		QOLUtils.OPT.UpdateCheckBox(acctCheckBox, acctSetting)
+	end
+end

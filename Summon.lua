@@ -121,49 +121,26 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 end
 
 function smn.ToggleFavoritePets(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.SMN.OnlyFavoritePets = not QOL_Config_Toon.SMN.OnlyFavoritePets
-		else
-			QOL_Config_Toon.SMN.OnlyFavoritePets = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.CheckBoxPets, QOL_Config_Toon.SMN.OnlyFavoritePets)
-	else
-		if state == nil then
-			QOL_Config.SMN.OnlyFavoritePets = not QOL_Config.OnlyFavoritePets
-		else
-			QOL_Config.SMN.OnlyFavoritePets = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.CheckBoxPets, QOL_Config.SMN.OnlyFavoritePets)
-	end
+	QOLUtils.ToggleSetting(state,
+		QOL_Config.SMN.OnlyFavoritePets,
+		QOL_Config_Toon.SMN.OnlyFavoritePets,
+		QOLUtils.OPT.Acct.SMN.OnlyFavoritePets)
 end
 
 function smn.ToggleFavoriteMounts(state)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon.SMN.OnlyFavoriteMounts = not QOL_Config_Toon.SMN.OnlyFavoriteMounts
-		else
-			QOL_Config_Toon.SMN.OnlyFavoriteMounts = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.CheckBoxMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts)
-	else
-		if state == nil then
-			QOL_Config.SMN.OnlyFavoriteMounts = not QOL_Config.SMN.OnlyFavoriteMounts
-		else
-			QOL_Config.SMN.OnlyFavoriteMounts = state
-		end
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.CheckBoxMounts, QOL_Config.SMN.OnlyFavoriteMounts)
-	end
+	QOLUtils.ToggleSetting(state,
+		QOL_Config.SMN.OnlyFavoriteMounts,
+		QOL_Config_Toon.SMN.OnlyFavoriteMounts,
+		QOLUtils.OPT.Acct.SMN.CheckBoxMounts,
+		QOLUtils.OPT.Toon.SMN.CheckBoxMounts)
 end
 
 function smn.ToggleLogonReport()
-	if QOL_Config_Toon.Active then
-		QOL_Config_Toon.SMN.ReportAtLogon = not QOL_Config_Toon.SMN.ReportAtLogon
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Toon.SMN.CheckBoxReport, QOL_Config_Toon.SMN.ReportAtLogon)
-	else
-		QOL_Config.SMN.ReportAtLogon = not QOL_Config.SMN.ReportAtLogon
-		QOLUtils.OPT.UpdateCheckBox(QOLUtils.OPT.Acct.SMN.CheckBoxReport, QOL_Config.SMN.ReportAtLogon)
-	end
+	QOLUtils.ToggleSetting(nil,
+		QOL_Config.SMN.ReportAtLogon,
+		QOL_Config_Toon.SMN.ReportAtLogon,
+		QOLUtils.OPT.Acct.SMN.CheckBoxReport,
+		QOLUtils.OPT.Toon.SMN.CheckBoxReport)
 end
 
 function smn.ReportFavoritePets()
