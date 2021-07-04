@@ -131,22 +131,17 @@ function ac.ReportBindable()
 	end
 end
 
-function ac.ReportAll()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.RefundableActive and QOL_Config_Toon.AC.TradeableActive and QOL_Config_Toon.AC.BindableActive)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.RefundableActive and QOL_Config.AC.TradeableActive and QOL_Config.AC.BindableActive) then
-		ac.Log('Automatically confiring to equip Refundable, Tradeable, and "Bind on Equip" items.')
-	else
-		ac.Log('Manual confirmation required to equip Refundable, Tradeable, and "Bind on Equip" items.')
-	end
-end
-
 function ac.ReportInitial()
 	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.ReportAtLogon)
 			or (not QOL_Config_Toon.Active and QOL_Config.AC.ReportAtLogon) then
-		ac.ReportRefundable()
-		ac.ReportTradeable()
-		ac.ReportBindable()
+		ac.ReportAll()
 	end
+end
+
+function ac.ReportAll()
+	ac.ReportRefundable()
+	ac.ReportTradeable()
+	ac.ReportBindable()
 end
 
 function ac.ConfirmEquipRefundable()

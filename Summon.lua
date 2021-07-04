@@ -5,35 +5,34 @@ local smn = QOLUtils.SMN
 
 function smn.Summon(args)
 	local subdirection = args[2]
-	local state = QOLUtils.ValueOrNIL(args[3])
-	if subdirection == 'update' then
-		smn.ScanJournal()
-	elseif subdirection == 'p' and state == 'on' then
-		smn.ToggleFavoritePets(true)
-		smn.ReportFavoritePets()
-	elseif subdirection == 'p' and state == 'off' then
-		smn.ToggleFavoritePets(false)
-		smn.ReportFavoritePets()
-	elseif subdirection == 'p' and state == 'f' then
-		smn.ToggleFavoritePets(nil)
-		smn.ReportFavoritePets()
-	elseif subdirection == 'p' then
-		smn.Pet()
-	elseif subdirection == 'm' and state == 'on' then
-		smn.ToggleFavoriteMounts(true)
-		smn.ReportFavoriteMounts()
-	elseif subdirection == 'm' and state == 'off' then
-		smn.ToggleFavoriteMounts(false)
-		smn.ReportFavoriteMounts()
-	elseif subdirection == 'm' and state == 'f' then
-		smn.ToggleFavoriteMounts(nil)
-		smn.ReportFavoriteMounts()
-	elseif subdirection == 'm' then
-		smn.Mount()
+	local state = args[3]
+	if subdirection == 'p' then
+		if not smn.ProcessState(state, smn.ToggleFavoritePets, smn.ReportFavoritePets) then
+			smn.Pet()
+		end
+	elseif subdirection == 'm'
+		if not smn.ProcessState(state, smn.ToggleFavoriteMounts, smn.ReportFavoriteMounts) then
+			smn.Mount()
+		end
 	else
 		smn.Pet()
 		smn.Mount()
 	end
+end
+
+function smn.ProcessState(state, Toggle, Report)
+	local hasState = state == 'on' or state == 'off' or state == 'f'
+	if hasState then
+		if state == 'on' then
+			Toggle(true)
+		elseif state == 'off' then
+			Toggle(false)
+		else
+			Toggle(nil)
+		end
+		Report()
+	end
+	return hasState
 end
 
 function smn.Pet()
