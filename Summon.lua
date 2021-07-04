@@ -125,8 +125,8 @@ function smn.ToggleFavoritePets(state)
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.SMN.OnlyFavoritePets,
 		QOL_Config_Toon.SMN.OnlyFavoritePets,
-		QOLUtils.OPT.Acct.SMN.OnlyFavoritePets,
-		QOLUtils.OPT.Toon.SMN.OnlyFavoritePets)
+		QOLUtils.OPT.Acct.SMN.CheckBoxPets,
+		QOLUtils.OPT.Toon.SMN.CheckBoxPets)
 end
 
 function smn.ToggleFavoriteMounts(state)

@@ -4,7 +4,13 @@ QOLUtils.OPT = {}
 local opt = QOLUtils.OPT
 
 function opt.LoadDefaults()
+	if QOL_Config == nil then
+		QOL_Config = {}
+	end
 	opt.GenerateDefaults(QOL_Config)
+	if QOL_Config_Toon == nil then
+		QOL_Config_Toon = {}
+	end
 	opt.GenerateDefaults(QOL_Config_Toon)
 	if QOL_Config_Toon.Active == nil then
 		QOL_Config_Toon.Active = false
@@ -12,9 +18,6 @@ function opt.LoadDefaults()
 end
 
 function opt.GenerateDefaults(config)
-	if config == nil then
-		config = {}
-	end
 	if config.AC == nil then
 		config.AC = {}
 	end
@@ -80,7 +83,6 @@ function opt.CreateConfig()
 	local indent = 30
 	local scrollchild = opt.CreateScrollFrame()
 	opt.Acct = {}
-	opt.Acct.AC = {}
 	local acctHeader = opt.CreateHeader(scrollchild, scrollchild, indent, -sectionGap, QOLUtils.Labels.Acct)
 	local acctACHeader = opt.CreateHeader(scrollchild, acctHeader, indent, -itemGap, QOLUtils.Labels.AC.Header)
 	opt.CreateConfigItems(scrollchild, acctACHeader, QOL_Config, opt.Acct, indent, headerGap, itemGap)
@@ -102,7 +104,12 @@ function opt.CreateScrollFrame()
 	opt.Panel.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', opt.Panel.ScrollFrame, 'TOPRIGHT', -5, -22)
 	opt.Panel.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', opt.Panel.ScrollFrame, 'BOTTOMRIGHT', -5, 22)
 	local scrollchild = CreateFrame('Frame', 'QOL_Utils_ScrollChild_' .. opt.GetUniqueID(), opt.Panel.ScrollFrame)
-	scrollchild:SetSize(400, 800)
+	-----------------------------
+	-- scrollchild.bg = scrollchild:CreateTexture(nil, 'BACKGROUND')
+	-- scrollchild.bg:SetAllPoints(true)
+	-- scrollchild.bg:SetColorTexture(0.4, 0, 0, 0.4)
+	-----------------------------
+	scrollchild:SetSize(400, 900)
 	scrollchild:SetPoint('TOPLEFT', opt.Panel.ScrollFrame, 'TOPLEFT', -30, 30)
 	opt.Panel.ScrollFrame:SetScrollChild(scrollchild)
 	return scrollchild

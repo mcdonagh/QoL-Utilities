@@ -24,7 +24,7 @@ function qm.ToggleQuietModeAndReport(args)
 end
 
 function qm.ToggleParty(state)
-	QOL_Config..QM.PartyActive, QOL_Config_Toon.QM.PartyActive =
+	QOL_Config.QM.PartyActive, QOL_Config_Toon.QM.PartyActive =
 	QOLUtils.ToggleSetting(state,
 		QOL_Config.QM.PartyActive,
 		QOL_Config_Toon.QM.PartyActive,
