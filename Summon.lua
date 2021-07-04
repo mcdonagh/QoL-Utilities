@@ -36,7 +36,7 @@ function smn.ProcessState(state, Toggle, Report)
 end
 
 function smn.Pet()
-	local onlyFavorites = QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoritePets or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoritePets
+	local onlyFavorites = QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets)
 	C_PetJournal.SummonRandomPet(onlyFavorites)
 end
 
@@ -106,7 +106,7 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 		table.insert(usableMounts, v)
 	end
 	local foundMounts = {}
-	local onlyFavorites = QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoriteMounts or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoriteMounts
+	local onlyFavorites = QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts)
 	for i, mountID in pairs(C_MountJournal.GetMountIDs()) do
 		local _, _, _, _, isUsable, _, isFavorite = C_MountJournal.GetMountInfoByID(mountID)
 		local _, _, _, _, typeID = C_MountJournal.GetMountInfoExtraByID(mountID)
@@ -167,8 +167,7 @@ function smn.ToggleLogonReport()
 end
 
 function smn.ReportFavoritePets()
-	if QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoritePets
-			or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoritePets then
+	if QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets) then
 		smn.Log('Only favorited pets will be summoned.')
 	else
 		smn.Log('Any pet will be summoned.')
@@ -176,8 +175,7 @@ function smn.ReportFavoritePets()
 end
 
 function smn.ReportFavoriteMounts()
-	if QOL_Config_Toon.Active and QOL_Config_Toon.SMN.OnlyFavoriteMounts
-			or not QOL_Config_Toon.Active and QOL_Config.SMN.OnlyFavoriteMounts then
+	if QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts) then
 		smn.Log('Only appropiate and favorited mounts will be summoned.')
 	else
 		smn.Log('Any appropiate mount will be summoned.')
@@ -185,8 +183,7 @@ function smn.ReportFavoriteMounts()
 end
 
 function smn.ReportInitial()
-	if QOL_Config_Toon.Active and QOL_Config_Toon.SMN.ReportAtLogon
-			or not QOL_Config_Toon.Active and QOL_Config.SMN.ReportAtLogon then
+	if QOLUtils.SettingIsTrue(QOL_Config.SMN.ReportAtLogon, QOL_Config_Toon.SMN.ReportAtLogon) then
 		smn.ReportFavoritePets()
 		smn.ReportFavoriteMounts()
 	end

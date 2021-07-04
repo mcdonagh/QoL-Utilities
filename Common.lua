@@ -66,3 +66,7 @@ function QOLUtils.GetFrame(name)
 		return frame
 	end
 end
+
+function QOLUtils.SettingIsTrue(acctSetting, toonSetting)
+	return QOL_Config_Toon.Active and toonSetting or not QOL_Config_Toon.Active and acctSetting
+end

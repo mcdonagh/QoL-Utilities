@@ -105,8 +105,7 @@ function ac.ToggleLogonReport()
 end
 
 function ac.ReportRefundable()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.RefundableActive)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.RefundableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.RefundableActive, QOL_Config_Toon.AC.RefundableActive) then
 		ac.Log('Automatically confirming to equip Refundable items.')
 	else
 		ac.Log('Manual confirmation required to equip Refundable items.')
@@ -114,8 +113,7 @@ function ac.ReportRefundable()
 end
 
 function ac.ReportTradeable()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.TradeableActive)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.TradeableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.TradeableActive, QOL_Config_Toon.AC.TradeableActive) then
 		ac.Log('Automatically confirming to equip Tradeable items.')
 	else
 		ac.Log('Manual confirmation required to equip Tradeable items.')
@@ -123,8 +121,7 @@ function ac.ReportTradeable()
 end
 
 function ac.ReportBindable()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.BindableActive)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.BindableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.BindableActive, QOL_Config_Toon.AC.BindableActive) then
 		ac.Log('Automatically confirming to equip "Bind on Equip" items.')
 	else
 		ac.Log('Manual confirmation required to equip "Bind on Equip" items.')
@@ -132,8 +129,7 @@ function ac.ReportBindable()
 end
 
 function ac.ReportInitial()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.ReportAtLogon)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.ReportAtLogon) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.ReportAtLogon, QOL_Config_Toon.AC.ReportAtLogon) then
 		ac.ReportAll()
 	end
 end
@@ -145,22 +141,19 @@ function ac.ReportAll()
 end
 
 function ac.ConfirmEquipRefundable()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.RefundableActive)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.RefundableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.RefundableActive, QOL_Config_Toon.AC.RefundableActive) then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
 
 function ac.ConfirmEquipTradeable()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.TradeableActive)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.TradeableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.TradeableActive, QOL_Config_Toon.AC.TradeableActive) then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
 
 function ac.ConfirmEquipBind()
-	if (QOL_Config_Toon.Active and QOL_Config_Toon.AC.BindableActive)
-			or (not QOL_Config_Toon.Active and QOL_Config.AC.BindableActive) then
+	if QOLUtils.SettingIsTrue(QOL_Config.AC.BindableActive, QOL_Config_Toon.AC.BindableActive) then
 		ac.ClickConfirm('Okay', 'LeftButton')
 	end
 end
