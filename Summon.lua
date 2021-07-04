@@ -52,6 +52,9 @@ smn.Types.Water = {}
 smn.Types.Water[231] = true    -- for  [Riding Turtle] and  [Sea Turtle]
 smn.Types.Water[232] = true    -- for  [Vashj'ir Seahorse] (was named Abyssal Seahorse prior to Warlords of Draenor)
 smn.Types.Water[254] = true    -- for  [Reins of Poseidus],  [Brinedeep Bottom-Feeder] and  [Fathom Dweller]
+smn.Types.Nazjatar = {}
+smn.Types.Nazjatar[232] = true
+smn.Types.Nazjatar[254] = true
 smn.Types.Qiraj = {}
 smn.Types.Qiraj[241] = true    -- for Blue, Green, Red, and Yellow Qiraji Battle Tank (restricted to use inside Temple of Ahn'Qiraj)
 smn.Types.LowLevel = {}
@@ -67,10 +70,10 @@ function smn.Mount()
 		elseif IsSubmerged() then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Water)
 		elseif IsFlyableArea() then 
-			if not smn.CanRideFlyingMounts() then
+			if not smn.HasRidingSkillFlight() then
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 			else
-				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Flying, smn.Types.Water)
+				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Flying, smn.Types.Nazjatar)
 			end
 		elseif GetZoneText() == 'Temple of Ahn\'Qiraj' then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Qiraj)
