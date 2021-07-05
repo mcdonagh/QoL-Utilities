@@ -71,17 +71,22 @@ function smn.Mount()
 		Dismount()
 	else
 		local usableMounts = {}
-		if not smn.HasRidingSkill() then
+		local lowLevel = not smn.HasRidingSkill()
+		local underwater = smn.IsUnderWater()
+		local flyable = IsFlyableArea()
+		local hasFlight = smn.HasRidingSkillFlight()
+		local inAhnqiraj = GetZoneText() == 'Ahn\'Qiraj'
+		if lowLevel then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.LowLevel, smn.Types.Ground)
-		elseif smn.IsUnderWater() then
+		elseif underwater then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Water)
-		elseif IsFlyableArea() then 
-			if not smn.HasRidingSkillFlight() then
+		elseif flyable then 
+			if not hasFlight then
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 			else
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Flying, smn.Types.Nazjatar)
 			end
-		elseif GetZoneText() == 'Ahn\'Qiraj' then
+		elseif inAhnqiraj then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Qiraj)
 			if QOLUtils.TableIsNilOrEmpty(usableMounts) then
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
@@ -89,7 +94,20 @@ function smn.Mount()
 		else
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 		end
-		C_MountJournal.SummonByID(usableMounts[math.random(table.getn(usableMounts))])
+		if QOLUtils.TableIsNilOrEmpty(usableMounts)
+				and QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts) then
+			if lowLevel then
+				smn.Log('No favorited mount available for pre-riding skill use.')
+			elseif underwater then
+				smn.Log('No favorited mount available for underwater use.')
+			elseif flyable and hasFlight then
+				smn.Log('No favorited mount available for flying.')
+			else
+				smn.Log('No favorited mount available for ground use.')
+			end
+		else
+			C_MountJournal.SummonByID(usableMounts[math.random(table.getn(usableMounts))])
+		end
 	end
 end
 
@@ -99,39 +117,26 @@ function smn.HasRidingSkill()
 end
 
 function smn.HasRidingSkillGround()
-	return C_Spell.DoesSpellExist(33388)
-		or C_Spell.DoesSpellExist(33391)
+	return IsSpellKnown(33388)
+		or IsSpellKnown(33391)
 end
 
 function smn.HasRidingSkillFlight()
-	return C_Spell.DoesSpellExist(34090)
-		or C_Spell.DoesSpellExist(34091)
-		or C_Spell.DoesSpellExist(90265)
+	return IsSpellKnown(34090)
+		or IsSpellKnown(34091)
+		or IsSpellKnown(90265)
 end
-
-local breathingBuffs = {
-	[5697] = true,
-	[7178] = true,
-	[11789] = true,
-	[222105] = true
-}
 
 function smn.IsUnderWater()
-	local _, _, _, _, paused = GetMirrorTimerInfo(2)
-	local holdingBreath = paused > 0
-	local hasBuff = false
-	local _, buffSlots = UnitAuraSlots('PLAYER', 'HELPFUL')
-	smn.Log('type = ' .. type(buffSlots))
-	smn.Log(type(buffSlots) == 'table' and QOLUtils.TableToStr(buffSlots) or buffSlots)
-	for slot in buffSlots do
-		local _, _, _, _, _, _, _, _, _, spellID = UnitAuraBySlot('PLAYER', slot)
-		smn.Log(spellID)
-		if breathingBuffs[spellID] then
-			hasBuff = true
-		end
-	end
-	return IsSubmerged() and (holdingBreath or hasBuff)
+	local underwater = IsSubmerged() and not smn.AtOrAboveSurface
+	smn.AtOrAboveSurface = false
+	return underwater
 end
+
+smn.AtOrAboveSurface = false
+hooksecurefunc('AscendStop', function()
+	smn.AtOrAboveSurface = not IsSubmerged()
+end)
 
 function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 	local usableMounts = {}
