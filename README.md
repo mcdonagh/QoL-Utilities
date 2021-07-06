@@ -82,7 +82,11 @@ Example Output:
 
 <h2 id='at'>Announce Target</h2>
 
-Sends your current target's life percentage and location to the designated chat.
+Allows you to quickly send your current target's life percentage and location to the designated chat.  
+Does not trigger automatically; use the command **\/qol at** to trigger the message.
+*See below on how to use the optional arguments for the different chat destinations.*  
+
+Because of WoW's api limitations, the coordinates used are the player's current coordinates when the message is triggered.
 
 <h3 id='at-usage'>Usage & Output</h3>
 
@@ -122,13 +126,13 @@ y | yell     | *\/qol at y*
 SubDestinations are only available when using *whisper* and *channel* Destinations.
 
 #### Whispers
-The subDestination for any whisper command is the name of the player you want to send the target information.
-Simply using the command **\/qol at w** without a subDestination will send the target information to yourself in a whisper.
-The command **\/qol at w** ***\<player name\>*** will send the target information to the specified player.
+The subDestination for any whisper command is the name of the player you want to send the target information.  
+Simply using the command **\/qol at w** without a subDestination will send the target information to yourself in a whisper.  
+The command **\/qol at w** ***\<player name\>*** will send the target information to the specified player.  
 
 #### Channels
 The subDestination for any channel is the number for that channel.  
-Simply using the command **\/qol at c** without a subDestination or **\/qol at** without either a destination or subDestination sends the target information to the first available channel \(channel 1\).
+Simply using the command **\/qol at c** without a subDestination or **\/qol at** without either a destination or subDestination sends the target information to the first available channel \(channel 1\).  
   
 Channel Number | Default Channel
 :---: | ---
@@ -185,7 +189,7 @@ Command Format: **\/qol mm**
 Executing this command will toggle the visibility of the lines.  
 No text is printed to the chat window.  
 
-<h2 id='qm'>Quite Mode</h2>
+<h2 id='qm'>Quiet Mode</h2>
 
 Automatically declines party invites and duel requests.  
 Functionality can be toggled on or off.  
@@ -229,8 +233,7 @@ off | Turn functionality *off* for all requests | *\/qol qm off*
 
 Pretty much exactly what the title says: allows you to summon Mounts and Battle Pets.  
 Battle Pet summoning is based soley on whether you are choosing to summon favorited pets.  
-
-Mount summoning is done based on current location and riding skill, and whether you are choosing to summon a favorited mount:  
+Mount summoning is based on current location and riding skill, and whether you are choosing to summon a favorited mount:  
 - Only ground mounts will be summoned in places you **cannot** fly, even if you have leanred the flying skill.  
 	- Special mounts like the Heirloom Chauffeur and Qiriaji Battle Tanks will be summoned as well when their respective conditions are met.  
 - Only flying mounts will be summoned in places you **can** fly, only when you have learned the flying skill.  
@@ -241,7 +244,7 @@ Mount summoning is done based on current location and riding skill, and whether 
 
 Current state of summoning is reported at player logon and on reload.  
 > The logon/reload report is turned **off** by default.  
-> Battle Pet summoning being restricted to favorites is turned **off** by default.
+> Battle Pet summoning being restricted to favorites is turned **off** by default.  
 > Mount summoning being restricted to favorites is turned **off** by default.  
 
 <h3 id='smn-usage'>Usage & Output</h3>
@@ -258,7 +261,7 @@ Example Output:
 > Only appropriate and favorited mounts will be summoned.  
 
 Additionally, a message is printed to the chat window when trying to summon a favorite mount and no qualifying favorite mount is available.  
-Example: if you tried to summon a favorite flying mount with no flying mount favorited you would see the message  
+For example, if you tried to summon a favorite flying mount with no flying mount favorited you would see the message:  
 > No favorited mount available for flying.
 
 <h3 id='smn-arguments'>Command Arguments</h3>
