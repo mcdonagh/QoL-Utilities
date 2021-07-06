@@ -55,7 +55,7 @@ function opt.GenerateDefaults(config)
 		config.SMN.OnlyFavoritePets = false
 	end
 	if config.SMN.OnlyFavoriteMounts == nil then
-		config.SMN.OnlyFavoriteMounts = true
+		config.SMN.OnlyFavoriteMounts = false
 	end
 	if config.VC == nil then
 		config.VC = {}

@@ -1,5 +1,5 @@
 # QoL Utilities
-WoW addon for minor quality of life changes.  
+WoW addon for various minor quality of life changes.  
 1. [Configuration](#config)
 1. [Achievement Tracker Cleaner](#atc)
 	- [Usage](#atc-usage)
@@ -26,14 +26,13 @@ WoW addon for minor quality of life changes.
 <h2 id='config'>Configuration</h2>
 
 The following features are available for configuration on a **per account** or **per character** basis.  
-Configuration is available through slash commands or via the in-game interface options.  
+Most configuration options present in the in-game configuration window are also available through slash commands.  
 >Use the command **\/qol** to quickly open the in-game configuration window.
 
 Turning *per character* settings on or off is only possible through the in-game configuration window.  
 When using *per character* settings, Slash Commands only affect the current character's settings.  
 See the feature's details for more information on the corresponding slash commands.
-> *Features not mentioned have no configuration associated with them*  
-
+> *Features not mentioned in this section have no configuration associated with them*  
 
 **[Auto Confirm's](#ac)** in-game configuration consists of four checkboxes.
 The first is to toggle on/off the report that is shown at player logon and on reload.
@@ -226,29 +225,41 @@ d | Toggle functionality on/off for Duel Requests | *\/qol qm d*
 on | Turn functionality *on* for all requests | *\/qol qm on*
 off | Turn functionality *off* for all requests | *\/qol qm off*
 
-<h2 id='smn'>Summoning Mounts & Pets</h2>
+<h2 id='smn'>Summoning Mounts & Battle Pets</h2>
 
 Pretty much exactly what the title says: allows you to summon Mounts and Battle Pets.  
-Mount summoning is done based on current location and riding skill, ie. summoning a ground mount when you have the riding skill for flying but are in an area where you cannot fly.  
-You can also restrict mount summoning further by limiting the choices to your favorited mounts.  
 Battle Pet summoning is based soley on whether you are choosing to summon favorited pets.  
+
+Mount summoning is done based on current location and riding skill, and whether you are choosing to summon a favorited mount:  
+- Only ground mounts will be summoned in places you **cannot** fly, even if you have leanred the flying skill.  
+	- Special mounts like the Heirloom Chauffeur and Qiriaji Battle Tanks will be summoned as well when their respective conditions are met.  
+- Only flying mounts will be summoned in places you **can** fly, only when you have learned the flying skill.  
+- Water mounts will be summoned when in/under water.  
+	- WoW doesn't have a native way to detect when you are at the surface of the water, and what I came up with works, but is a *little* finicky, so if you want a non-water mount when you come up but are still in water, all you have to do is jump once or twice.  
+
+> *If the favorites option is turned on, you must have a qualifying mount set as favorite or no mount will be summoned.*  
+
 Current state of summoning is reported at player logon and on reload.  
 > The logon/reload report is turned **off** by default.  
-> Mount summoning being restricted to favorites is turned **on** by default.  
 > Battle Pet summoning being restricted to favorites is turned **off** by default.
+> Mount summoning being restricted to favorites is turned **off** by default.  
 
 <h3 id='smn-usage'>Usage & Output</h3>
 
-Command Format: **\/qol smn**
+Command Format: **\/qol smn**  
 Executing this command will summon a random battle pet, and cause you to dismount or mount.  
-Executing this command with certain optional arguments will only summon a mount, or a battle pet, or toggle the *favorite* restriction.
-Only commands that toggle the *favorite* setting have output printed to the chat window; no other functionality has output.
+Executing this command with certain optional arguments will only summon a mount, or a battle pet, or toggle the *favorite* restriction.  
+Commands that toggle the *favorite* setting have output printed to the chat window.  
 
-Example Command:
-> \/qol smn m on
+Example Command:  
+> \/qol smn m on  
 
-Example Output:
-> Only appropriate and favorited mounts will be summoned.
+Example Output:  
+> Only appropriate and favorited mounts will be summoned.  
+
+Additionally, a message is printed to the chat window when trying to summon a favorite mount and no qualifying favorite mount is available.  
+Example: if you tried to summon a favorite flying mount with no flying mount favorited you would see the message  
+> No favorited mount available for flying.
 
 <h3 id='smn-arguments'>Command Arguments</h3>
 
@@ -256,7 +267,7 @@ All *Summoning* slash commands begin with ***\/qol smn***.
 Additional command arguments are separated by whitespace.
 
 Command Format: \/qol smn \[***optional:*** *summonType* \[***optional:*** *state*\]\]
-> *Optional argument* ***state*** *is only used when preceded by the optional arguement* ***summonType****\.*  
+> *Optional argument* ***state*** *is only used when preceded by the optional arguement* ***summonType***.  
 > **Running the command with NO optional arguments summons both a Battle Pet and a Mount.**  
 > Running the command with the optional argument *summonType*, but without the optional argument *state*, summons only the specified type.
 

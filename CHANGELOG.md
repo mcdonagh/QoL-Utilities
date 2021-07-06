@@ -1,7 +1,7 @@
 # QoL Utilities Change Log
 1. [Future Plans](#fp)
-1. [Latest Release](#c003)
-1. [Previous Release](#c002)
+1. [Latest Release (2021-07-06)](#c003)
+1. [Previous Release (2021-07-01)](#c002)
 1. [Older](#c001)
 
 <h2 id='fp'>Future Plans</h2>
@@ -16,18 +16,18 @@
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
 
-<h2 id='c003'>Version 4.0.0 | 2021-07-03</h2>
+<h2 id='c003'>Version 4.0.0 | 2021-07-06</h2>
 
 - Added ability to summon battle pets
 	- Will summon either any battle pet or any favorited battle pet
 - Added ability to summon mounts based on current ability and location
-	- Will summon any qualifying mount, or only favorited qualifying mounts
+	- Will summon any qualifying mount, or only *favorited* qualifying mounts
 	- Only summons ground mounts where you **cannot** fly
 	- Only summons flying mounts where you **can** fly
 	- Only summons underwater mounts when submerged
-	- Special mounts like the heirloom Chauffeur and Racial/Class mounts will be summoned when you are under leveled or have not yet trained the riding skill
+	- Special mounts like the heirloom Chauffeur mounts will be summoned when you are under leveled or have not yet trained the riding skill
 	- Special mounts Qiraji Battle Tanks will be summoned when you are in the Temple of Ahn'Qiraj
-- Added configuration options for summoning favorite pets/mounts
+- Added configuration options for summoning only favorite or summoning any pets and mounts
 - Backend changes to the code base for easier maintenance and cleaner division of functionality
 
 <h2 id='c002'>Version 3.1.0 | 2021-07-01</h2>
