@@ -102,7 +102,7 @@ function qm.DeclineDuel(...)
 		local inviter = ...
 		StaticPopup_Hide('DUEL_REQUESTED')
 		CancelDuel()
-		qm.Log(format('Declined Duel Request from %s', inviter))
+		qm.Log(format('Declined Duel Request from %s.', inviter))
 	end
 end
 

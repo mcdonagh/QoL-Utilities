@@ -97,7 +97,7 @@ function smn.Mount()
 		if QOLUtils.TableIsNilOrEmpty(usableMounts)
 				and QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts) then
 			if lowLevel then
-				smn.Log('No favorited mount available for pre-riding skill use.')
+				smn.Log('No favorited mount available for pre riding skill use.')
 			elseif underwater then
 				smn.Log('No favorited mount available for underwater use.')
 			elseif flyable and hasFlight then

@@ -50,15 +50,11 @@ function QOLUtils.TableToStr(t, separator)
 end
 
 function QOLUtils.GetFrame(name)
-	QOLUtils.Log(name)
 	local frame = _G[name]
-	QOLUtils.Log(frame)
 	if frame == nil then 
 		for i = 1, 10 do
-			QOLUtils.Log(name .. i)
 			frame = _G[name .. i]
 			if frame and frame.which and frame.IsShown and frame:IsShown() then
-				QOLUtils.Log(frame)
 				return frame, i
 			end
 		end
