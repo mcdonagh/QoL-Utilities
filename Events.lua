@@ -17,6 +17,7 @@ function QOLUtils.Events:PLAYER_ENTERING_WORLD(...)
 		QOLUtils.ATC.Clean(false)
 		QOLUtils.AC.ReportInitial()
 		QOLUtils.QM.ReportInitial()
+		QOLUtils.SMN.ReportInitial()
 		QOLUtils.VC.LoadInitialVolume()
 	end
 end

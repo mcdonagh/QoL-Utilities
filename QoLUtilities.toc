@@ -1,10 +1,11 @@
-## Interface: 90000
+## Interface: 90100
 ## Title: QoL Utilities
 ## Author: redbeard923
 ## SavedVariables: QOL_Config
 ## SavedVariablesPerCharacter: QOL_Config_Toon
-## Version: 3.1.0
+## Version: 4.0.0
 
+Common.lua
 Constants.lua
 SlashCommands.lua
 Events.lua
@@ -15,4 +16,5 @@ AnnounceTarget.lua
 AutoConfirm.lua
 MiddleMarker.lua
 QuietMode.lua
+Summon.lua
 VolumeCycler.lua

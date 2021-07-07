@@ -2,11 +2,11 @@ local addonName, QOLUtils = ...
 
 QOLUtils.AT = {}
 local at = QOLUtils.AT
-at.S_TARGET = 'target'
-at.S_PLAYER = 'player'
+local tar = 'TARGET'
+local player = 'PLAYER'
 
 function at.AnnounceTarget(args)
-	if UnitExists(at.S_TARGET) then
+	if UnitExists(tar) then
 		local destination, subdestination = at.GetDestination(args)
 		local message = at.GenerateMessage();
 		SendChatMessage(message, destination, nil, subdestination)
@@ -43,7 +43,7 @@ function at.GetDestination(args)
 end
 
 function at.GetSubDestination(isChannel, args)
-	local subdestination = isChannel and 1 or UnitName(at.S_PLAYER)
+	local subdestination = isChannel and 1 or UnitName(player)
 	if args[3] then
 		subdestination = args[3]
 	end
@@ -51,10 +51,10 @@ function at.GetSubDestination(isChannel, args)
 end
 
 function at.GenerateMessage()
-	local name = UnitName(at.S_TARGET)
-	local health = UnitHealth(at.S_TARGET) / UnitHealthMax(at.S_TARGET)
-	local map = C_Map.GetBestMapForUnit(at.S_PLAYER)
-	local x, y = C_Map.GetPlayerMapPosition(map, at.S_PLAYER):GetXY()
+	local name = UnitName(tar)
+	local health = UnitHealth(tar) / UnitHealthMax(tar)
+	local map = C_Map.GetBestMapForUnit(player)
+	local x, y = C_Map.GetPlayerMapPosition(map, player):GetXY()
 	local message = health > 0 
 		and format('%s [Health %d%%] near (%.1f, %.1f) ', name, health * 100, x * 100, y * 100)
 		or format('%s [Dead] near (%.1f, %.1f) ', name, x * 100, y * 100)

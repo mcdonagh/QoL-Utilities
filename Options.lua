@@ -4,100 +4,70 @@ QOLUtils.OPT = {}
 local opt = QOLUtils.OPT
 
 function opt.LoadDefaults()
-	opt.LoadAccountDefaults()
-	opt.LoadToonDefaults()
-end
-
-function opt.LoadAccountDefaults()
 	if QOL_Config == nil then
 		QOL_Config = {}
 	end
-	if QOL_Config.AC == nil then
-		QOL_Config.AC = {}
-	end
-	if QOL_Config.AC.ReportAtLogon == nil then
-		QOL_Config.AC.ReportAtLogon = true
-	end
-	if QOL_Config.AC.RefundableActive == nil then
-		QOL_Config.AC.RefundableActive = false
-	end
-	if QOL_Config.AC.TradeableActive == nil then
-		QOL_Config.AC.TradeableActive = false
-	end
-	if QOL_Config.AC.BindableActive == nil then
-		QOL_Config.AC.BindableActive = false
-	end
-	if QOL_Config.QM == nil then
-		QOL_Config.QM = {}
-	end
-	if QOL_Config.QM.ReportAtLogon == nil then
-		QOL_Config.QM.ReportAtLogon = true
-	end
-	if QOL_Config.QM.PartyActive == nil then
-		QOL_Config.QM.PartyActive = false
-	end
-	if QOL_Config.QM.DuelActive == nil then
-		QOL_Config.QM.DuelActive = false;
-	end
-	if QOL_Config.VC == nil then
-		QOL_Config.VC = {}
-	end
-	if QOL_Config.VC.Levels == nil then
-		QOL_Config.VC.Levels = {}
-		table.insert(QOL_Config.VC.Levels, 80)
-		table.insert(QOL_Config.VC.Levels, 20)
-		table.insert(QOL_Config.VC.Levels, 5)
-	end
-	if QOL_Config.VC.Index == nil then
-		QOL_Config.VC.Index = 1
-	end
-end
-
-function opt.LoadToonDefaults()
+	opt.GenerateDefaults(QOL_Config)
 	if QOL_Config_Toon == nil then
 		QOL_Config_Toon = {}
 	end
+	opt.GenerateDefaults(QOL_Config_Toon)
 	if QOL_Config_Toon.Active == nil then
 		QOL_Config_Toon.Active = false
 	end
-	if QOL_Config_Toon.AC == nil then
-		QOL_Config_Toon.AC = {}
+end
+
+function opt.GenerateDefaults(config)
+	if config.AC == nil then
+		config.AC = {}
 	end
-	if QOL_Config_Toon.AC.ReportAtLogon == nil then
-		QOL_Config_Toon.AC.ReportAtLogon = true
+	if config.AC.ReportAtLogon == nil then
+		config.AC.ReportAtLogon = true
 	end
-	if QOL_Config_Toon.AC.RefundableActive == nil then
-		QOL_Config_Toon.AC.RefundableActive = false
+	if config.AC.RefundableActive == nil then
+		config.AC.RefundableActive = false
 	end
-	if QOL_Config_Toon.AC.TradeableActive == nil then
-		QOL_Config_Toon.AC.TradeableActive = false
+	if config.AC.TradeableActive == nil then
+		config.AC.TradeableActive = false
 	end
-	if QOL_Config_Toon.AC.BindableActive == nil then
-		QOL_Config_Toon.AC.BindableActive = false
+	if config.AC.BindableActive == nil then
+		config.AC.BindableActive = false
 	end
-	if QOL_Config_Toon.QM == nil then
-		QOL_Config_Toon.QM = {}
+	if config.QM == nil then
+		config.QM = {}
 	end
-	if QOL_Config_Toon.QM.ReportAtLogon == nil then
-		QOL_Config_Toon.QM.ReportAtLogon = true
+	if config.QM.ReportAtLogon == nil then
+		config.QM.ReportAtLogon = true
 	end
-	if QOL_Config_Toon.QM.PartyActive == nil then
-		QOL_Config_Toon.QM.PartyActive = false
+	if config.QM.PartyActive == nil then
+		config.QM.PartyActive = false
 	end
-	if QOL_Config_Toon.QM.DuelActive == nil then
-		QOL_Config_Toon.QM.DuelActive = false;
+	if config.QM.DuelActive == nil then
+		config.QM.DuelActive = false;
 	end
-	if QOL_Config_Toon.VC == nil then
-		QOL_Config_Toon.VC = {}
+	if config.SMN == nil then
+		config.SMN = {}
 	end
-	if QOL_Config_Toon.VC.Levels == nil then
-		QOL_Config_Toon.VC.Levels = {}
-		table.insert(QOL_Config_Toon.VC.Levels, 80)
-		table.insert(QOL_Config_Toon.VC.Levels, 20)
-		table.insert(QOL_Config_Toon.VC.Levels, 5)
+	if config.SMN.ReportAtLogon == nil then
+		config.SMN.ReportAtLogon = false
 	end
-	if QOL_Config_Toon.VC.Index == nil then
-		QOL_Config_Toon.VC.Index = 1
+	if config.SMN.OnlyFavoritePets == nil then
+		config.SMN.OnlyFavoritePets = false
+	end
+	if config.SMN.OnlyFavoriteMounts == nil then
+		config.SMN.OnlyFavoriteMounts = false
+	end
+	if config.VC == nil then
+		config.VC = {}
+	end
+	if config.VC.Levels == nil then
+		config.VC.Levels = {}
+		table.insert(config.VC.Levels, 80)
+		table.insert(config.VC.Levels, 20)
+		table.insert(config.VC.Levels, 5)
+	end
+	if config.VC.Index == nil then
+		config.VC.Index = 1
 	end
 end
 
@@ -107,54 +77,64 @@ function opt.OpenConfig()
 end
 
 function opt.CreateConfig()
+	local sectionGap = 40
+	local headerGap = 30
+	local itemGap = 20
+	local indent = 30
+	local scrollchild = opt.CreateScrollFrame()
+	opt.Acct = {}
+	local acctHeader = opt.CreateHeader(scrollchild, scrollchild, indent, -sectionGap, QOLUtils.Labels.Acct)
+	local acctACHeader = opt.CreateHeader(scrollchild, acctHeader, indent, -itemGap, QOLUtils.Labels.AC.Header)
+	opt.CreateConfigItems(scrollchild, acctACHeader, QOL_Config, opt.Acct, indent, headerGap, itemGap)
+	opt.Toon = {}
+	local toonHeader = opt.CreateHeader(scrollchild, opt.Acct.VC.EditBoxLevels, -indent * 3, -sectionGap, QOLUtils.Labels.Toon)
+	opt.Toon.Active = opt.CreateCheckBox(scrollchild, toonHeader, indent, -itemGap, QOLUtils.Labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
+	local toonACHeader = opt.CreateHeader(scrollchild, opt.Toon.Active, 0, -headerGap, QOLUtils.Labels.AC.Header)
+	opt.CreateConfigItems(scrollchild, toonACHeader, QOL_Config_Toon, opt.Toon, indent, headerGap, itemGap)
+	InterfaceOptions_AddCategory(opt.Panel);
+end
+
+function opt.CreateScrollFrame()
 	opt.Panel = CreateFrame('Frame', 'QoL Utilities', UIParent)
-	opt.Panel.name = 'QoL Utilities'	
+	opt.Panel.name = 'QoL Utilities'
 	opt.Panel.ScrollFrame = CreateFrame('ScrollFrame', 'QOL_Utils_ScrollFrame_' .. opt.GetUniqueID(), opt.Panel, 'UIPanelScrollFrameTemplate')
 	opt.Panel.ScrollFrame:SetPoint('TOPLEFT', opt.Panel, 'TOPLEFT')
-	opt.Panel.ScrollFrame:SetPoint('BOTTOMRIGHT', opt.Panel, 'BOTTOMRIGHT')	
+	opt.Panel.ScrollFrame:SetPoint('BOTTOMRIGHT', opt.Panel, 'BOTTOMRIGHT')
 	opt.Panel.ScrollFrame.ScrollBar:ClearAllPoints()
 	opt.Panel.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', opt.Panel.ScrollFrame, 'TOPRIGHT', -5, -22)
-	opt.Panel.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', opt.Panel.ScrollFrame, 'BOTTOMRIGHT', -5, 22)	
+	opt.Panel.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', opt.Panel.ScrollFrame, 'BOTTOMRIGHT', -5, 22)
 	local scrollchild = CreateFrame('Frame', 'QOL_Utils_ScrollChild_' .. opt.GetUniqueID(), opt.Panel.ScrollFrame)
-	scrollchild:SetSize(400, 750)
+	-----------------------------
+	-- scrollchild.bg = scrollchild:CreateTexture(nil, 'BACKGROUND')
+	-- scrollchild.bg:SetAllPoints(true)
+	-- scrollchild.bg:SetColorTexture(0.4, 0, 0, 0.4)
+	-----------------------------
+	scrollchild:SetSize(400, 900)
 	scrollchild:SetPoint('TOPLEFT', opt.Panel.ScrollFrame, 'TOPLEFT', -30, 30)
-	opt.Panel.ScrollFrame:SetScrollChild(scrollchild)	
-	opt.Acct = {}
-	opt.Acct.AC = {}
-	opt.Acct.QM = {}
-	opt.Acct.VC = {}
-	local acctHeader = opt.CreateHeader(scrollchild, scrollchild, 30, -30, QOLUtils.Labels.Acct)
-	local acctACHeader = opt.CreateHeader(scrollchild, acctHeader, 30, -20, QOLUtils.Labels.AC.Header)
-	opt.Acct.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, acctACHeader, 30, -20, QOLUtils.Labels.AC.Report, QOL_Config.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReport)
-	opt.Acct.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, opt.Acct.AC.CheckBoxReport, 0, -20, QOLUtils.Labels.AC.Refundable, QOL_Config.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
-	opt.Acct.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, opt.Acct.AC.CheckBoxRefundable, 0, -20, QOLUtils.Labels.AC.Tradeable, QOL_Config.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
-	opt.Acct.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, opt.Acct.AC.CheckBoxTradeable, 0, -20, QOLUtils.Labels.AC.Bindable, QOL_Config.AC.BindableActive, QOLUtils.AC.ToggleBindable)
-	local acctQMHeader = opt.CreateHeader(scrollchild, opt.Acct.AC.CheckBoxBindable, -30, -30, QOLUtils.Labels.QM.Header)
-	opt.Acct.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, acctQMHeader, 30, -20, QOLUtils.Labels.QM.Report, QOL_Config.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReport)
-	opt.Acct.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, opt.Acct.QM.CheckBoxReport, 0, -20, QOLUtils.Labels.QM.Party, QOL_Config.QM.PartyActive, QOLUtils.QM.ToggleParty)
-	opt.Acct.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, opt.Acct.QM.CheckBoxParty, 0, -20, QOLUtils.Labels.QM.Duel, QOL_Config.QM.DuelActive, QOLUtils.QM.ToggleDuel)
-	local acctVCHeader = opt.CreateHeader(scrollchild, opt.Acct.QM.CheckBoxDuel, -30, -30, QOLUtils.Labels.VC.Header)
-	local acctVCLabel = opt.CreateLabel(scrollchild, acctVCHeader, 30, -20, QOLUtils.Labels.VC.Levels)
-	opt.Acct.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, acctVCLabel, 30, -10, opt.TableToStr(QOL_Config.VC.Levels), opt.ParseVolumeLevels)
-	opt.Toon = {}
-	opt.Toon.AC = {}
-	opt.Toon.QM = {}
-	opt.Toon.VC = {}
-	local toonHeader = opt.CreateHeader(scrollchild, opt.Acct.VC.EditBoxLevels, -90, -40, QOLUtils.Labels.Toon)
-	opt.Toon.Active = opt.CreateCheckBox(scrollchild, toonHeader, 30, -20, QOLUtils.Labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
-	local toonACHeader = opt.CreateHeader(scrollchild, opt.Toon.Active, 0, -30, QOLUtils.Labels.AC.Header)
-	opt.Toon.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, toonACHeader, 30, -20, QOLUtils.Labels.AC.Report, QOL_Config_Toon.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReport)
-	opt.Toon.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, opt.Toon.AC.CheckBoxReport, 0, -20, QOLUtils.Labels.AC.Refundable, QOL_Config_Toon.AC.RefundableActive, QOLUtils.AC.ToggleRefundable)
-	opt.Toon.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, opt.Toon.AC.CheckBoxRefundable, 0, -20, QOLUtils.Labels.AC.Tradeable, QOL_Config_Toon.AC.TradeableActive, QOLUtils.AC.ToggleTradeable)
-	opt.Toon.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, opt.Toon.AC.CheckBoxTradeable, 0, -20, QOLUtils.Labels.AC.Bindable, QOL_Config_Toon.AC.BindableActive, QOLUtils.AC.ToggleBindable)
-	local toonQMHeader = opt.CreateHeader(scrollchild, opt.Toon.AC.CheckBoxBindable, -30, -30, QOLUtils.Labels.QM.Header)
-	opt.Toon.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, toonQMHeader, 30, -20, QOLUtils.Labels.QM.Report, QOL_Config_Toon.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReport)
-	opt.Toon.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, opt.Toon.QM.CheckBoxReport, 0, -20, QOLUtils.Labels.QM.Party, QOL_Config_Toon.QM.PartyActive, QOLUtils.QM.ToggleParty)
-	opt.Toon.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, opt.Toon.QM.CheckBoxParty, 0, -20, QOLUtils.Labels.QM.Duel, QOL_Config_Toon.QM.DuelActive, QOLUtils.QM.ToggleDuel)
-	local toonVCHeader = opt.CreateHeader(scrollchild, opt.Toon.QM.CheckBoxDuel, -30, -30, QOLUtils.Labels.VC.Header)
-	local toonVCLabel = opt.CreateLabel(scrollchild, toonVCHeader, 30, -20, QOLUtils.Labels.VC.Levels)
-	opt.Toon.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, toonVCLabel, 30, -10, opt.TableToStr(QOL_Config_Toon.VC.Levels), opt.ParseVolumeLevels)
-	InterfaceOptions_AddCategory(opt.Panel);
+	opt.Panel.ScrollFrame:SetScrollChild(scrollchild)
+	return scrollchild
+end
+
+function opt.CreateConfigItems(scrollchild, firstRelativeParent, config, storage, indent, headerGap, itemGap)
+	storage.AC = {}
+	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, firstRelativeParent, indent, -itemGap, QOLUtils.Labels.AC.Report, config.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReportOnClick)
+	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.AC.Refundable, config.AC.RefundableActive, QOLUtils.AC.ToggleRefundableOnClick)
+	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxRefundable, 0, -itemGap, QOLUtils.Labels.AC.Tradeable, config.AC.TradeableActive, QOLUtils.AC.ToggleTradeableOnClick)
+	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxTradeable, 0, -itemGap, QOLUtils.Labels.AC.Bindable, config.AC.BindableActive, QOLUtils.AC.ToggleBindableOnClick)
+	storage.QM = {}
+	local qmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -indent, -headerGap, QOLUtils.Labels.QM.Header)
+	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, qmHeader, indent, -itemGap, QOLUtils.Labels.QM.Report, config.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReportOnClick)
+	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.QM.Party, config.QM.PartyActive, QOLUtils.QM.TogglePartyOnClick)
+	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxParty, 0, -itemGap, QOLUtils.Labels.QM.Duel, config.QM.DuelActive, QOLUtils.QM.ToggleDuelOnClick)
+	storage.SMN = {}
+	local smnHeader = opt.CreateHeader(scrollchild, storage.QM.CheckBoxDuel, -indent, -headerGap, QOLUtils.Labels.SMN.Header)
+	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, smnHeader, indent, -itemGap, QOLUtils.Labels.SMN.Report, config.SMN.ReportAtLogon, QOLUtils.SMN.ToggleLogonReportOnClick)
+	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoritePets, config.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePetsOnClick)
+	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxPets, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoriteMounts, config.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMountsOnClick)
+	storage.VC = {}
+	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -indent, -headerGap, QOLUtils.Labels.VC.Header)
+	local toonVCLabel = opt.CreateLabel(scrollchild, vcHeader, indent, -itemGap, QOLUtils.Labels.VC.Levels)
+	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, toonVCLabel, indent, -10, QOLUtils.TableToStr(config.VC.Levels), opt.ParseVolumeLevels)
 end
 
 function opt.CreateHeader(parent, relativeParent, x, y, text)
@@ -213,7 +193,7 @@ end
 
 function opt.ParseVolumeLevels(self)
 	local configLevels = self == opt.Acct.VC.EditBoxLevels and QOL_Config.VC.Levels or QOL_Config_Toon.VC.Levels
-	local enteredPresets = opt.StrToTable(self:GetText(), QOLUtils.Patterns.Numbers)
+	local enteredPresets = QOLUtils.StrToTable(self:GetText(), QOLUtils.Patterns.Numbers)
 	local validPresets = {}
 	for i = 1, table.getn(enteredPresets) do
 		if QOLUtils.VC.ValidLevel(enteredPresets[i]) then
@@ -221,24 +201,7 @@ function opt.ParseVolumeLevels(self)
 		end
 	end
 	configLevels = validPresets
-	self:SetText(opt.TableToStr(configLevels))
-end
-
-function opt.StrToTable(str, pattern)
-	local args = {}
-	for num in str:gmatch(pattern) do
-		table.insert(args, num)
-	end
-	return args
-end
-
-function opt.TableToStr(t)
-	local s = ''
-	for i = 1, table.getn(t) do
-		s = s .. t[i] .. ' '
-	end
-	s = s:gsub(QOLUtils.Patterns.WhiteSpaceStart, ''):gsub(QOLUtils.Patterns.WhiteSpaceEnd, '')
-	return s
+	self:SetText(QOLUtils.TableToStr(configLevels))
 end
 
 function opt.UpdateCheckBox(checkBox, checked)

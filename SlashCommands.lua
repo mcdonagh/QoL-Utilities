@@ -6,9 +6,9 @@ SlashCmdList['QOLUTILITIES'] = function (msg)
 end
 
 function QOLUtils.ParseInput(msg)
-	local args = QOLUtils.OPT.StrToTable(msg, QOLUtils.Patterns.Words)
+	local args = QOLUtils.StrToTable(msg, QOLUtils.Patterns.Words)
 	local direction = args[1]
-	if QOLUtils.IsEmpty(msg) then
+	if QOLUtils.IsNilOrWhitespace(msg) then
 		QOLUtils.OPT.OpenConfig()
 	elseif direction == 'atc' then
 		QOLUtils.ATC.Clean(true)
@@ -20,19 +20,9 @@ function QOLUtils.ParseInput(msg)
 		QOLUtils.MM.ToggleMiddleMarker()
 	elseif direction == 'qm' then
 		QOLUtils.QM.ToggleAndReport(args)
+	elseif direction == 'smn' then
+		QOLUtils.SMN.Summon(args)
 	elseif direction == 'vc' then
 		QOLUtils.VC.Cycle(args)
 	end
-end
-
-function QOLUtils.Log(message, subID)
-	local ID = '[QoLUtils]'
-	if not QOLUtils.IsEmpty(subID) then
-		ID = format('[QoL Utils - %s]', subID)
-	end
-	print(format('%s  %s  %s', date('%H:%M'), ID, message))
-end
-
-function QOLUtils.IsEmpty(val)
-	return val == nil or val == ''
 end
