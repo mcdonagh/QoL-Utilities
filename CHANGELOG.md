@@ -11,7 +11,7 @@
 - Add Quest Auto Accept/Complete feature.
 	- Lots of addons already do this, but I want one that is my own. 
 	- This feature will only be implemented **after** the ability to disable specific features is implemented.
-		- This feature will be disabled by default; I don't want it interfering with peoles' existing auto questing addons.
+		- This feature will be disabled by default; I don't want it interfering with peoples' existing auto questing addons.
 - Add ability to turn off features completely via in-game config screen.
 - Add the option to screen requests for *Quiet Mode* to allow the option for different level of requests to come through.
 	- Such as allowing requests from guildies only, or requests from guildies and people on your friends list.
