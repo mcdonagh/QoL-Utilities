@@ -2,6 +2,15 @@ local addonName, QOLUtils = ...
 
 QOLUtils.MM = {}
 local mm = QOLUtils.MM
+local configAcct = QOL_Config_Acct.MM
+local configToon = QOL_Config_Toon.MM
+local optAcct = QOLUtils.OPT.Acct.MM
+local optToon = QOLUtils.OPT.Toon.MM
+
+function mm.IsEnabled()
+	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+end
+
 mm.InitialCreate = true
 mm.ShowMiddleMarker = false
 

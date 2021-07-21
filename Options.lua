@@ -4,10 +4,10 @@ QOLUtils.OPT = {}
 local opt = QOLUtils.OPT
 
 function opt.LoadDefaults()
-	if QOL_Config == nil then
-		QOL_Config = {}
+	if QOL_Config_Acct == nil then
+		QOL_Config_Acct = QOL_Config or {}
 	end
-	opt.GenerateDefaults(QOL_Config)
+	opt.GenerateDefaults(QOL_Config_Acct)
 	if QOL_Config_Toon == nil then
 		QOL_Config_Toon = {}
 	end
@@ -18,8 +18,23 @@ function opt.LoadDefaults()
 end
 
 function opt.GenerateDefaults(config)
+	if config.ATC == nil then
+		config.ATC = {}
+	end
+	if config.ATC.Enabled == nil then
+		config.ATC.Enabled = false
+	end
+	if config.AT == nil then
+		config.AT = {}
+	end
+	if config.AT.Enabled == nil then
+		config.AT.Enabled = false
+	end
 	if config.AC == nil then
 		config.AC = {}
+	end
+	if config.AC.Enabled == nil then
+		config.AC.Enabled = false
 	end
 	if config.AC.ReportAtLogon == nil then
 		config.AC.ReportAtLogon = true
@@ -33,8 +48,17 @@ function opt.GenerateDefaults(config)
 	if config.AC.BindableActive == nil then
 		config.AC.BindableActive = false
 	end
+	if config.MM == nil then
+		config.MM = {}
+	end
+	if config.MM.Enabled == nil then
+		config.MM.Enabled = false
+	end
 	if config.QM == nil then
 		config.QM = {}
+	end
+	if config.QM.Enabled == nil then
+		config.QM.Enabled = false
 	end
 	if config.QM.ReportAtLogon == nil then
 		config.QM.ReportAtLogon = true
@@ -48,6 +72,9 @@ function opt.GenerateDefaults(config)
 	if config.SMN == nil then
 		config.SMN = {}
 	end
+	if config.SMN.Enabled == nil then
+		config.SMN.Enabled = false
+	end
 	if config.SMN.ReportAtLogon == nil then
 		config.SMN.ReportAtLogon = false
 	end
@@ -59,6 +86,9 @@ function opt.GenerateDefaults(config)
 	end
 	if config.VC == nil then
 		config.VC = {}
+	end
+	if config.VC.Enabled == nil then
+		config.VC.Enabled = false
 	end
 	if config.VC.Levels == nil then
 		config.VC.Levels = {}
@@ -85,7 +115,7 @@ function opt.CreateConfig()
 	opt.Acct = {}
 	local acctHeader = opt.CreateHeader(scrollchild, scrollchild, indent, -sectionGap, QOLUtils.Labels.Acct)
 	local acctACHeader = opt.CreateHeader(scrollchild, acctHeader, indent, -itemGap, QOLUtils.Labels.AC.Header)
-	opt.CreateConfigItems(scrollchild, acctACHeader, QOL_Config, opt.Acct, indent, headerGap, itemGap)
+	opt.CreateConfigItems(scrollchild, acctACHeader, QOL_Config_Acct, opt.Acct, indent, headerGap, itemGap)
 	opt.Toon = {}
 	local toonHeader = opt.CreateHeader(scrollchild, opt.Acct.VC.EditBoxLevels, -indent * 3, -sectionGap, QOLUtils.Labels.Toon)
 	opt.Toon.Active = opt.CreateCheckBox(scrollchild, toonHeader, indent, -itemGap, QOLUtils.Labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
@@ -192,7 +222,7 @@ function opt.ToggleToonSpecific()
 end
 
 function opt.ParseVolumeLevels(self)
-	local configLevels = self == opt.Acct.VC.EditBoxLevels and QOL_Config.VC.Levels or QOL_Config_Toon.VC.Levels
+	local configLevels = self == opt.Acct.VC.EditBoxLevels and QOL_Config_Acct.VC.Levels or QOL_Config_Toon.VC.Levels
 	local enteredPresets = QOLUtils.StrToTable(self:GetText(), QOLUtils.Patterns.Numbers)
 	local validPresets = {}
 	for i = 1, table.getn(enteredPresets) do

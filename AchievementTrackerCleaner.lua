@@ -2,6 +2,14 @@ local addonName, QOLUtils = ...
 
 QOLUtils.ATC = {}
 local atc = QOLUtils.ATC
+local configAcct = QOL_Config_Acct.ATC
+local configToon = QOL_Config_Toon.ATC
+local optAcct = QOLUtils.OPT.Acct.ATC
+local optToon = QOLUtils.OPT.Toon.ATC
+
+function atc.IsEnabled()
+	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+end
 
 function atc.Clean(printRemoved)
 	local trackedAchievements = { GetTrackedAchievements() }

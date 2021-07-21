@@ -11,18 +11,32 @@ function QOLUtils.ParseInput(msg)
 	if QOLUtils.IsNilOrWhitespace(msg) then
 		QOLUtils.OPT.OpenConfig()
 	elseif direction == 'atc' then
-		QOLUtils.ATC.Clean(true)
-	elseif direction == 'ac' then
-		QOLUtils.AC.ToggleAndReport(args)
+		if QOLUtils.ATC.IsEnabled() then
+			QOLUtils.ATC.Clean(true)
+		end
 	elseif direction == 'at' then
-		QOLUtils.AT.AnnounceTarget(args)
+		if QOLUtils.AT.IsEnabled() then
+			QOLUtils.AT.AnnounceTarget(args)
+		end
+	elseif direction == 'ac' then
+		if QOLUtils.AC.IsEnabled() then
+			QOLUtils.AC.ToggleAndReport(args)
+		end
 	elseif direction == 'mm' then
-		QOLUtils.MM.ToggleMiddleMarker()
+		if QOLUtils.MM.IsEnabled() then
+			QOLUtils.MM.ToggleMiddleMarker()
+		end
 	elseif direction == 'qm' then
-		QOLUtils.QM.ToggleAndReport(args)
+		if QOLUtils.QM.IsEnabled() then
+			QOLUtils.QM.ToggleAndReport(args)
+		end
 	elseif direction == 'smn' then
-		QOLUtils.SMN.Summon(args)
+		if QOLUtils.SMN.IsEnabled() then
+			QOLUtils.SMN.Summon(args)
+		end
 	elseif direction == 'vc' then
-		QOLUtils.VC.Cycle(args)
+		if QOLUtils.VC.IsEnabled() then
+			QOLUtils.VC.Cycle(args)
+		end
 	end
 end

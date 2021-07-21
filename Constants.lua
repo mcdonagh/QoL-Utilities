@@ -13,6 +13,7 @@ local lb = QOLUtils.Labels
 lb.Acct = 'ACCOUNT  WIDE  SETTINGS'
 lb.Toon = 'CHARACTER  SPECIFIC  SETTINGS'
 lb.UseToon = 'Use character specific settings.'
+lb.Enabled = 'Feature enabled.'
 
 QOLUtils.Labels.AC = {}
 local ac = QOLUtils.Labels.AC

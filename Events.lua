@@ -14,36 +14,58 @@ end
 function QOLUtils.Events:PLAYER_ENTERING_WORLD(...)
 	local isFirstLogin, isReload = ...
 	if isFirstLogin or isReload then
-		QOLUtils.ATC.Clean(false)
-		QOLUtils.AC.ReportInitial()
-		QOLUtils.QM.ReportInitial()
-		QOLUtils.SMN.ReportInitial()
-		QOLUtils.VC.LoadInitialVolume()
+		if QOLUtils.ATC.IsEnabled() then
+			QOLUtils.ATC.Clean(false)
+		end
+		if QOLUtils.AC.IsEnabled() then
+			QOLUtils.AC.ReportInitial()
+		end
+		if QOLUtils.QM.IsEnabled() then
+			QOLUtils.QM.ReportInitial()
+		end
+		if QOLUtils.SMN.IsEnabled() then
+			QOLUtils.SMN.ReportInitial()
+		end
+		if QOLUtils.VC.IsEnabled() then
+			QOLUtils.VC.LoadInitialVolume()
+		end
 	end
 end
 
 function QOLUtils.Events:ACHIEVEMENT_EARNED(...)
-	QOLUtils.ATC.Clean(false)
+	if QOLUtils.ATC.IsEnabled() then
+		QOLUtils.ATC.Clean(false)
+	end
 end
 
 function QOLUtils.Events:PARTY_INVITE_REQUEST(...)
-	QOLUtils.QM.DeclinePartyInvite(...)
+	if QOLUtils.QM.IsEnabled() then
+		QOLUtils.QM.DeclinePartyInvite(...)
+	end
 end
 
 function QOLUtils.Events:DUEL_REQUESTED(...)
-	QOLUtils.QM.DeclineDuel(...)
+	if QOLUtils.QM.IsEnabled() then
+		QOLUtils.QM.DeclineDuel(...)
+	end
 end
 
 function QOLUtils.Events:EQUIP_BIND_REFUNDABLE_CONFIRM(...)
-	QOLUtils.AC.ConfirmEquipRefundable()
+	if QOLUtils.AC.IsEnabled() then
+		QOLUtils.AC.ConfirmEquipRefundable()
+	end
 end
 
 function QOLUtils.Events:EQUIP_BIND_TRADEABLE_CONFIRM(...)
-	QOLUtils.AC.ConfirmEquipTradeable()
+	if QOLUtils.AC.IsEnabled() then
+		QOLUtils.AC.ConfirmEquipTradeable()
+	end
 end
 
 function QOLUtils.Events:EQUIP_BIND_CONFIRM(...)
-	QOLUtils.AC.ConfirmEquipBind()
+	if QOLUtils.AC.IsEnabled() then
+		QOLUtils.AC.ConfirmEquipBind()
+	end
 end
 
 QOLUtils.EventFrame:SetScript('OnEvent',

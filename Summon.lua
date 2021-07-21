@@ -2,6 +2,14 @@ local addonName, QOLUtils = ...
 
 QOLUtils.SMN = {}
 local smn = QOLUtils.SMN
+local configAcct = QOL_Config_Acct.SMN
+local configToon = QOL_Config_Toon.SMN
+local optAcct = QOLUtils.OPT.Acct.SMN
+local optToon = QOLUtils.OPT.Toon.SMN
+
+function smn.IsEnabled()
+	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+end
 
 function smn.Summon(args)
 	local subdirection = args[2]
@@ -36,7 +44,7 @@ function smn.ProcessState(state, Toggle, Report)
 end
 
 function smn.Pet()
-	local onlyFavorites = QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets)
+	local onlyFavorites = QOLUtils.SettingIsTrue(configAcct.OnlyFavoritePets, configToon.OnlyFavoritePets)
 	C_PetJournal.SummonRandomPet(onlyFavorites)
 end
 
@@ -69,7 +77,7 @@ smn.Types.LowLevel = {
 function smn.Mount()
 	if IsMounted() then
 		Dismount()
-	else
+	elseif not UnitAffectingCombat('PLAYER') then
 		local usableMounts = {}
 		local lowLevel = not smn.HasRidingSkill()
 		local underwater = smn.IsUnderWater()
@@ -94,8 +102,8 @@ function smn.Mount()
 		else
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 		end
-		if QOLUtils.TableIsNilOrEmpty(usableMounts)
-				and QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts) then
+		if QOLUtils.TableIsNilOrEmpty(usableMounts) then
+				and QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts) then
 			if lowLevel then
 				smn.Log('No favorited mount available for pre riding skill use.')
 			elseif underwater then
@@ -105,8 +113,12 @@ function smn.Mount()
 			else
 				smn.Log('No favorited mount available for ground use.')
 			end
-		else
-			C_MountJournal.SummonByID(usableMounts[math.random(table.getn(usableMounts))])
+		elseif not QOLUtils.TableIsNilOrEmpty(usableMounts) then
+			for i = #usableMounts, 2, -1 do
+				local j = math.random(i)
+				usableMounts[i], usableMounts[j] = usableMounts[j], usableMounts[i]
+			end
+			C_MountJournal.SummonByID(usableMounts[math.random(#usableMounts))])
 		end
 	end
 end
@@ -143,7 +155,7 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 	for i, v in ipairs(existingMounts) do
 		table.insert(usableMounts, v)
 	end
-	local onlyFavorites = QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts)
+	local onlyFavorites = QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts)
 	for i, mountID in pairs(C_MountJournal.GetMountIDs()) do
 		local _, _, _, _, isUsable, _, isFavorite = C_MountJournal.GetMountInfoByID(mountID)
 		local _, _, _, _, typeID = C_MountJournal.GetMountInfoExtraByID(mountID)
@@ -155,34 +167,34 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 end
 
 function smn.ToggleFavoritePets(state)
-	QOL_Config.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets =
+	configAcct.OnlyFavoritePets, configToon.OnlyFavoritePets =
 	QOLUtils.ToggleSetting(state,
-		QOL_Config.SMN.OnlyFavoritePets,
-		QOL_Config_Toon.SMN.OnlyFavoritePets,
-		QOLUtils.OPT.Acct.SMN.CheckBoxPets,
-		QOLUtils.OPT.Toon.SMN.CheckBoxPets)
+		configAcct.OnlyFavoritePets,
+		configToon.OnlyFavoritePets,
+		optAcct.CheckBoxPets,
+		optToon.CheckBoxPets)
 end
 
 function smn.ToggleFavoriteMounts(state)
-	QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts =
+	configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts =
 	QOLUtils.ToggleSetting(state,
-		QOL_Config.SMN.OnlyFavoriteMounts,
-		QOL_Config_Toon.SMN.OnlyFavoriteMounts,
-		QOLUtils.OPT.Acct.SMN.CheckBoxMounts,
-		QOLUtils.OPT.Toon.SMN.CheckBoxMounts)
+		configAcct.OnlyFavoriteMounts,
+		configToon.OnlyFavoriteMounts,
+		optAcct.CheckBoxMounts,
+		optToon.CheckBoxMounts)
 end
 
 function smn.ToggleLogonReport()
-	QOL_Config.SMN.ReportAtLogon, QOL_Config_Toon.SMN.ReportAtLogon =
+	configAcct.ReportAtLogon, configToon.ReportAtLogon =
 	QOLUtils.ToggleSetting(nil,
-		QOL_Config.SMN.ReportAtLogon,
-		QOL_Config_Toon.SMN.ReportAtLogon,
-		QOLUtils.OPT.Acct.SMN.CheckBoxReport,
-		QOLUtils.OPT.Toon.SMN.CheckBoxReport)
+		configAcct.ReportAtLogon,
+		configToon.ReportAtLogon,
+		optAcct.CheckBoxReport,
+		optToon.CheckBoxReport)
 end
 
 function smn.ReportFavoritePets()
-	if QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets) then
+	if QOLUtils.SettingIsTrue(configAcct.OnlyFavoritePets, configToon.OnlyFavoritePets) then
 		smn.Log('Only favorited pets will be summoned.')
 	else
 		smn.Log('Any pet will be summoned.')
@@ -190,7 +202,7 @@ function smn.ReportFavoritePets()
 end
 
 function smn.ReportFavoriteMounts()
-	if QOLUtils.SettingIsTrue(QOL_Config.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts) then
+	if QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts) then
 		smn.Log('Only appropiate and favorited mounts will be summoned.')
 	else
 		smn.Log('Any appropiate mount will be summoned.')
@@ -198,25 +210,25 @@ function smn.ReportFavoriteMounts()
 end
 
 function smn.ReportInitial()
-	if QOLUtils.SettingIsTrue(QOL_Config.SMN.ReportAtLogon, QOL_Config_Toon.SMN.ReportAtLogon) then
+	if QOLUtils.SettingIsTrue(configAcct.ReportAtLogon, configToon.ReportAtLogon) then
 		smn.ReportFavoritePets()
 		smn.ReportFavoriteMounts()
 	end
 end
 
 function smn.ToggleFavoritePetsOnClick()
-	QOL_Config.SMN.OnlyFavoritePets = QOLUtils.OPT.Acct.SMN.CheckBoxPets:GetChecked()
-	QOL_Config_Toon.SMN.OnlyFavoritePets = QOLUtils.OPT.Toon.SMN.CheckBoxPets:GetChecked()
+	configAcct.OnlyFavoritePets = optAcct.CheckBoxPets:GetChecked()
+	configToon.OnlyFavoritePets = optToon.CheckBoxPets:GetChecked()
 end
 
 function smn.ToggleFavoriteMountsOnClick()
-	QOL_Config.SMN.OnlyFavoriteMounts = QOLUtils.OPT.Acct.SMN.CheckBoxMounts:GetChecked()
-	QOL_Config_Toon.SMN.OnlyFavoriteMounts = QOLUtils.OPT.Toon.SMN.CheckBoxMounts:GetChecked()
+	configAcct.OnlyFavoriteMounts = optAcct.CheckBoxMounts:GetChecked()
+	configToon.OnlyFavoriteMounts = optToon.CheckBoxMounts:GetChecked()
 end
 
 function smn.ToggleLogonReportOnClick()
-	QOL_Config.SMN.ReportAtLogon = QOLUtils.OPT.Acct.SMN.CheckBoxReport:GetChecked()
-	QOL_Config_Toon.SMN.ReportAtLogon = QOLUtils.OPT.Toon.SMN.CheckBoxReport:GetChecked()
+	configAcct.ReportAtLogon = optAcct.CheckBoxReport:GetChecked()
+	configToon.ReportAtLogon = optToon.CheckBoxReport:GetChecked()
 end
 
 function smn.Log(msg)

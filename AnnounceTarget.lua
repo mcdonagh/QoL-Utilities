@@ -2,6 +2,15 @@ local addonName, QOLUtils = ...
 
 QOLUtils.AT = {}
 local at = QOLUtils.AT
+local configAcct = QOL_Config_Acct.AT
+local configToon = QOL_Config_Toon.AT
+local optAcct = QOLUtils.OPT.Acct.AT
+local optToon = QOLUtils.OPT.Toon.AT
+
+function at.IsEnabled()
+	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+end
+
 local tar = 'TARGET'
 local player = 'PLAYER'
 

@@ -1,7 +1,7 @@
 ## Interface: 90100
 ## Title: QoL Utilities
 ## Author: redbeard923
-## SavedVariables: QOL_Config
+## SavedVariables: QOL_Config_Acct, QOL_Config
 ## SavedVariablesPerCharacter: QOL_Config_Toon
 ## Version: 4.0.0
 
