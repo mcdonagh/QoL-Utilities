@@ -3,7 +3,7 @@ local addonName, QOLUtils = ...
 QOLUtils.EventFrame = CreateFrame('Frame')
 QOLUtils.Events = {}
 
-function QOLUtils.Events:ADDON_LOADED(...)
+function QOLUtils.Events.ADDON_LOADED(...)
 	local loadedAddon = ...
 	if loadedAddon == addonName then
 		QOLUtils.OPT.LoadDefaults()
@@ -11,7 +11,7 @@ function QOLUtils.Events:ADDON_LOADED(...)
 	end
 end
 
-function QOLUtils.Events:PLAYER_ENTERING_WORLD(...)
+function QOLUtils.Events.PLAYER_ENTERING_WORLD(...)
 	local isFirstLogin, isReload = ...
 	if isFirstLogin or isReload then
 		if QOLUtils.ATC.IsEnabled() then
@@ -32,37 +32,37 @@ function QOLUtils.Events:PLAYER_ENTERING_WORLD(...)
 	end
 end
 
-function QOLUtils.Events:ACHIEVEMENT_EARNED(...)
+function QOLUtils.Events.ACHIEVEMENT_EARNED(...)
 	if QOLUtils.ATC.IsEnabled() then
 		QOLUtils.ATC.Clean(false)
 	end
 end
 
-function QOLUtils.Events:PARTY_INVITE_REQUEST(...)
+function QOLUtils.Events.PARTY_INVITE_REQUEST(...)
 	if QOLUtils.QM.IsEnabled() then
 		QOLUtils.QM.DeclinePartyInvite(...)
 	end
 end
 
-function QOLUtils.Events:DUEL_REQUESTED(...)
+function QOLUtils.Events.DUEL_REQUESTED(...)
 	if QOLUtils.QM.IsEnabled() then
 		QOLUtils.QM.DeclineDuel(...)
 	end
 end
 
-function QOLUtils.Events:EQUIP_BIND_REFUNDABLE_CONFIRM(...)
+function QOLUtils.Events.EQUIP_BIND_REFUNDABLE_CONFIRM(...)
 	if QOLUtils.AC.IsEnabled() then
 		QOLUtils.AC.ConfirmEquipRefundable()
 	end
 end
 
-function QOLUtils.Events:EQUIP_BIND_TRADEABLE_CONFIRM(...)
+function QOLUtils.Events.EQUIP_BIND_TRADEABLE_CONFIRM(...)
 	if QOLUtils.AC.IsEnabled() then
 		QOLUtils.AC.ConfirmEquipTradeable()
 	end
 end
 
-function QOLUtils.Events:EQUIP_BIND_CONFIRM(...)
+function QOLUtils.Events.EQUIP_BIND_CONFIRM(...)
 	if QOLUtils.AC.IsEnabled() then
 		QOLUtils.AC.ConfirmEquipBind()
 	end
@@ -74,6 +74,6 @@ QOLUtils.EventFrame:SetScript('OnEvent',
 	end
 )
 
-for k, v in pairs(QOLUtils.Events) do
-	QOLUtils.EventFrame:RegisterEvent(k)
+for event in pairs(QOLUtils.Events) do
+	QOLUtils.EventFrame:RegisterEvent(event)
 end
