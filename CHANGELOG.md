@@ -1,18 +1,17 @@
 # QoL Utilities Change Log
 1. [Future Plans](#fp)
-1. [Latest Release (2021-07-06)](#c003)
-1. [Previous Release (2021-07-01)](#c002)
-1. [Older](#c001)
+1. [Latest Release (2021-07-21)](#c004)
+1. [Previous Release (2021-07-06)](#c003)
+1. [Older](#c002)
 
 <h2 id='fp'>Future Plans</h2>
 
 > *No dates available for any planned features. I work on this project in my spare time and will get to them when I get to them.*
 
-- Add Quest Auto Accept/Complete feature.
+- Add *Auto Quest* feature to automatically accept/complete quests.
 	- Lots of addons already do this, but I want one that is my own. 
 	- This feature will only be implemented **after** the ability to disable specific features is implemented.
 		- This feature will be disabled by default; I don't want it interfering with peoples' existing auto questing addons.
-- Add ability to turn off features completely via in-game config screen.
 - Add the option to screen requests for *Quiet Mode* to allow the option for different level of requests to come through.
 	- Such as allowing requests from guildies only, or requests from guildies and people on your friends list.
 - Add color configuration to *Middle Marker* instead of having it hardcoded to red.
@@ -20,6 +19,12 @@
 #### Leave a Suggestion
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
+
+<h2 id='c004'>Version 4.1.0 | 2021-07-21</h2>
+
+- Added ability to enabled/disable each feature to prevent interfering with other addons
+- Backend changes to account level stored variables
+- Minor fix to *Quiet Mode* and *Auto Confirm*'s \"toggle all\" functionality
 
 <h2 id='c003'>Version 4.0.0 | 2021-07-06</h2>
 

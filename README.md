@@ -1,5 +1,5 @@
 # QoL Utilities
-WoW addon for various minor quality of life changes.  
+A *World of Warcraft* addon that provides various minor quality of life changes.  
 1. [Configuration](#config)
 1. [Achievement Tracker Cleaner](#atc)
 	- [Usage](#atc-usage)
@@ -25,14 +25,25 @@ WoW addon for various minor quality of life changes.
 
 <h2 id='config'>Configuration</h2>
 
-The following features are available for configuration on a **per account** or **per character** basis.  
+All configuration is available on a **per account** or **per character** basis.  
 Most configuration options present in the in-game configuration window are also available through slash commands.  
->Use the command **\/qol** to quickly open the in-game configuration window.
+> Use the command **\/qol** to quickly open the in-game configuration window.
 
 Turning *per character* settings on or off is only possible through the in-game configuration window.  
 When using *per character* settings, Slash Commands only affect the current character's settings.  
 See the feature's details for more information on the corresponding slash commands.
-> *Features not mentioned in this section have no configuration associated with them*  
+
+### Enabling Individual Features
+Each feature is able to be enabled/disabled individually via the in-game configuration window.  
+All features are **disabled** by default to avoid potential conflicts with other addons.  
+
+Feature enabling ***is*** affected by the **per character** setting.  
+> *Say you wanted Volume Cycler enabled on only one character and not others.*
+> *On the character you wanted it enabled, you would make sure the setting \"Use character specific settings.\" is checked.*
+> *Then you would scroll down to Volume Cycler and make sure the setting \"Feature enabled.\" is checked.*
+
+### Feature Specific Configuration
+> ***Features not mentioned in this section have no additional configuration associated with them***	  
 
 **[Auto Confirm's](#ac)** in-game configuration consists of four checkboxes.
 The first is to toggle on/off the report that is shown at player logon and on reload.
