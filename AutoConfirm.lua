@@ -11,6 +11,14 @@ function ac.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
 end
 
+function ac.ToggleEnabled()
+	if configToon.Active then
+		configToon.Enabled = not configToon.Enabled
+	else
+		configAcct.Enabled = not configAcct.Enabled
+	end
+end
+
 function ac.ToggleAndReport(args)
 	local indicator = args[2]
 	if indicator == 'r' then

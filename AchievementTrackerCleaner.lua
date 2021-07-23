@@ -11,6 +11,14 @@ function atc.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
 end
 
+function atc.ToggleEnabled()
+	if configToon.Active then
+		configToon.Enabled = not configToon.Enabled
+	else
+		configAcct.Enabled = not configAcct.Enabled
+	end
+end
+
 function atc.Clean(printRemoved)
 	local trackedAchievements = { GetTrackedAchievements() }
 	local removedCount = 0

@@ -11,6 +11,14 @@ function smn.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
 end
 
+function smn.ToggleEnabled()
+	if configToon.Active then
+		configToon.Enabled = not configToon.Enabled
+	else
+		configAcct.Enabled = not configAcct.Enabled
+	end
+end
+
 function smn.Summon(args)
 	local subdirection = args[2]
 	local state = args[3]
@@ -77,7 +85,7 @@ smn.Types.LowLevel = {
 function smn.Mount()
 	if IsMounted() then
 		Dismount()
-	elseif not UnitAffectingCombat('PLAYER') then
+	elseif not UnitAffectingCombat('PLAYER') and not InCombatLockdown() then
 		local usableMounts = {}
 		local lowLevel = not smn.HasRidingSkill()
 		local underwater = smn.IsUnderWater()
@@ -103,17 +111,28 @@ function smn.Mount()
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 		end
 		if QOLUtils.TableIsNilOrEmpty(usableMounts) then
-				and QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts) then
-			if lowLevel then
-				smn.Log('No favorited mount available for pre riding skill use.')
-			elseif underwater then
-				smn.Log('No favorited mount available for underwater use.')
-			elseif flyable and hasFlight then
-				smn.Log('No favorited mount available for flying.')
+			if QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts) then
+				if lowLevel then
+					smn.Log('No favorited mount available for pre riding skill use.')
+				elseif underwater then
+					smn.Log('No favorited mount available for underwater use.')
+				elseif flyable and hasFlight then
+					smn.Log('No favorited mount available for flying.')
+				else
+					smn.Log('No favorited mount available for ground use.')
+				end
 			else
-				smn.Log('No favorited mount available for ground use.')
+				if lowLevel then
+					smn.Log('No mount available for pre riding skill use.')
+				elseif underwater then
+					smn.Log('No mount available for underwater use.')
+				elseif flyable and hasFlight then
+					smn.Log('No mount available for flying.')
+				else
+					smn.Log('No mount available for ground use.')
+				end
 			end
-		elseif not QOLUtils.TableIsNilOrEmpty(usableMounts) then
+		else
 			for i = #usableMounts, 2, -1 do
 				local j = math.random(i)
 				usableMounts[i], usableMounts[j] = usableMounts[j], usableMounts[i]

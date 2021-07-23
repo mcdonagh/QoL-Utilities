@@ -8,6 +8,7 @@ function QOLUtils.Events.ADDON_LOADED(...)
 	if loadedAddon == addonName then
 		QOLUtils.OPT.LoadDefaults()
 		QOLUtils.OPT.CreateConfig()
+		QOLUtils.OPT.UpdateConfig()
 	end
 end
 

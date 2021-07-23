@@ -26,38 +26,38 @@ A *World of Warcraft* addon that provides various minor quality of life changes.
 <h2 id='config'>Configuration</h2>
 
 All configuration is available on a **per account** or **per character** basis.  
+Turning *per character* settings on or off is only possible through the in-game configuration window.  
 Most configuration options present in the in-game configuration window are also available through slash commands.  
 > Use the command **\/qol** to quickly open the in-game configuration window.
 
-Turning *per character* settings on or off is only possible through the in-game configuration window.  
 When using *per character* settings, Slash Commands only affect the current character's settings.  
 See the feature's details for more information on the corresponding slash commands.
 
 ### Enabling Individual Features
-Each feature is able to be enabled/disabled individually via the in-game configuration window.  
+Individual features are enabled/disabled via the in-game configuration window.  
 All features are **disabled** by default to avoid potential conflicts with other addons.  
 
 Feature enabling ***is*** affected by the **per character** setting.  
 > *Say you wanted Volume Cycler enabled on only one character and not others.*
-> *On the character you wanted it enabled, you would make sure the setting \"Use character specific settings.\" is checked.*
-> *Then you would scroll down to Volume Cycler and make sure the setting \"Feature enabled.\" is checked.*
+> *On the character you wanted it enabled, you would make sure the setting \"USE CHARACTER SPECIFIC SETTINGS\" is checked.*
+> *Then you would scroll down to Volume Cycler and make sure the setting \"Feature enabled\" is checked.*
 
 ### Feature Specific Configuration
 > ***Features not mentioned in this section have no additional configuration associated with them***	  
 
 **[Auto Confirm's](#ac)** in-game configuration consists of four checkboxes.
-The first is to toggle on/off the report that is shown at player logon and on reload.
-The other three are to toggle on/off the ability to automatically confirm equipping different items.
+One to toggle on/off the report that is shown at player logon and on reload.
+And three to toggle on/off the ability to automatically confirm equipping different items.
 One for Refundable items, one for Tradeable items, and one for "Bind on Equip" items.
 
 **[Quiet Mode's](#qm)** in-game configuration consists of three checkboxes.
-The first is to toggle on/off the report that is shown at player logon and on reload.
-The other two are to toggle on/off the ability to automatically decline certain requests.
+One to toggle on/off the report that is shown at player logon and on reload.
+And two to toggle on/off the ability to automatically decline certain requests.
 One for decling Party Invites, and one for declining Duel Requests.
 
 **[Summoning Mounts & Battle Pets'](#smn)** in-game configuration consists of three checkboxes.
-The first is to toggle on/off the report that is shown at player logon and on reload.
-The other two are to toggle on/off the restriction of summoning to favorited summons.
+One to toggle on/off the report that is shown at player logon and on reload.
+And two to toggle on/off the *favorite* restriction for different summons.
 One for mounts, and one for battle pets.
 
 **[Volume Cycler's](#vc)** in-game configuration consists of a single input field.
@@ -96,12 +96,14 @@ Example Output:
 Allows you to quickly send your current target's life percentage and location to the designated chat.  
 Does not trigger automatically; use the command **\/qol at** to trigger the message.
 *See below on how to use the optional arguments for the different chat destinations.*  
+> *Personally, I put the command ****\/qol at**** in a macro and keep it on my bars and click it to let other players know that a rare is up.*
 
-Because of WoW's api limitations, the coordinates used are the player's current coordinates when the message is triggered.
+**\*\* Important:** Because of WoW's api limitations, the coordinates used in the report and for the map pin are the player's current coordinates when the message is triggered.
 
 <h3 id='at-usage'>Usage & Output</h3>
 
 The command **\/qol at w** will announce your targets life and location through a whisper to yourself.  
+> *I also put this command in a rare targetting macro to let myself know a rare has spawned when I'm idly rare camping.*
 
 Output Format:  
 > *\<target name\>* \[*\<target life percentage\>*\] near \(*\<player coords\>*\) *\<map pin\>*  

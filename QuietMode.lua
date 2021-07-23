@@ -11,6 +11,14 @@ function qm.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
 end
 
+function qm.ToggleEnabled()
+	if configToon.Active then
+		configToon.Enabled = not configToon.Enabled
+	else
+		configAcct.Enabled = not configAcct.Enabled
+	end
+end
+
 function qm.ToggleQuietModeAndReport(args)
 	local indicator = args[2]
 	if indicator == 'p' then

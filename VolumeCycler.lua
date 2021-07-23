@@ -11,6 +11,14 @@ function vc.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
 end
 
+function vc.ToggleEnabled()
+	if configToon.Active then
+		configToon.Enabled = not configToon.Enabled
+	else
+		configAcct.Enabled = not configAcct.Enabled
+	end
+end
+
 function vc.LoadInitialVolume()
 	local level = QOL_Config_Toon.Active and configToon.Levels[configToon.Index] or configAcct.Levels[configAcct.Index]
 	vc.SetVolume(level)

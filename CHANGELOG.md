@@ -22,9 +22,16 @@ If there's anything you'd like to see added or changed, please leave a [feature 
 
 <h2 id='c004'>Version 4.1.0 | 2021-07-21</h2>
 
+- Reworked appearance of in-game configuration screen
+	- Account specific and Toon specific settings now share configuration items (checkboxes, editboxes, etc.)
 - Added ability to enabled/disable each feature to prevent interfering with other addons
 - Backend changes to account level stored variables
 - Minor fix to *Quiet Mode* and *Auto Confirm*'s \"toggle all\" functionality
+- Minor fixes to *Summon*'s mount summoning
+	- Added a \"shuffle\" to the generated valid mount list to increase the variety of summoned mounts
+	- Added checks to prevent some system error messages
+		- Added \"in combat\" check
+		- Added \"empty list\" check
 
 <h2 id='c003'>Version 4.0.0 | 2021-07-06</h2>
 

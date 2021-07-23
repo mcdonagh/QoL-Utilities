@@ -1,7 +1,11 @@
 local addonName, QOLUtils = ...
 
 QOLUtils.OPT = {}
+QOLUtils.OPT.Storage = {}
 local opt = QOLUtils.OPT
+local storage = opt.Storage
+local spacing = QOLUtils.ConfigSpacing
+local labels = QOLUtils.Labels
 
 function opt.LoadDefaults()
 	if QOL_Config_Acct == nil then
@@ -67,7 +71,7 @@ function opt.GenerateDefaults(config)
 		config.QM.PartyActive = false
 	end
 	if config.QM.DuelActive == nil then
-		config.QM.DuelActive = false;
+		config.QM.DuelActive = false
 	end
 	if config.SMN == nil then
 		config.SMN = {}
@@ -107,75 +111,77 @@ function opt.OpenConfig()
 end
 
 function opt.CreateConfig()
-	local mainScroller, mainScrollChild = opt.CreateScrollFrame('QoL Utilities')
-	local acScroller, acScrollChild = opt.CreateScrollFrame('Auto Confirm')
-	acSroller.parent = mainScroller.name
-	local qmScroller, qmScrollChild = opt.CreateScrollFrame('Quiet Mode')
-	qmScroller.parent = mainScroller.name
-	local smnScroller, smnScrollChild = opt.CreateScrollFrame('Summon')
-	smnScroller.parent = mainScroller.name
-	local vcScroller, vcScrollChild = opt.CreateScrollFrame('Volume Cycler')
-	vcScroller.parent = mainScroller.name
-	opt.Acct = {}
-	local acctHeader = opt.CreateHeader(scrollchild, scrollchild, indent, -sectionGap, QOLUtils.Labels.Acct)
-	local acctACHeader = opt.CreateHeader(scrollchild, acctHeader, indent, -itemGap, QOLUtils.Labels.AC.Header)
-	opt.CreateMainPanel(scrollchild, acctACHeader, QOL_Config_Acct, opt.Acct, indent, headerGap, itemGap)
-	opt.Toon = {}
-	local toonHeader = opt.CreateHeader(scrollchild, opt.Acct.VC.EditBoxLevels, -indent * 3, -sectionGap, QOLUtils.Labels.Toon)
-	opt.Toon.Active = opt.CreateCheckBox(scrollchild, toonHeader, indent, -itemGap, QOLUtils.Labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
-	local toonACHeader = opt.CreateHeader(scrollchild, opt.Toon.Active, 0, -headerGap, QOLUtils.Labels.AC.Header)
-	opt.CreateMainPanel(scrollchild, toonACHeader, QOL_Config_Toon, opt.Toon, indent, headerGap, itemGap)
-	opt.Panel = mainScroller
-	InterfaceOptions_AddCategory(opt.Panel)
-	InterfaceOptions_AddCategory(acScroller)
-	InterfaceOptions_AddCategory(qmScroller)
-	InterfaceOptions_AddCategory(smnScroller)
-	InterfaceOptions_AddCategory(vcScroller)
-end
-
-function opt.CreateMainPanelItems(parent, firstRelativeParent, config, storage, indent, headerGap, itemGap)
+	local scroller, scrollchild = opt.CreateScrollFrame(labels.Header)
+	storage.CheckBoxToonActive = opt.CreateCheckBox(scrollchild, scrollchild, spacing.Indent, -spacing.SectionGap, labels.UseToon, QOL_Config_Toon.Active, opt.ToggleToonSpecific)
 	storage.ATC = {}
+	local atcHeader = opt.CreateHeader(scrollchild, storage.CheckBoxToonActive, 0, spacing.SectionGap, labels.ATC.Header)
+	storage.ATC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, atcHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.ATC.ToggleEnabled)
 	storage.AT = {}
+	local atHeader = opt.CreateHeader(scrollchild, storage.ATC.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.AT.Header)
+	storage.AT.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, atHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled,, QOLUtils.AT.ToggleEnabled)
 	storage.AC = {}
+	local acHeader = opt.CreateHeader(scrollchild, storage.AT.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.AC.Header)
+	storage.AC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, acHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.AC.ToggleEnabled)
+	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxEnabled, 0, -spacing.ItemGap, labels.AC.Report, QOLUtils.AC.ToggleLogonReportOnClick)
+	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxReport, 0, -spacing.ItemGap, labels.AC.Refundable, QOLUtils.AC.ToggleRefundableOnClick)
+	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxRefundable, 0, -spacing.ItemGap, labels.AC.Tradeable, QOLUtils.AC.ToggleTradeableOnClick)
+	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxTradeable, 0, -spacing.ItemGap, labels.AC.Bindable, QOLUtils.AC.ToggleBindableOnClick)
 	storage.MM = {}
+	local mmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -spacing.Indent, -spacing.HeaderGap, labels.MM.Header)
+	storage.MM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, mmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.MM.ToggleEnabled)
 	storage.QM = {}
+	local qmHeader = opt.CreateHeader(scrollchild, storage.MM.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.QM.Header)
+	storage.QM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, qmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.QM.ToggleEnabled)
+	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxEnabled, 0, -spacing.ItemGap, labels.QM.Report, QOLUtils.QM.ToggleLogonReportOnClick)
+	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -spacing.ItemGap, labels.QM.Party, QOLUtils.QM.TogglePartyOnClick)
+	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxParty, 0, -spacing.ItemGap, labels.QM.Duel, QOLUtils.QM.ToggleDuelOnClick)
 	storage.SMN = {}
+	local smnHeader = opt.CreateHeader(scrollchild, storage.QM.CheckBoxDuel, -spacing.Indent, -spacing.HeaderGap, labels.SMN.Header)
+	storage.SMN.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, smnHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.SMN.ToggleEnabled)
+	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxEnabled, 0, -spacing.ItemGap, labels.SMN.Report, QOLUtils.SMN.ToggleLogonReportOnClick)
+	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxReport, 0, -spacing.ItemGap, labels.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePetsOnClick)
+	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxPets, 0, -spacing.ItemGap, labels.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMountsOnClick)
 	storage.VC = {}
+	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -spacing.Indent, -spacing.HeaderGap, labels.VC.Header)
+	storage.VC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, vcHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.VC.ToggleEnabled)
+	local vcLabel = opt.CreateLabel(scrollchild, vcHeader, spacing.Indent, -spacing.ItemGap, labels.VC.Levels)
+	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, vcLabel, spacing.Indent, -10, opt.ParseVolumeLevels)
+	opt.Panel = scroller
+	InterfaceOptions_AddCategory(opt.Panel)
 end
 
-function opt.CreateACPanelItems(parent, firstRelativeParent, config, storage, indent, headerGap, itemGap)
-	storage.AC = {}
-	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, firstRelativeParent, indent, -itemGap, QOLUtils.Labels.AC.Report, config.AC.ReportAtLogon, QOLUtils.AC.ToggleLogonReportOnClick)
-	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.AC.Refundable, config.AC.RefundableActive, QOLUtils.AC.ToggleRefundableOnClick)
-	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxRefundable, 0, -itemGap, QOLUtils.Labels.AC.Tradeable, config.AC.TradeableActive, QOLUtils.AC.ToggleTradeableOnClick)
-	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxTradeable, 0, -itemGap, QOLUtils.Labels.AC.Bindable, config.AC.BindableActive, QOLUtils.AC.ToggleBindableOnClick)
-end
-
-function opt.CreateQMPanelItems(parent, firstRelativeParent, config, storage, indent, headerGap, itemGap)
-	storage.QM = {}
-	local qmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -indent, -headerGap, QOLUtils.Labels.QM.Header)
-	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, qmHeader, indent, -itemGap, QOLUtils.Labels.QM.Report, config.QM.ReportAtLogon, QOLUtils.QM.ToggleLogonReportOnClick)
-	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.QM.Party, config.QM.PartyActive, QOLUtils.QM.TogglePartyOnClick)
-	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxParty, 0, -itemGap, QOLUtils.Labels.QM.Duel, config.QM.DuelActive, QOLUtils.QM.ToggleDuelOnClick)
-end
-
-function opt.CreateSMNPanelItems(parent, firstRelativeParent, config, storage, indent, headerGap, itemGap)
-	storage.SMN = {}
-	local smnHeader = opt.CreateHeader(scrollchild, storage.QM.CheckBoxDuel, -indent, -headerGap, QOLUtils.Labels.SMN.Header)
-	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, smnHeader, indent, -itemGap, QOLUtils.Labels.SMN.Report, config.SMN.ReportAtLogon, QOLUtils.SMN.ToggleLogonReportOnClick)
-	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxReport, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoritePets, config.SMN.OnlyFavoritePets, QOLUtils.SMN.ToggleFavoritePetsOnClick)
-	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxPets, 0, -itemGap, QOLUtils.Labels.SMN.OnlyFavoriteMounts, config.SMN.OnlyFavoriteMounts, QOLUtils.SMN.ToggleFavoriteMountsOnClick)
-end
-
-function opt.CreateVCPanelItems(parent, firstRelativeParent, config, storage, indent, headerGap, itemGap)
-	storage.VC = {}
-	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -indent, -headerGap, QOLUtils.Labels.VC.Header)
-	local toonVCLabel = opt.CreateLabel(scrollchild, vcHeader, indent, -itemGap, QOLUtils.Labels.VC.Levels)
-	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, toonVCLabel, indent, -10, QOLUtils.TableToStr(config.VC.Levels), opt.ParseVolumeLevels)
+function opt.UpdateConfig()
+	-- Character Specific CheckBox
+	opt.UpdateCheckBox(storage.CheckBoxToonActive, QOL_Config_Toon.Active)
+	-- Achievement Tracker Cleaner
+	opt.UpdateCheckBox(storage.ATC.CheckBoxEnabled, QOLUtils.SettingIsTrue(QOL_Config_Acct.ATC.Enabled, QOL_Config_Toon.ATC.Enabled))
+	-- Announce Target
+	opt.UpdateCheckBox(storage.AT.CheckBoxEnabled, QOLUtils.SettingIsTrue(QOL_Config_Acct.AT.Enabled, QOL_Config_Toon.AT.Enabled))
+	-- Auto Confirm
+	opt.UpdateCheckBox(storage.AC.CheckBoxEnabled, QOLUtils.SettingIsTrue(QOL_Config_Acct.AC.Enabled, QOL_Config_Toon.AC.Enabled))
+	opt.UpdateCheckBox(storage.AC.CheckBoxReport, QOLUtils.SettingIsTrue(QOL_Config_Acct.AC.ReportAtLogon, QOL_Config_Toon.AC.ReportAtLogon))
+	opt.UpdateCheckBox(storage.AC.CheckBoxRefundable, QOLUtils.SettingIsTrue(QOL_Config_Acct.AC.RefundableActive, QOL_Config_Toon.AC.RefundableActive))
+	opt.UpdateCheckBox(storage.AC.CheckBoxTradeable, QOLUtils.SettingIsTrue(QOL_Config_Acct.AC.TradeableActive, QOL_Config_Toon.AC.TradeableActive))
+	opt.UpdateCheckBox(storage.AC.CheckBoxBindable, QOLUtils.SettingIsTrue(QOL_Config_Acct.AC.BindableActive, QOL_Config_Toon.AC.BindableActive))
+	-- Middle Marker
+	opt.UpdateCheckBox(storage.MM.CheckBoxEnabled, QOLUtils.SettingIsTrue(QOL_Config_Acct.MM.Enabled, QOL_Config_Toon.MM.Enabled))
+	-- Quiet Mode
+	opt.UpdateCheckBox(storage.QM.CheckBoxEnabled, QOLUtils.SettingIsTrue(QOL_Config_Acct.QM.Enabled, QOL_Config_Toon.QM.Enabled))
+	opt.UpdateCheckBox(storage.QM.CheckBoxReport, QOLUtils.SettingIsTrue(QOL_Config_Acct.QM.ReportAtLogon, QOL_Config_Toon.QM.ReportAtLogon))
+	opt.UpdateCheckBox(storage.QM.CheckBoxParty, QOLUtils.SettingIsTrue(QOL_Config_Acct.QM.PartyActive, QOL_Config_Toon.QM.PartyActive))
+	opt.UpdateCheckBox(storage.QM.CheckBoxDuel, QOLUtils.SettingIsTrue(QOL_Config_Acct.QM.DuelActive, QOL_Config_Toon.QM.DuelActive))
+	-- Summon
+	opt.UpdateCheckBox(storage.SMN.CheckBoxEnabled, QOLUtils.SettingIsTrue(QOL_Config_Acct.SMN.Enabled, QOL_Config_Toon.SMN.Enabled))
+	opt.UpdateCheckBox(storage.SMN.CheckBoxReport, QOLUtils.SettingIsTrue(QOL_Config_Acct.SMN.ReportAtLogon, QOL_Config_Toon.SMN.ReportAtLogon))
+	opt.UpdateCheckBox(storage.SMN.CheckBoxPets, QOLUtils.SettingIsTrue(QOL_Config_Acct.SMN.OnlyFavoritePets, QOL_Config_Toon.SMN.OnlyFavoritePets))
+	opt.UpdateCheckBox(storage.SMN.CheckBoxMounts, QOLUtils.SettingIsTrue(QOL_Config_Acct.SMN.OnlyFavoriteMounts, QOL_Config_Toon.SMN.OnlyFavoriteMounts))
+	-- Volume Cycler
+	opt.UpdateCheckBox(storage.VC.CheckBoxEnabled, QOLUtils.SettingIsTrue(QOL_Config_Acct.VC.Enabled, QOL_Config_Toon.VC.Enabled))
+	storage.VC.EditBoxLevels:SetText(QOLUtils.TableToStr(QOL_Config_Toon.Active and QOL_Config_Toon.VC.Levels or QOL_Config_Acct.VC.Levels))
 end
 
 function opt.CreateScrollFrame(name)
-	local scroller = CreateFrame('Frame', 'QoL Utilities', UIParent)
+	local scroller = CreateFrame('Frame', 'QOL_Utils_Frame_' .. opt.GetUniqueID(), UIParent)
 	scroller.name = name
 	scroller.ScrollFrame = CreateFrame('ScrollFrame', 'QOL_Utils_ScrollFrame_' .. opt.GetUniqueID(), scroller, 'UIPanelScrollFrameTemplate')
 	scroller.ScrollFrame:SetPoint('TOPLEFT', scroller, 'TOPLEFT')
@@ -206,11 +212,10 @@ function opt.CreateHeader(parent, relativeParent, x, y, text)
 	return fontFrame
 end
 
-function opt.CreateCheckBox(parent, relativeParent, x, y, text, checked, callback)
+function opt.CreateCheckBox(parent, relativeParent, x, y, text, callback)
 	local checkBox = CreateFrame('CheckButton', 'QOLUtils_CheckBox_' .. opt.GetUniqueID(), parent, 'ChatConfigCheckButtonTemplate')
 	checkBox:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
 	getglobal(checkBox:GetName() .. 'Text'):SetText(text)
-	checkBox:SetChecked(checked)
 	checkBox:SetScript('OnClick', callback)
 	return checkBox
 end
@@ -226,13 +231,12 @@ function opt.CreateLabel(parent, relativeParent, x, y, text)
 	return fontFrame
 end
 
-function opt.CreateEditBox(parent, relativeParent, x, y, text, callback)
+function opt.CreateEditBox(parent, relativeParent, x, y, callback)
 	local editBox = CreateFrame('EditBox', 'QOLUtils_EditBox_' .. opt.GetUniqueID(), parent, 'InputBoxTemplate')
 	editBox:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
 	editBox:SetSize(200, 30)
 	editBox:SetMultiLine(false)
 	editBox:SetAutoFocus(false)
-	editBox:SetText(text)
 	editBox:SetCursorPosition(0)
 	editBox:SetScript('OnEditFocusLost', callback)
 	return editBox
@@ -246,7 +250,7 @@ end
 
 function opt.ToggleToonSpecific()
 	QOL_Config_Toon.Active = not QOL_Config_Toon.Active
-	opt.UpdateCheckBox(opt.Toon.Active, QOL_Config_Toon.Active)
+	opt.UpdateConfig()
 end
 
 function opt.ParseVolumeLevels(self)
