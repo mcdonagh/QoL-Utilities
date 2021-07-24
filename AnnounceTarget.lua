@@ -11,7 +11,7 @@ function at.IsEnabled()
 end
 
 function at.ToggleEnabled()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
 		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()

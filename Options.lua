@@ -58,6 +58,18 @@ function opt.GenerateDefaults(config)
 	if config.MM.Enabled == nil then
 		config.MM.Enabled = false
 	end
+	if config.MM.Red == nil then
+		config.MM.Red = 100
+	end
+	if config.MM.Green == nil then
+		config.MM.Green = 0
+	end
+	if config.MM.Blue == nil then
+		config.MM.Blue = 0
+	end
+	if config.MM.Alpha == nil then
+		config.MM.Alpha = 40
+	end
 	if config.QM == nil then
 		config.QM = {}
 	end
@@ -129,6 +141,7 @@ function opt.CreateConfig()
 	storage.MM = {}
 	local mmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -spacing.Indent, -spacing.HeaderGap, labels.MM.Header)
 	storage.MM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, mmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.MM.ToggleEnabled)
+	storage.MM.SliderRed = opt.CreateSlider(scrollchild, storage.MM.CheckBoxEnabled, 0, -spacing.ItemGap, QOLUtils.MM.SliderChangedRed)
 	storage.QM = {}
 	local qmHeader = opt.CreateHeader(scrollchild, storage.MM.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.QM.Header)
 	storage.QM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, qmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.QM.ToggleEnabled)
@@ -145,7 +158,7 @@ function opt.CreateConfig()
 	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -spacing.Indent, -spacing.HeaderGap, labels.VC.Header)
 	storage.VC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, vcHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.VC.ToggleEnabled)
 	local vcLabel = opt.CreateLabel(scrollchild, vcHeader, spacing.Indent, -spacing.ItemGap, labels.VC.Levels)
-	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, vcLabel, spacing.Indent, -10, opt.ParseVolumeLevels)
+	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, vcLabel, spacing.Indent, -10, 200, opt.ParseVolumeLevels)
 	opt.Panel = scroller
 	InterfaceOptions_AddCategory(opt.Panel)
 end
@@ -231,15 +244,28 @@ function opt.CreateLabel(parent, relativeParent, x, y, text)
 	return fontFrame
 end
 
-function opt.CreateEditBox(parent, relativeParent, x, y, callback)
+function opt.CreateEditBox(parent, relativeParent, x, y, w, callback)
 	local editBox = CreateFrame('EditBox', 'QOLUtils_EditBox_' .. opt.GetUniqueID(), parent, 'InputBoxTemplate')
 	editBox:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
-	editBox:SetSize(200, 30)
+	editBox:SetSize(w, 30)
 	editBox:SetMultiLine(false)
 	editBox:SetAutoFocus(false)
 	editBox:SetCursorPosition(0)
 	editBox:SetScript('OnEditFocusLost', callback)
 	return editBox
+end
+
+function opt.CreateSlider(parent, relativeParent, x, y, callback)
+	local slider = CreateFrame('Slider', 'QOLUtils_Slider_' .. opt.GetUniqueID(), parent, 'OptionsSliderTemplate')
+	slider:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
+	slider:SetSize(200, 20)
+	slider:SetOrientation('HORIZONTAL')
+	slider:SetMinMaxValues(0, 100)
+	slider:SetValueStep(1)
+	getglobal(slider:GetName() .. 'Low'):SetText('0')
+	getglobal(slider:GetName() .. 'High'):SetText('100')
+	slider:SetScript('OnValueChanged', callback)
+	return slider
 end
 
 local uniqueID = 0

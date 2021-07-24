@@ -11,7 +11,7 @@ function mm.IsEnabled()
 end
 
 function mm.ToggleEnabled()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
 		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()
@@ -45,14 +45,11 @@ function mm.CreateMMFrame()
 	local heightMiddle = math.floor(screenHeight / 2)
 	local verticalLineLength = math.floor(screenHeight / 3)
 	local horizontalLineLength = math.floor(screenWidth / 3)
-	-- topMarker
-	mm.CreateLine(widthMiddle, screenHeight, widthMiddle, screenHeight - verticalLineLength)
-	-- bottomMarker
-	mm.CreateLine(widthMiddle, 0, widthMiddle, verticalLineLength)	
-	-- leftMarker
-	mm.CreateLine(0, heightMiddle, horizontalLineLength, heightMiddle)	
-	-- rightMarker
-	mm.CreateLine(screenWidth, heightMiddle, screenWidth - horizontalLineLength, heightMiddle)
+	mm.Lines = {}
+	table.insert(mm.Lines, mm.CreateLine(widthMiddle, screenHeight, widthMiddle, screenHeight - verticalLineLength))
+	table.insert(mm.Lines, mm.CreateLine(widthMiddle, 0, widthMiddle, verticalLineLength))
+	table.insert(mm.Lines, mm.CreateLine(0, heightMiddle, horizontalLineLength, heightMiddle))
+	table.insert(mm.Lines, mm.CreateLine(screenWidth, heightMiddle, screenWidth - horizontalLineLength, heightMiddle))
 	mm.MMFrame:Hide()
 end
 
@@ -62,6 +59,7 @@ function mm.CreateLine(startX, startY, endX, endY)
 	line:SetEndPoint('BOTTOMLEFT', endX, endY)
 	line:SetColorTexture(1, 0, 0, 0.4)
 	line:SetThickness(3)
+	return line
 end
 
 function mm.ShowMarkers()
@@ -70,4 +68,62 @@ end
 
 function mm.HideMarkers()
 	mm.MMFrame:Hide()
+end
+
+function mm.SliderChangedRed(self, value, byUser)
+	if byUser then
+		storage.EditBoxRed:SetText(tostring(value))
+		if QOL_Config_Toon.Active then
+			configToon.Red = value
+			mm.UpdateLines(configToon)
+		else
+			configAcct.Red = value
+			mm.UpdateLines(configAcct)
+		end
+	end
+end
+
+function mm.SliderChangedGreen()
+	if byUser then
+		storage.EditBoxRed:SetText(tostring(value))
+		if QOL_Config_Toon.Active then
+			configToon.Green = value
+			mm.UpdateLines(configToon)
+		else
+			configAcct.Green = value
+			mm.UpdateLines(configAcct)
+		end
+	end
+end
+
+function mm.SliderChangedBlue()
+	if byUser then
+		storage.EditBoxRed:SetText(tostring(value))
+		if QOL_Config_Toon.Active then
+			configToon.Blue = value
+			mm.UpdateLines(configToon)
+		else
+			configAcct.Blue = value
+			mm.UpdateLines(configAcct)
+		end
+	end
+end
+
+function mm.SliderChangedAlpha()
+	if byUser then
+		storage.EditBoxRed:SetText(tostring(value))
+		if QOL_Config_Toon.Active then
+			configToon.Alpha = value
+			mm.UpdateLines(configToon)
+		else
+			configAcct.Alpha = value
+			mm.UpdateLines(configAcct)
+		end
+	end
+end
+
+function mm.UpdateLines(config)
+	for line in pairs(mm.Lines) do
+		line:SetColorTexture(config.Red / 100, config.Green / 100, config.Blue / 100, config.Alpha / 100)
+	end
 end

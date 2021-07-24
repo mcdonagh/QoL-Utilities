@@ -40,6 +40,7 @@ ac.Bindable = 'Automatically confirm to equip "Bind on Equip" items'
 QOLUtils.Labels.MM = {}
 local mm = QOLUtils.Labels.MM
 mm.Header = 'Middle Marker'
+mm.TooltipRed = 'The color
 
 QOLUtils.Labels.QM = {}
 local qm = QOLUtils.Labels.QM

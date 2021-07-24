@@ -11,7 +11,7 @@ function qm.IsEnabled()
 end
 
 function qm.ToggleEnabled()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
 		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()
@@ -129,7 +129,7 @@ end
 -- end
 
 function qm.TogglePartyOnClick()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.PartyActive = storage.CheckBoxParty:GetChecked()
 	else
 		configAcct.PartyActive = storage.CheckBoxParty:GetChecked()
@@ -137,7 +137,7 @@ function qm.TogglePartyOnClick()
 end
 
 function qm.ToggleDuelOnClick()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configAcct.DuelActive = storage.CheckBoxDuel:GetChecked()
 	else
 		configToon.DuelActive = storage.CheckBoxDuel:GetChecked()
@@ -145,7 +145,7 @@ function qm.ToggleDuelOnClick()
 end
 
 function qm.ToggleLogonReportOnClick()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configAcct.ReportAtLogon = optAcct.CheckBoxReport:GetChecked()
 	else
 		configToon.ReportAtLogon = optToon.CheckBoxReport:GetChecked()

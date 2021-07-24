@@ -11,7 +11,7 @@ function smn.IsEnabled()
 end
 
 function smn.ToggleEnabled()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
 		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()
@@ -232,7 +232,7 @@ function smn.ReportInitial()
 end
 
 function smn.ToggleFavoritePetsOnClick()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
 	else
 		configAcct.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
@@ -240,7 +240,7 @@ function smn.ToggleFavoritePetsOnClick()
 end
 
 function smn.ToggleFavoriteMountsOnClick()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
 	else
 		configAcct.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
@@ -248,7 +248,7 @@ function smn.ToggleFavoriteMountsOnClick()
 end
 
 function smn.ToggleLogonReportOnClick()
-	if configToon.Active then
+	if QOL_Config_Toon.Active then
 		configToon.ReportAtLogon = storage.CheckBoxReport:GetChecked()
 	else
 		configAcct.ReportAtLogon = storage.CheckBoxReport:GetChecked()
