@@ -27,11 +27,11 @@ If there's anything you'd like to see added or changed, please leave a [feature 
 - Added ability to enabled/disable each feature to prevent interfering with other addons
 - Backend changes to account level stored variables
 - Minor fix to *Quiet Mode* and *Auto Confirm*'s \"toggle all\" functionality
+- Minor fix to *Quiet Mode*'s Party Invite decline functionality
+	- Added API call to *DeclineGroup()*. Hiding the popup only declines the party invite in specific circumstances
 - Minor fixes to *Summon*'s mount summoning
 	- Added a \"shuffle\" to the generated valid mount list to increase the variety of summoned mounts
-	- Added checks to prevent some system error messages
-		- Added \"in combat\" check
-		- Added \"empty list\" check
+	- Added \"in combat\" and \"empty list\" checks to prevent some system error messages
 
 <h2 id='c003'>Version 4.0.0 | 2021-07-06</h2>
 
@@ -55,8 +55,8 @@ If there's anything you'd like to see added or changed, please leave a [feature 
 	- Added functionality for configuring on/off the status report for *Quiet Mode* and *Auto Confirm* at player logon/reload
 - Added *Auto Confirm* functionality for "Bind on Equip" items
 - Minor fix to *Quiet Mode*'s decline duel
-	- Added the api call to *CancelDuel()*. Thought it worked the same as party invites where just hiding the window also declines. Nope, need the api call.
+	- Added API call to *CancelDuel()*. Thought it worked the same as party invites where just hiding the window also declines. Nope, need the API call
 
 <h2 id='c001'>Version 3.0.0 | 2021-06-24</h2>
 
-Initial public release.
+- Initial public release

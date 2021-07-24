@@ -4,8 +4,7 @@ QOLUtils.AT = {}
 local at = QOLUtils.AT
 local configAcct = QOL_Config_Acct.AT
 local configToon = QOL_Config_Toon.AT
-local optAcct = QOLUtils.OPT.Acct.AT
-local optToon = QOLUtils.OPT.Toon.AT
+local storage = QOLUtils.OPT.Storage.AT
 
 function at.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
@@ -13,9 +12,9 @@ end
 
 function at.ToggleEnabled()
 	if configToon.Active then
-		configToon.Enabled = not configToon.Enabled
+		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
-		configAcct.Enabled = not configAcct.Enabled
+		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()
 	end
 end
 

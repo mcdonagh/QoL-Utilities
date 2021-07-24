@@ -4,8 +4,7 @@ QOLUtils.SMN = {}
 local smn = QOLUtils.SMN
 local configAcct = QOL_Config_Acct.SMN
 local configToon = QOL_Config_Toon.SMN
-local optAcct = QOLUtils.OPT.Acct.SMN
-local optToon = QOLUtils.OPT.Toon.SMN
+local storage = QOLUtils.OPT.Storage.SMN
 
 function smn.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
@@ -13,9 +12,9 @@ end
 
 function smn.ToggleEnabled()
 	if configToon.Active then
-		configToon.Enabled = not configToon.Enabled
+		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
-		configAcct.Enabled = not configAcct.Enabled
+		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()
 	end
 end
 
@@ -190,8 +189,7 @@ function smn.ToggleFavoritePets(state)
 	QOLUtils.ToggleSetting(state,
 		configAcct.OnlyFavoritePets,
 		configToon.OnlyFavoritePets,
-		optAcct.CheckBoxPets,
-		optToon.CheckBoxPets)
+		storage.CheckBoxPets)
 end
 
 function smn.ToggleFavoriteMounts(state)
@@ -199,8 +197,7 @@ function smn.ToggleFavoriteMounts(state)
 	QOLUtils.ToggleSetting(state,
 		configAcct.OnlyFavoriteMounts,
 		configToon.OnlyFavoriteMounts,
-		optAcct.CheckBoxMounts,
-		optToon.CheckBoxMounts)
+		storage.CheckBoxMounts)
 end
 
 function smn.ToggleLogonReport()
@@ -208,8 +205,7 @@ function smn.ToggleLogonReport()
 	QOLUtils.ToggleSetting(nil,
 		configAcct.ReportAtLogon,
 		configToon.ReportAtLogon,
-		optAcct.CheckBoxReport,
-		optToon.CheckBoxReport)
+		storage.CheckBoxReport)
 end
 
 function smn.ReportFavoritePets()
@@ -236,18 +232,27 @@ function smn.ReportInitial()
 end
 
 function smn.ToggleFavoritePetsOnClick()
-	configAcct.OnlyFavoritePets = optAcct.CheckBoxPets:GetChecked()
-	configToon.OnlyFavoritePets = optToon.CheckBoxPets:GetChecked()
+	if configToon.Active then
+		configToon.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
+	else
+		configAcct.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
+	end
 end
 
 function smn.ToggleFavoriteMountsOnClick()
-	configAcct.OnlyFavoriteMounts = optAcct.CheckBoxMounts:GetChecked()
-	configToon.OnlyFavoriteMounts = optToon.CheckBoxMounts:GetChecked()
+	if configToon.Active then
+		configToon.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
+	else
+		configAcct.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
+	end	
 end
 
 function smn.ToggleLogonReportOnClick()
-	configAcct.ReportAtLogon = optAcct.CheckBoxReport:GetChecked()
-	configToon.ReportAtLogon = optToon.CheckBoxReport:GetChecked()
+	if configToon.Active then
+		configToon.ReportAtLogon = storage.CheckBoxReport:GetChecked()
+	else
+		configAcct.ReportAtLogon = storage.CheckBoxReport:GetChecked()
+	end
 end
 
 function smn.Log(msg)

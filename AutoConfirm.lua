@@ -4,8 +4,7 @@ QOLUtils.AC = {}
 local ac = QOLUtils.AC
 local configAcct = QOL_Config_Acct.AC
 local configToon = QOL_Config_Toon.AC
-local optAcct = QOLUtils.OPT.Acct.AC
-local optToon = QOLUtils.OPT.Toon.AC
+local storage = QOLUtils.OPT.Storage.AC
 
 function ac.IsEnabled()
 	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
@@ -13,9 +12,9 @@ end
 
 function ac.ToggleEnabled()
 	if configToon.Active then
-		configToon.Enabled = not configToon.Enabled
+		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
-		configAcct.Enabled = not configAcct.Enabled
+		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()
 	end
 end
 
@@ -47,8 +46,7 @@ function ac.ToggleRefundable(state)
 	QOLUtils.ToggleSetting(state,
 		configAcct.RefundableActive,
 		configToon.RefundableActive,
-		optAcct.CheckBoxRefundable,
-		optToon.CheckBoxRefundable)
+		storage.CheckBoxRefundable)
 end
 
 function ac.ToggleTradeable(state)
@@ -56,8 +54,7 @@ function ac.ToggleTradeable(state)
 	QOLUtils.ToggleSetting(state,
 		configAcct.TradeableActive,
 		configToon.TradeableActive,
-		optAcct.CheckBoxTradeable,
-		optToon.CheckBoxTradeable)
+		storage.CheckBoxTradeable)
 end
 
 function ac.ToggleBindable(state)
@@ -65,8 +62,7 @@ function ac.ToggleBindable(state)
 	QOLUtils.ToggleSetting(state,
 		configAcct.BindableActive,
 		configToon.BindableActive,
-		optAcct.CheckBoxBindable,
-		optToon.CheckBoxBindable)
+		storage.CheckBoxBindable)
 end
 
 function ac.ToggleAll(state)
@@ -88,8 +84,7 @@ function ac.ToggleLogonReport()
 	QOLUtils.ToggleSetting(nil,
 		configAcct.ReportAtLogon,
 		configToon.ReportAtLogon,
-		optAcct.CheckBoxReport,
-		optToon.CheckBoxReport)
+		storage.CheckBoxReport)
 end
 
 function ac.ReportRefundable()
@@ -155,23 +150,35 @@ function ac.ClickConfirm(confirmText, buttonType)
 end
 
 function ac.ToggleRefundableOnClick()
-	configAcct.RefundableActive = optAcct.CheckBoxRefundable:GetChecked()
-	configToon.RefundableActive = optToon.CheckBoxRefundable:GetChecked()
+	if configToon.Active then
+		configToon.RefundableActive = storage.CheckBoxRefundable:GetChecked()
+	else
+		configAcct.RefundableActive = storage.CheckBoxRefundable:GetChecked()
+	end
 end
 
 function ac.ToggleTradeableOnClick()
-	configAcct.TradeableActive = optAcct.CheckBoxTradeable:GetChecked()
-	configToon.TradeableActive = optAcct.CheckBoxTradeable:GetChecked()
+	if configToon.Active then
+		configToon.TradeableActive = storage.CheckBoxTradeable:GetChecked()
+	else
+		configAcct.TradeableActive = storage.CheckBoxTradeable:GetChecked()
+	end
 end
 
 function ac.ToggleBindableOnClick()
-	configAcct.BindableActive = optAcct.CheckBoxBindable:GetChecked()
-	configToon.BindableActive = optToon.CheckBoxBindable:GetChecked()
+	if configToon.Active then
+		configAcct.BindableActive = storage.CheckBoxBindable:GetChecked()
+	else
+		configToon.BindableActive = storage.CheckBoxBindable:GetChecked()
+	end
 end
 
 function ac.ToggleLogonReportOnClick()
-	configAcct.ReportAtLogon = optAcct.CheckBoxReport:GetChecked()
-	configToon.ReportAtLogon = optToon.CheckBoxReport:GetChecked()
+	if configToon.Active then
+		configToon.ReportAtLogon = storage.CheckBoxReport:GetChecked()
+	else
+		configAcct.ReportAtLogon = storage.CheckBoxReport:GetChecked()
+	end
 end
 
 function ac.Log(message)
