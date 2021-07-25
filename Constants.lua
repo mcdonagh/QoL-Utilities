@@ -23,15 +23,15 @@ lb.Enabled = 'Feature enabled'
 
 QOLUtils.Labels.ATC = {}
 local atc = QOLUtils.Labels.ATC
-atc.Header = 'Achievement Tracker Cleaner'
+atc.Header = 'Achievement Tracker Cleaner (ATC)'
 
 QOLUtils.Labels.AT = {}
 local at = QOLUtils.Labels.AT
-at.Header = 'Announce Target'
+at.Header = 'Announce Target (AT)'
 
 QOLUtils.Labels.AC = {}
 local ac = QOLUtils.Labels.AC
-ac.Header = 'Auto Confirm'
+ac.Header = 'Auto Confirm (AC)'
 ac.Report = 'Report Auto Confirm status at player logon and on reload'
 ac.Refundable = 'Automatically confirm to equip Refundable items'
 ac.Tradeable = 'Automatically confirm to equip Tradeable items'
@@ -39,24 +39,28 @@ ac.Bindable = 'Automatically confirm to equip "Bind on Equip" items'
 
 QOLUtils.Labels.MM = {}
 local mm = QOLUtils.Labels.MM
-mm.Header = 'Middle Marker'
-mm.TooltipRed = 'The color
+mm.Header = 'Middle Marker (MM)'
+mm.Red = 'Red %'
+mm.Green = 'Green %'
+mm.Blue = 'Blue %'
+mm.Alpha = 'Opacity %'
+mm.Thickness = 'Thickness'
 
 QOLUtils.Labels.QM = {}
 local qm = QOLUtils.Labels.QM
-qm.Header = 'Quiet Mode'
+qm.Header = 'Quiet Mode (QM)'
 qm.Report = 'Report Quiet Mode status at player logon and on reload'
 qm.Party = 'Automatically decline Party Invites'
 qm.Duel = 'Automatically decline Duel Requests'
 
 QOLUtils.Labels.SMN = {}
 local smn = QOLUtils.Labels.SMN
-smn.Header = 'Summon Mounts & Pets'
+smn.Header = 'Summon Mounts & Pets (SMN)'
 smn.Report = 'Report Summon status at player logon and on reload'
 smn.OnlyFavoritePets = 'Only summon favorite pets when summoning a random pet'
 smn.OnlyFavoriteMounts = 'Only summon favorite mounts when summoning a mount'
 
 QOLUtils.Labels.VC = {}
 local vc = QOLUtils.Labels.VC
-vc.Header = 'Volume Cycler'
-vc.Levels = 'Volume percentages to cycle through (each value separated by whitespace)'
+vc.Header = 'Volume Cycler (VC)'
+vc.Levels = 'Volume percentages to cycle through (values separated by whitespace)'

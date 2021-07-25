@@ -5,12 +5,13 @@ local vc = QOLUtils.VC
 local configAcct = QOL_Config_Acct.VC
 local configToon = QOL_Config_Toon.VC
 local storage = QOLUtils.OPT.Storage.VC
+local feature = 'VC'
 
 function vc.IsEnabled()
-	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+	return QOLUtils.SettingIsTrue(feature, 'Enabled')
 end
 
-function vc.ToggleEnabled()
+function vc.CheckBoxEnabled_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
@@ -58,5 +59,5 @@ function vc.SetVolume(level)
 end
 
 function vc.Log(message)
-	QOLUtils.Log(message, 'VC')
+	QOLUtils.Log(message, feature)
 end

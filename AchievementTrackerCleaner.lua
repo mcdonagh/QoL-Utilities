@@ -5,12 +5,13 @@ local atc = QOLUtils.ATC
 local configAcct = QOL_Config_Acct.ATC
 local configToon = QOL_Config_Toon.ATC
 local storage = QOLUtils.OPT.Storage.ATC
+local feature = 'ATC'
 
 function atc.IsEnabled()
-	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+	return QOLUtils.SettingIsTrue(feature, 'Enabled')
 end
 
-function atc.ToggleEnabled()
+function atc.CheckBoxEnabled_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
@@ -35,5 +36,5 @@ function atc.Clean(printRemoved)
 end
 
 function atc.Log(message)
-	QOLUtils.Log(message, 'ATC')
+	QOLUtils.Log(message, feature)
 end

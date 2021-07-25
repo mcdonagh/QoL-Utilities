@@ -8,13 +8,12 @@
 
 > *No dates available for any planned features. I work on this project in my spare time and will get to them when I get to them.*
 
-- Add *Auto Quest* feature to automatically accept/complete quests.
-	- Lots of addons already do this, but I want one that is my own. 
-	- This feature will only be implemented **after** the ability to disable specific features is implemented.
-		- This feature will be disabled by default; I don't want it interfering with peoples' existing auto questing addons.
-- Add the option to screen requests for *Quiet Mode* to allow the option for different level of requests to come through.
-	- Such as allowing requests from guildies only, or requests from guildies and people on your friends list.
-- Add color configuration to *Middle Marker* instead of having it hardcoded to red.
+- Add *Auto Quest* feature to automatically accept/complete quests
+	- Lots of addons already do this, but I want one that is my own
+		- I currently use a modified version of **[Get to the Point](https://www.curseforge.com/wow/addons/get-to-the-point)** for my personal use
+	- This feature will be disabled by default; I don't want it interfering with peoples' existing auto questing addons
+- Add the option to screen requests for *Quiet Mode* to allow the option for different level of requests to come through
+	- Such as allowing requests from guildies only, or requests from guildies and people on your friends list
 
 #### Leave a Suggestion
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
@@ -24,7 +23,8 @@ If there's anything you'd like to see added or changed, please leave a [feature 
 
 - Reworked appearance of in-game configuration screen
 	- Account specific and Toon specific settings now share configuration items (checkboxes, editboxes, etc.)
-- Added ability to enabled/disable each feature to prevent interfering with other addons
+- Added ability to enabled/disable each feature to prevent potential conflicts with other addons and avoid unwanted behavior
+- Added color configuration to *Middle Marker*
 - Backend changes to account level stored variables
 - Minor fix to *Quiet Mode* and *Auto Confirm*'s \"toggle all\" functionality
 - Minor fix to *Quiet Mode*'s Party Invite decline functionality

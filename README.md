@@ -34,8 +34,12 @@ When using *per character* settings, Slash Commands only affect the current char
 See the feature's details for more information on the corresponding slash commands.
 
 ### Enabling Individual Features
-Individual features are enabled/disabled via the in-game configuration window.  
-All features are **disabled** by default to avoid potential conflicts with other addons.  
+Individual features are only enabled/disabled via the in-game configuration window.  
+Certain features are **disabled** by default to avoid potential conflicts with other addons and to avoid unwanted behavior.
+
+Features disabled by default | 
+:---: |
+Volume Cycler | 
 
 Feature enabling ***is*** affected by the **per character** setting.  
 > *Say you wanted Volume Cycler enabled on only one character and not others.*
@@ -67,10 +71,10 @@ A list of preset volume percentages that you will be able to cycle through, in t
 
 Exactly what it says on the tin: Cleans the in-game achievement tracker by untracking completed achievements.  
 
-*Ever run into the issue of trying to track an achievement and get the message that you can only track 10 achievements at a time?
-And you only see 6 achievements being tracked?
-That means there's completed achievements that the game, for whatever reason, did not auto untrack.  
-This removes those hidden, but still tracked completed achievements from the tracker.*
+*Ever run into the issue of trying to track an achievement and get the message that you can only track 10 achievements at a time?*
+*And you only see 6 achievements being tracked?*  
+*That means there's completed achievements that the game, for whatever reason, did not auto untrack.*  
+*This removes those hidden, but still tracked completed achievements from the tracker.*
 
 <h3 id='atc-usage'>Usage & Output</h3>
 

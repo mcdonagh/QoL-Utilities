@@ -5,12 +5,13 @@ local mm = QOLUtils.MM
 local configAcct = QOL_Config_Acct.MM
 local configToon = QOL_Config_Toon.MM
 local storage = QOLUtils.OPT.Storage.MM
+local feature = 'MM'
 
 function mm.IsEnabled()
-	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+	return QOLUtils.SettingIsTrue(feature, 'Enabled')
 end
 
-function mm.ToggleEnabled()
+function mm.CheckBoxEnabled_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
@@ -70,60 +71,112 @@ function mm.HideMarkers()
 	mm.MMFrame:Hide()
 end
 
-function mm.SliderChangedRed(self, value, byUser)
+function mm.SliderRed_OnValueChanged(self, value, byUser)
 	if byUser then
 		storage.EditBoxRed:SetText(tostring(value))
-		if QOL_Config_Toon.Active then
-			configToon.Red = value
-			mm.UpdateLines(configToon)
-		else
-			configAcct.Red = value
-			mm.UpdateLines(configAcct)
-		end
+		mm.UpdateSetting('Red', value)
 	end
 end
 
-function mm.SliderChangedGreen()
+function mm.SliderGreen_OnValueChanged(self, value, byUser)
 	if byUser then
-		storage.EditBoxRed:SetText(tostring(value))
-		if QOL_Config_Toon.Active then
-			configToon.Green = value
-			mm.UpdateLines(configToon)
-		else
-			configAcct.Green = value
-			mm.UpdateLines(configAcct)
-		end
+		storage.EditBoxGreen:SetText(tostring(value))
+		mm.UpdateSetting('Green', value)
 	end
 end
 
-function mm.SliderChangedBlue()
+function mm.SliderBlue_OnValueChanged(self, value, byUser)
 	if byUser then
-		storage.EditBoxRed:SetText(tostring(value))
-		if QOL_Config_Toon.Active then
-			configToon.Blue = value
-			mm.UpdateLines(configToon)
-		else
-			configAcct.Blue = value
-			mm.UpdateLines(configAcct)
-		end
+		storage.EditBoxBlue:SetText(tostring(value))
+		mm.UpdateSetting('Blue', value)
 	end
 end
 
-function mm.SliderChangedAlpha()
+function mm.SliderAlpha_OnValueChanged(self, value, byUser)
 	if byUser then
-		storage.EditBoxRed:SetText(tostring(value))
-		if QOL_Config_Toon.Active then
-			configToon.Alpha = value
-			mm.UpdateLines(configToon)
-		else
-			configAcct.Alpha = value
-			mm.UpdateLines(configAcct)
-		end
+		storage.EditBoxAlpha:SetText(tostring(value))
+		mm.UpdateSetting('Alpha', value)
 	end
 end
 
-function mm.UpdateLines(config)
+function mm.SliderThickness_OnValueChanged(self, value, byUser)
+	if byUser then
+		storage.EditBoxThickness:SetText(tostring(value))
+		mm.UpdateSetting('Thickness', value)
+	end
+end
+
+function mm.EditBoxRed_OnEditFocusLost(self)
+	local value = mm.GetEditBoxNum(self, storage.SliderRed)
+	storage.SliderRed:SetValue(value)
+	self:SetText(tostring(value))
+	mm.UpdateSetting('Red', value)
+end
+
+function mm.EditBoxGreen_OnEditFocusLost(self)
+	local value = mm.GetEditBoxNum(self, storage.SliderGreen)
+	storage.SliderGreen:SetValue(value)
+	self:SetText(tostring(value))
+	mm.UpdateSetting('Green', value)
+end
+
+function mm.EditBoxBlue_OnEditFocusLost(self)
+	local value = mm.GetEditBoxNum(self, storage.SliderBlue)
+	storage.SliderBlue:SetValue(value)
+	self:SetText(tostring(value))
+	mm.UpdateSetting('Blue', value)
+end
+
+function mm.EditBoxAlpha_OnEditFocusLost(self)
+	local value = mm.GetEditBoxNum(self, storage.SliderAlpha)
+	storage.SliderAlpha:SetValue(value)
+	self:SetText(tostring(value))
+	mm.UpdateSetting('Alpha', value)
+end
+
+function mm.EditBoxThickness_OnEditFocusLost(self)
+	local value = mm.GetEditBoxNum(self, storage.SliderThickness)
+	storage.SliderThickness:SetValue(value)
+	self:SetText(tostring(value))
+	mm.UpdateSetting('Thickness', value)
+end
+
+function mm.GetEditBoxNum(editBox, slider)
+	local value = slider:GetValue()
+	if editBox then
+		local nums = QOLUtils.StrToTable(editBox:GetText(), QOLUtils.Patterns.Numbers)
+		if nums and nums[1] then
+			local num = tonumber(nums[1])
+			if num >= 0 and num <= 100 then
+				value = num
+			end
+		end
+	end
+	return value
+end
+
+function mm.UpdateSetting(setting, value)
+	if QOL_Config_Toon.Active then
+		configToon[setting] = value
+	else
+		configAcct[setting] = value
+	end
+	mm.UpdateLines()
+end
+
+function mm.UpdateLines()
+	local config = QOL_Config_Toon.Active and configToon or configAcct
+	local red = config.Red / 100
+	local green = config.Green / 100
+	local blue = config.Blue / 100
+	local alpha = config.Alpha / 100
+	local thickness = config.Thickness
 	for line in pairs(mm.Lines) do
-		line:SetColorTexture(config.Red / 100, config.Green / 100, config.Blue / 100, config.Alpha / 100)
+		line:SetColorTexture(red, green, blue, alpha)
+		line:SetThickness(thickness)
+	end
+	for line in pairs(storage.PreviewLines) do
+		line:SetColorTexture(red, green, blue, alpha)
+		line:SetThickness(thickness)
 	end
 end

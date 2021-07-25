@@ -1,5 +1,14 @@
 local addonName, QOLUtils = ...
 
+function QOLUtils.Attention()
+	if QOL_Config_Acct.Attention > 0 then
+		QOL_Config_Acct.Attention = QOL_Config_Acct.Attention - 1
+		QOLUtils.Log(format('|cFFFF0000ATTENTION:|r Due to a recent update, some features of QoL Utilities are now disabled by default to prevent potential conflicts with other addons and to avoid unwanted behavior. Turn features on/off through the in-game configuration window. This message will display %d more %s.',
+			QOL_Config_Acct.Attention,
+			QOL_Config_Acct.Attention == 1 and 'time' or 'times'))
+	end
+end
+
 function QOLUtils.Log(message, subID)
 	local ID = '[QoLUtils]'
 	if not QOLUtils.IsNilOrWhitespace(subID) then
@@ -63,29 +72,25 @@ function QOLUtils.GetFrame(name)
 	end
 end
 
-function QOLUtils.SettingIsTrue(acctSetting, toonSetting)
-	return QOL_Config_Toon.Active and toonSetting or not QOL_Config_Toon.Active and acctSetting
+function QOLUtils.SettingIsTrue(feature, setting)
+	if feature and setting then
+		return QOL_Config_Toon.Active and QOL_Config_Toon[feature][setting] or not QOL_Config_Toon.Active and QOL_Config_Acct[feature][setting]
+	
 end
 
-function QOLUtils.ToggleSetting(state, acctSetting, toonSetting, checkBox)
-	local modifiedToonSetting = toonSetting
-	local modifiedAcctSetting = acctSetting
-	local modifiedSetting
+function QOLUtils.ToggleSetting(state, checkBox, feature, setting)
 	if QOL_Config_Toon.Active then
 		if state == nil then
-			modifiedToonSetting = not toonSetting
+			QOL_Config_Toon[feature][setting] = not QOL_Config_Toon[feature][setting]
 		else
-			modifiedToonSetting = state
+			QOL_Config_Toon[feature][setting] = state
 		end
-		modifiedSetting = modifiedToonSetting
 	else
 		if state == nil then
-			modifiedAcctSetting = not acctSetting
+			QOL_Config_Acct[feature][setting] = not QOL_Config_Acct[feature][setting]
 		else
-			modifiedAcctSetting = state
+			QOL_Config_Acct[feature][setting] = state
 		end
-		modifiedSetting = modifiedAcctSetting
 	end
-	QOLUtils.OPT.UpdateCheckBox(checkBox, modifiedSetting)
-	return modifiedAcctSetting, modifiedToonSetting
+	QOLUtils.OPT.UpdateCheckBox(checkBox, feature, setting)
 end

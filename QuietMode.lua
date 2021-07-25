@@ -5,12 +5,13 @@ local qm = QOLUtils.QM
 local configAcct = QOL_Config_Acct.QM
 local configToon = QOL_Config_Toon.QM
 local storage = QOLUtils.OPT.Storage.QM
+local feature = 'QM'
 
 function qm.IsEnabled()
-	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+	return QOLUtils.SettingIsTrue(feature, 'Enabled')
 end
 
-function qm.ToggleEnabled()
+function qm.CheckBoxEnabled_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
@@ -39,19 +40,11 @@ function qm.ToggleQuietModeAndReport(args)
 end
 
 function qm.ToggleParty(state)
-	configAcct.PartyActive, configToon.PartyActive =
-	QOLUtils.ToggleSetting(state,
-		configAcct.PartyActive,
-		configToon.PartyActive,
-		storage.CheckBoxParty)
+	QOLUtils.ToggleSetting(state, storage.CheckBoxParty, feature, 'PartyActive')
 end
 
 function qm.ToggleDuel(state)
-	configAcct.DuelActive, configToon.DuelActive =
-	QOLUtils.ToggleSetting(state,
-		configAcct.DuelActive,
-		configToon.DuelActive,
-		storage.CheckBoxDuel)
+	QOLUtils.ToggleSetting(state, storage.CheckBoxDuel, feature, 'DuelActive')
 end
 
 function qm.ToggleAll(state)
@@ -67,15 +60,11 @@ function qm.ToggleAll(state)
 end
 
 function qm.ToggleLogonReport()
-	configAcct.ReportAtLogon, configToon.ReportAtLogon =
-	QOLUtils.ToggleSetting(nil,
-		configAcct.ReportAtLogon,
-		configToon.ReportAtLogon,
-		storage.CheckBoxReport)
+	QOLUtils.ToggleSetting(nil, storage.CheckBoxReport, feature, 'ReportAtLogon')
 end
 
 function qm.ReportParty()
-	if QOLUtils.SettingIsTrue(configAcct.PartyActive, configToon.PartyActive) then
+	if QOLUtils.SettingIsTrue(feature, 'PartyActive') then
 		qm.Log('Automatically declining Party Invites.')
 	else
 		qm.Log('Manual confirmation required for Party Invites.')
@@ -83,7 +72,7 @@ function qm.ReportParty()
 end
 
 function qm.ReportDuel()
-	if QOLUtils.SettingIsTrue(configAcct.DuelActive, configToon.DuelActive) then
+	if QOLUtils.SettingIsTrue(feature, 'DuelActive') then
 		qm.Log('Automatically declining Duel Invites.')
 	else
 		qm.Log('Manual confirmation required for Duel Invites.')
@@ -96,13 +85,13 @@ function qm.ReportAll()
 end
 
 function qm.ReportInitial()
-	if QOLUtils.SettingIsTrue(configAcct.ReportAtLogon, configToon.ReportAtLogon) then
+	if QOLUtils.SettingIsTrue(feature, 'ReportAtLogon') then
 		qm.ReportAll()
 	end
 end
 
 function qm.DeclinePartyInvite(...)
-	if QOLUtils.SettingIsTrue(configAcct.PartyActive, configToon.PartyActive) then
+	if QOLUtils.SettingIsTrue(feature, 'PartyActive') then
 		local inviter = ...
 		DeclineGroup()
 		StaticPopup_Hide('PARTY_INVITE')
@@ -111,7 +100,7 @@ function qm.DeclinePartyInvite(...)
 end
 
 function qm.DeclineDuel(...)
-	if QOLUtils.SettingIsTrue(configAcct.DuelActive, configToon.DuelActive) then
+	if QOLUtils.SettingIsTrue(feature, 'DuelActive') then
 		local inviter = ...
 		CancelDuel()
 		StaticPopup_Hide('DUEL_REQUESTED')
@@ -128,7 +117,7 @@ end
 	-- local _, _, _, argbHex = GetClassColor(class)
 -- end
 
-function qm.TogglePartyOnClick()
+function qm.CheckBoxParty_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.PartyActive = storage.CheckBoxParty:GetChecked()
 	else
@@ -136,7 +125,7 @@ function qm.TogglePartyOnClick()
 	end
 end
 
-function qm.ToggleDuelOnClick()
+function qm.CheckBoxDuel_OnClick()
 	if QOL_Config_Toon.Active then
 		configAcct.DuelActive = storage.CheckBoxDuel:GetChecked()
 	else
@@ -144,7 +133,7 @@ function qm.ToggleDuelOnClick()
 	end
 end
 
-function qm.ToggleLogonReportOnClick()
+function qm.CheckBoxReport_OnClick()
 	if QOL_Config_Toon.Active then
 		configAcct.ReportAtLogon = optAcct.CheckBoxReport:GetChecked()
 	else
@@ -153,5 +142,5 @@ function qm.ToggleLogonReportOnClick()
 end
 
 function qm.Log(message)
-	QOLUtils.Log(message, 'QM')
+	QOLUtils.Log(message, feature)
 end

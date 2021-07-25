@@ -5,12 +5,13 @@ local smn = QOLUtils.SMN
 local configAcct = QOL_Config_Acct.SMN
 local configToon = QOL_Config_Toon.SMN
 local storage = QOLUtils.OPT.Storage.SMN
+local feature = 'SMN'
 
 function smn.IsEnabled()
-	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+	return QOLUtils.SettingIsTrue(feature, 'Enabled')
 end
 
-function smn.ToggleEnabled()
+function smn.CheckBoxEnabled_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
@@ -51,7 +52,7 @@ function smn.ProcessState(state, Toggle, Report)
 end
 
 function smn.Pet()
-	local onlyFavorites = QOLUtils.SettingIsTrue(configAcct.OnlyFavoritePets, configToon.OnlyFavoritePets)
+	local onlyFavorites = QOLUtils.SettingIsTrue(feature, 'OnlyFavoritePets')
 	C_PetJournal.SummonRandomPet(onlyFavorites)
 end
 
@@ -173,7 +174,7 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 	for i, v in ipairs(existingMounts) do
 		table.insert(usableMounts, v)
 	end
-	local onlyFavorites = QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts)
+	local onlyFavorites = QOLUtils.SettingIsTrue(feature, 'OnlyFavoriteMounts')
 	for i, mountID in pairs(C_MountJournal.GetMountIDs()) do
 		local _, _, _, _, isUsable, _, isFavorite = C_MountJournal.GetMountInfoByID(mountID)
 		local _, _, _, _, typeID = C_MountJournal.GetMountInfoExtraByID(mountID)
@@ -185,31 +186,19 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 end
 
 function smn.ToggleFavoritePets(state)
-	configAcct.OnlyFavoritePets, configToon.OnlyFavoritePets =
-	QOLUtils.ToggleSetting(state,
-		configAcct.OnlyFavoritePets,
-		configToon.OnlyFavoritePets,
-		storage.CheckBoxPets)
+	QOLUtils.ToggleSetting(state, storage.CheckBoxPets, feature, 'OnlyFavoritePets')
 end
 
 function smn.ToggleFavoriteMounts(state)
-	configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts =
-	QOLUtils.ToggleSetting(state,
-		configAcct.OnlyFavoriteMounts,
-		configToon.OnlyFavoriteMounts,
-		storage.CheckBoxMounts)
+	QOLUtils.ToggleSetting(state, storage.CheckBoxMounts, feature, 'OnlyFavoriteMounts')
 end
 
 function smn.ToggleLogonReport()
-	configAcct.ReportAtLogon, configToon.ReportAtLogon =
-	QOLUtils.ToggleSetting(nil,
-		configAcct.ReportAtLogon,
-		configToon.ReportAtLogon,
-		storage.CheckBoxReport)
+	QOLUtils.ToggleSetting(nil, storage.CheckBoxReport, feature, 'ReportAtLogon')
 end
 
 function smn.ReportFavoritePets()
-	if QOLUtils.SettingIsTrue(configAcct.OnlyFavoritePets, configToon.OnlyFavoritePets) then
+	if QOLUtils.SettingIsTrue(feature, 'OnlyFavoritePets') then
 		smn.Log('Only favorited pets will be summoned.')
 	else
 		smn.Log('Any pet will be summoned.')
@@ -217,7 +206,7 @@ function smn.ReportFavoritePets()
 end
 
 function smn.ReportFavoriteMounts()
-	if QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts) then
+	if QOLUtils.SettingIsTrue(feature, 'OnlyFavoriteMounts') then
 		smn.Log('Only appropiate and favorited mounts will be summoned.')
 	else
 		smn.Log('Any appropiate mount will be summoned.')
@@ -225,13 +214,13 @@ function smn.ReportFavoriteMounts()
 end
 
 function smn.ReportInitial()
-	if QOLUtils.SettingIsTrue(configAcct.ReportAtLogon, configToon.ReportAtLogon) then
+	if QOLUtils.SettingIsTrue(feature, 'ReportAtLogon') then
 		smn.ReportFavoritePets()
 		smn.ReportFavoriteMounts()
 	end
 end
 
-function smn.ToggleFavoritePetsOnClick()
+function smn.CheckBoxPets_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
 	else
@@ -239,7 +228,7 @@ function smn.ToggleFavoritePetsOnClick()
 	end
 end
 
-function smn.ToggleFavoriteMountsOnClick()
+function smn.CheckBoxMounts_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
 	else
@@ -247,7 +236,7 @@ function smn.ToggleFavoriteMountsOnClick()
 	end	
 end
 
-function smn.ToggleLogonReportOnClick()
+function smn.CheckBoxReport_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.ReportAtLogon = storage.CheckBoxReport:GetChecked()
 	else
@@ -256,5 +245,5 @@ function smn.ToggleLogonReportOnClick()
 end
 
 function smn.Log(msg)
-	QOLUtils.Log(msg, 'SMN')
+	QOLUtils.Log(msg, feature)
 end

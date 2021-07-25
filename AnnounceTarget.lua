@@ -5,12 +5,13 @@ local at = QOLUtils.AT
 local configAcct = QOL_Config_Acct.AT
 local configToon = QOL_Config_Toon.AT
 local storage = QOLUtils.OPT.Storage.AT
+local feature = 'AT'
 
 function at.IsEnabled()
-	return QOLUtils.SettingIsTrue(configAcct.Enabled, configToon.Enabled)
+	return QOLUtils.SettingIsTrue(feature, 'Enabled')
 end
 
-function at.ToggleEnabled()
+function at.CheckBoxEnabled_OnClick()
 	if QOL_Config_Toon.Active then
 		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
 	else
