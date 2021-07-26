@@ -9,6 +9,8 @@ function QOLUtils.Events.ADDON_LOADED(...)
 		QOLUtils.OPT.LoadDefaults()
 		QOLUtils.OPT.CreateConfig()
 		QOLUtils.OPT.UpdateConfig()
+		QOLUtils.OPT.LoadFeatures()
+		QOLUtils.EventFrame:UnregisterEvent('ADDON_LOADED')
 	end
 end
 
@@ -30,7 +32,7 @@ function QOLUtils.Events.PLAYER_ENTERING_WORLD(...)
 		if QOLUtils.VC.IsEnabled() then
 			QOLUtils.VC.LoadInitialVolume()
 		end
-		QOLUtils.Attention()
+		QOLUtils.Attention('FeatureEnabling')
 	end
 end
 
@@ -72,7 +74,7 @@ end
 
 QOLUtils.EventFrame:SetScript('OnEvent',
 	function(self, event, ...)
-		QOLUtils.Events[event](self, ...)
+		QOLUtils.Events[event](...)
 	end
 )
 

@@ -2,10 +2,14 @@ local addonName, QOLUtils = ...
 
 QOLUtils.SMN = {}
 local smn = QOLUtils.SMN
-local configAcct = QOL_Config_Acct.SMN
-local configToon = QOL_Config_Toon.SMN
-local storage = QOLUtils.OPT.Storage.SMN
 local feature = 'SMN'
+local configAcct, configToon, storage
+
+function smn.Load()
+	configAcct = QOL_Config_Acct.SMN
+	configToon = QOL_Config_Toon.SMN
+	storage = QOLUtils.OPT.Storage.SMN
+end
 
 function smn.IsEnabled()
 	return QOLUtils.SettingIsTrue(feature, 'Enabled')
@@ -137,7 +141,7 @@ function smn.Mount()
 				local j = math.random(i)
 				usableMounts[i], usableMounts[j] = usableMounts[j], usableMounts[i]
 			end
-			C_MountJournal.SummonByID(usableMounts[math.random(#usableMounts))])
+			C_MountJournal.SummonByID(usableMounts[math.random(#usableMounts)])
 		end
 	end
 end
@@ -171,11 +175,11 @@ end)
 
 function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 	local usableMounts = {}
-	for i, v in ipairs(existingMounts) do
-		table.insert(usableMounts, v)
+	for k, mountID in pairs(existingMounts) do
+		table.insert(usableMounts, mountID)
 	end
 	local onlyFavorites = QOLUtils.SettingIsTrue(feature, 'OnlyFavoriteMounts')
-	for i, mountID in pairs(C_MountJournal.GetMountIDs()) do
+	for k, mountID in pairs(C_MountJournal.GetMountIDs()) do
 		local _, _, _, _, isUsable, _, isFavorite = C_MountJournal.GetMountInfoByID(mountID)
 		local _, _, _, _, typeID = C_MountJournal.GetMountInfoExtraByID(mountID)
 		if isUsable and ((validTypeA and validTypeA[typeID]) or (validTypeB and validTypeB[typeID])) and ((onlyFavorites and isFavorite) or not onlyFavorites) then

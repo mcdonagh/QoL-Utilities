@@ -1,11 +1,16 @@
 local addonName, QOLUtils = ...
 
-function QOLUtils.Attention()
-	if QOL_Config_Acct.Attention > 0 then
-		QOL_Config_Acct.Attention = QOL_Config_Acct.Attention - 1
-		QOLUtils.Log(format('|cFFFF0000ATTENTION:|r Due to a recent update, some features of QoL Utilities are now disabled by default to prevent potential conflicts with other addons and to avoid unwanted behavior. Turn features on/off through the in-game configuration window. This message will display %d more %s.',
-			QOL_Config_Acct.Attention,
-			QOL_Config_Acct.Attention == 1 and 'time' or 'times'))
+function QOLUtils.Attention(setting)
+	if QOL_Config_Acct.Attention[setting] > 0 then
+		local repeatsLeft = QOL_Config_Acct.Attention[setting] - 1
+		QOL_Config_Acct.Attention[setting] = repeatsLeft
+		local repeatMessage
+		if repeatsLeft > 0 then
+			repeatMessage = 'This message will display ' .. repeatsLeft .. ' more ' .. (repeatsLeft == 1 and 'time.' or 'times.')
+		else
+			repeatMessage = 'This message will NOT display again.'
+		end
+		QOLUtils.Log('|cFFFF0000ATTENTION|r: Due to a recent update, some features of QoL Utilities are now disabled by default to prevent potential conflicts with other addons and to avoid unwanted behavior. Turn features on/off through the in-game configuration window. ' .. repeatMessage)
 	end
 end
 
@@ -75,7 +80,7 @@ end
 function QOLUtils.SettingIsTrue(feature, setting)
 	if feature and setting then
 		return QOL_Config_Toon.Active and QOL_Config_Toon[feature][setting] or not QOL_Config_Toon.Active and QOL_Config_Acct[feature][setting]
-	
+	end
 end
 
 function QOLUtils.ToggleSetting(state, checkBox, feature, setting)

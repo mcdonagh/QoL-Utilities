@@ -2,10 +2,14 @@ local addonName, QOLUtils = ...
 
 QOLUtils.AT = {}
 local at = QOLUtils.AT
-local configAcct = QOL_Config_Acct.AT
-local configToon = QOL_Config_Toon.AT
-local storage = QOLUtils.OPT.Storage.AT
 local feature = 'AT'
+local configAcct, configToon, storage
+
+function at.Load()
+	configAcct = QOL_Config_Acct.AT
+	configToon = QOL_Config_Toon.AT
+	storage = QOLUtils.OPT.Storage.AT
+end
 
 function at.IsEnabled()
 	return QOLUtils.SettingIsTrue(feature, 'Enabled')

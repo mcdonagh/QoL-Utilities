@@ -2,10 +2,14 @@ local addonName, QOLUtils = ...
 
 QOLUtils.AC = {}
 local ac = QOLUtils.AC
-local configAcct = QOL_Config_Acct.AC
-local configToon = QOL_Config_Toon.AC
-local storage = QOLUtils.OPT.Storage.AC
 local feature = 'AC'
+local configAcct, configToon, storage
+
+function ac.Load()
+	configAcct = QOL_Config_Acct.AC
+	configToon = QOL_Config_Toon.AC
+	storage = QOLUtils.OPT.Storage.AC
+end
 
 function ac.IsEnabled()
 	return QOLUtils.SettingIsTrue(feature, 'Enabled')

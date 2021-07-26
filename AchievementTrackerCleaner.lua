@@ -2,10 +2,14 @@ local addonName, QOLUtils = ...
 
 QOLUtils.ATC = {}
 local atc = QOLUtils.ATC
-local configAcct = QOL_Config_Acct.ATC
-local configToon = QOL_Config_Toon.ATC
-local storage = QOLUtils.OPT.Storage.ATC
 local feature = 'ATC'
+local configAcct, configToon, storage
+
+function atc.Load()
+	configAcct = QOL_Config_Acct.ATC
+	configToon = QOL_Config_Toon.ATC
+	storage = QOLUtils.OPT.Storage.ATC
+end
 
 function atc.IsEnabled()
 	return QOLUtils.SettingIsTrue(feature, 'Enabled')
@@ -22,7 +26,7 @@ end
 function atc.Clean(printRemoved)
 	local trackedAchievements = { GetTrackedAchievements() }
 	local removedCount = 0
-	for i, trackedAchievement in ipairs(trackedAchievements) do
+	for k, trackedAchievement in ipairs(trackedAchievements) do
 		local achievementID, _, _, completed = GetAchievementInfo(trackedAchievement)	
 		if completed then
 			RemoveTrackedAchievement(achievementID)

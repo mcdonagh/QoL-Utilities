@@ -4,9 +4,16 @@ QOLUtils.Patterns = {}
 local ptrs = QOLUtils.Patterns
 ptrs.Words = '%w+'
 ptrs.Numbers = '%d+'
+ptrs.Decimals = '%d*%.?%d*'
 ptrs.WhiteSpace = '%s+'
 ptrs.WhiteSpaceStart = '^' .. QOLUtils.Patterns.WhiteSpace
 ptrs.WhiteSpaceEnd = QOLUtils.Patterns.WhiteSpace .. '$'
+
+QOLUtils.Formats = {}
+local fmts = QOLUtils.Formats
+fmts.Number = '%d'
+fmts.NumberPrecision1 = '%.1f'
+fmts.NumberPrecision2 = '%.2f'
 
 QOLUtils.ConfigSpacing = {}
 local spc = QOLUtils.ConfigSpacing
@@ -40,11 +47,11 @@ ac.Bindable = 'Automatically confirm to equip "Bind on Equip" items'
 QOLUtils.Labels.MM = {}
 local mm = QOLUtils.Labels.MM
 mm.Header = 'Middle Marker (MM)'
-mm.Red = 'Red %'
-mm.Green = 'Green %'
-mm.Blue = 'Blue %'
-mm.Alpha = 'Opacity %'
-mm.Thickness = 'Thickness'
+mm.Red = 'Red'
+mm.Green = 'Green'
+mm.Blue = 'Blue'
+mm.Alpha = 'Line Opacity'
+mm.Thickness = 'Line Thickness'
 
 QOLUtils.Labels.QM = {}
 local qm = QOLUtils.Labels.QM

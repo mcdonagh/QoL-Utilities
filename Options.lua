@@ -12,15 +12,22 @@ function opt.LoadDefaults()
 		QOL_Config_Acct = QOL_Config or {}
 	end
 	opt.GenerateDefaults(QOL_Config_Acct)
-	if QOL_Config_Acct.Attention == nil then
-		QOL_Config_Acct.Attention = 3
-	end
+	opt.SetupAttention()
 	if QOL_Config_Toon == nil then
 		QOL_Config_Toon = {}
 	end
 	opt.GenerateDefaults(QOL_Config_Toon)
 	if QOL_Config_Toon.Active == nil then
 		QOL_Config_Toon.Active = false
+	end
+end
+
+function opt.SetupAttention()
+	if QOL_Config_Acct.Attention == nil then
+		QOL_Config_Acct.Attention = {}
+	end
+	if QOL_Config_Acct.Attention.FeatureEnabling == nil then
+		QOL_Config_Acct.Attention.FeatureEnabling = 3
 	end
 end
 
@@ -73,8 +80,8 @@ function opt.GenerateDefaults(config)
 	if config.MM.Alpha == nil then
 		config.MM.Alpha = 40
 	end
-	if config.MM.Thickness = nil then
-		config.MM.Thickness = 3
+	if config.MM.Thickness == nil then
+		config.MM.Thickness = 0.3
 	end
 	if config.QM == nil then
 		config.QM = {}
@@ -123,6 +130,16 @@ function opt.GenerateDefaults(config)
 	end
 end
 
+function opt.LoadFeatures()
+	QOLUtils.ATC.Load()
+	QOLUtils.AT.Load()
+	QOLUtils.AC.Load()
+	QOLUtils.MM.Load()
+	QOLUtils.QM.Load()
+	QOLUtils.SMN.Load()
+	QOLUtils.VC.Load()	
+end
+
 function opt.OpenConfig()
 	InterfaceOptionsFrame_Show()
 	InterfaceOptionsFrame_OpenToCategory(opt.Panel)
@@ -130,13 +147,13 @@ end
 
 function opt.CreateConfig()
 	local scroller, scrollchild = opt.CreateScrollFrame(labels.Header)
-	storage.CheckBoxToonActive = opt.CreateCheckBox(scrollchild, scrollchild, spacing.Indent, -spacing.SectionGap, labels.UseToon, QOL_Config_Toon.Active, opt.CheckBoxToonActive_OnClick)
+	storage.CheckBoxToonActive = opt.CreateCheckBox(scrollchild, scrollchild, spacing.Indent, -spacing.SectionGap, labels.UseToon, opt.CheckBoxToonActive_OnClick)
 	storage.ATC = {}
-	local atcHeader = opt.CreateHeader(scrollchild, storage.CheckBoxToonActive, 0, spacing.SectionGap, labels.ATC.Header)
+	local atcHeader = opt.CreateHeader(scrollchild, storage.CheckBoxToonActive, 0, -spacing.SectionGap, labels.ATC.Header)
 	storage.ATC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, atcHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.ATC.CheckBoxEnabled_OnClick)
 	storage.AT = {}
 	local atHeader = opt.CreateHeader(scrollchild, storage.ATC.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.AT.Header)
-	storage.AT.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, atHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled,, QOLUtils.AT.CheckBoxEnabled_OnClick)
+	storage.AT.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, atHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.AT.CheckBoxEnabled_OnClick)
 	storage.AC = {}
 	local acHeader = opt.CreateHeader(scrollchild, storage.AT.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.AC.Header)
 	storage.AC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, acHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.AC.CheckBoxEnabled_OnClick)
@@ -147,24 +164,26 @@ function opt.CreateConfig()
 	storage.MM = {}
 	local mmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -spacing.Indent, -spacing.HeaderGap, labels.MM.Header)
 	storage.MM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, mmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.MM.CheckBoxEnabled_OnClick)
-	local rLabel = opt.CreateLabel(scrollchild, storage.MM.CheckBoxEnabled, 0, -spacing.ItemGap, labels.MM.Red)
+	local rLabel = opt.CreateLabel(scrollchild, storage.MM.CheckBoxEnabled, 0, -spacing.HeaderGap, labels.MM.Red)
 	local gLabel = opt.CreateLabel(scrollchild, rLabel, 0, -spacing.Indent, labels.MM.Green)
 	local bLabel = opt.CreateLabel(scrollchild, gLabel, 0, -spacing.Indent, labels.MM.Blue)
 	local aLabel = opt.CreateLabel(scrollchild, bLabel, 0, -spacing.Indent, labels.MM.Alpha)
 	local tLabel = opt.CreateLabel(scrollchild, aLabel, 0, -spacing.Indent, labels.MM.Thickness)
-	storage.MM.SliderRed = opt.CreateSlider(scrollchild, rLabel, 50, 0, QOLUtils.MM.SliderRed_OnValueChanged)
-	storage.MM.SliderGreen = opt.CreateSlider(scrollchild, gLabel, 50, 0, QOLUtils.MM.SliderGreen_OnValueChanged)
-	storage.MM.SliderBlue = opt.CreateSlider(scrollchild, bLabel, 50, 0, QOLUtils.MM.SliderBlue_OnValueChanged)
-	storage.MM.SliderAlpha = opt.CreateSlider(scrollchild, aLabel, 50, 0, QOLUtils.MM.SliderAlpha_OnValueChanged)
-	storage.MM.SliderThickness = opt.CreateSlider(scrollchild, tLabel, 50, 0, QOLUtils.MM.SliderThickness_OnValueChanged)
-	storage.MM.EditBoxRed = opt.CreateEditBox(scrollchild, storage.MM.SliderRed, 210, 0, 50, QOLUtils.MM.EditBoxRed_OnEditFocusLost)
-	storage.MM.EditBoxGreen = opt.CreateEditBox(scrollchild, storage.MM.SliderGreen, 210, 0, 50, QOLUtils.MM.EditBoxGreen_OnEditFocusLost)
-	storage.MM.EditBoxBlue = opt.CreateEditBox(scrollchild, storage.MM.SliderBlue, 210, 0, 50, QOLUtils.MM.EditBoxBlue_OnEditFocusLost)
-	storage.MM.EditBoxAlpha = opt.CreateEditBox(scrollchild, storage.MM.SliderAlpha, 210, 0, 50, QOLUtils.MM.EditBoxAlpha_OnEditFocusLost)
-	storage.MM.EditBoxThickness = opt.CreateEditBox(scrollchild, storage.MM.SliderThickness, 210, 0, 50, QOLUtils.MM.EditBoxThickness_OnEditFocusLost)
+	local sliderX, sliderY = 100, 0
+	local editBoxX, editBoxY, editBoxW = 170, 0, 50
+	storage.MM.SliderRed = opt.CreateSlider(scrollchild, rLabel, sliderX, sliderY, QOLUtils.MM.SliderRed_OnValueChanged)
+	storage.MM.SliderGreen = opt.CreateSlider(scrollchild, gLabel, sliderX, sliderY, QOLUtils.MM.SliderGreen_OnValueChanged)
+	storage.MM.SliderBlue = opt.CreateSlider(scrollchild, bLabel, sliderX, sliderY, QOLUtils.MM.SliderBlue_OnValueChanged)
+	storage.MM.SliderAlpha = opt.CreateSlider(scrollchild, aLabel, sliderX, sliderY, QOLUtils.MM.SliderAlpha_OnValueChanged)
+	storage.MM.SliderThickness = opt.CreateSlider(scrollchild, tLabel, sliderX, sliderY, QOLUtils.MM.SliderThickness_OnValueChanged)
+	storage.MM.EditBoxRed = opt.CreateEditBox(scrollchild, storage.MM.SliderRed, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxRed_OnEditFocusLost)
+	storage.MM.EditBoxGreen = opt.CreateEditBox(scrollchild, storage.MM.SliderGreen, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxGreen_OnEditFocusLost)
+	storage.MM.EditBoxBlue = opt.CreateEditBox(scrollchild, storage.MM.SliderBlue, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxBlue_OnEditFocusLost)
+	storage.MM.EditBoxAlpha = opt.CreateEditBox(scrollchild, storage.MM.SliderAlpha, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxAlpha_OnEditFocusLost)
+	storage.MM.EditBoxThickness = opt.CreateEditBox(scrollchild, storage.MM.SliderThickness, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxThickness_OnEditFocusLost)
 	storage.MM.Preview, storage.MM.PreviewLines = opt.CreatePreview(scrollchild, storage.MM.EditBoxRed)
 	storage.QM = {}
-	local qmHeader = opt.CreateHeader(scrollchild, tLabel, -spacing.Indent, -spacing.HeaderGap, labels.QM.Header)
+	local qmHeader = opt.CreateHeader(scrollchild, tLabel, -spacing.Indent, -spacing.SectionGap, labels.QM.Header)
 	storage.QM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, qmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.QM.CheckBoxEnabled_OnClick)
 	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxEnabled, 0, -spacing.ItemGap, labels.QM.Report, QOLUtils.QM.CheckBoxReport_OnClick)
 	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -spacing.ItemGap, labels.QM.Party, QOLUtils.QM.CheckBoxParty_OnClick)
@@ -178,7 +197,7 @@ function opt.CreateConfig()
 	storage.VC = {}
 	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -spacing.Indent, -spacing.HeaderGap, labels.VC.Header)
 	storage.VC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, vcHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.VC.CheckBoxEnabled_OnClick)
-	local vcLabel = opt.CreateLabel(scrollchild, vcHeader, spacing.Indent, -spacing.ItemGap, labels.VC.Levels)
+	local vcLabel = opt.CreateLabel(scrollchild, storage.VC.CheckBoxEnabled, 0, -spacing.HeaderGap, labels.VC.Levels)
 	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, vcLabel, spacing.Indent, -10, 200, opt.EditBoxLevels_OnEditFocusLost)
 	opt.Panel = scroller
 	InterfaceOptions_AddCategory(opt.Panel)
@@ -203,13 +222,14 @@ function opt.UpdateConfig()
 	opt.UpdateSlider(storage.MM.SliderGreen, 'MM', 'Green')
 	opt.UpdateSlider(storage.MM.SliderBlue, 'MM', 'Blue')
 	opt.UpdateSlider(storage.MM.SliderAlpha, 'MM', 'Alpha')
-	opt.UpdateSlider(storage.MM.SliderThickness, 'MM', 'Thickness')
-	opt.UpdateEditBox(storage.MM.EditBoxRed, 'MM', 'Red')
-	opt.UpdateEditBox(storage.MM.EditBoxGreen, 'MM', 'Green')
-	opt.UpdateEditBox(storage.MM.EditBoxBlue, 'MM', 'Blue')
-	opt.UpdateEditBox(storage.MM.EditBoxAlpha, 'MM', 'Alpha')
-	opt.UpdateEditBox(storage.MM.EditBoxThickness, 'MM', 'Thickness')
+	-- opt.UpdateSlider(storage.MM.SliderThickness, 'MM', 'Thickness')
+	opt.UpdateEditBoxWithNumber(storage.MM.EditBoxRed, 'MM', 'Red', QOLUtils.Formats.NumberPrecision2)
+	opt.UpdateEditBoxWithNumber(storage.MM.EditBoxGreen, 'MM', 'Green', QOLUtils.Formats.NumberPrecision2)
+	opt.UpdateEditBoxWithNumber(storage.MM.EditBoxBlue, 'MM', 'Blue', QOLUtils.Formats.NumberPrecision2)
+	opt.UpdateEditBoxWithNumber(storage.MM.EditBoxAlpha, 'MM', 'Alpha', QOLUtils.Formats.NumberPrecision2)
+	opt.UpdateEditBoxWithNumber(storage.MM.EditBoxThickness, 'MM', 'Thickness', QOLUtils.Formats.NumberPrecision2)
 	opt.UpdatePreviewLines()
+	QOLUtils.MM.UpdateLines()
 	-- Quiet Mode
 	opt.UpdateCheckBox(storage.QM.CheckBoxEnabled, 'QM','Enabled')
 	opt.UpdateCheckBox(storage.QM.CheckBoxReport, 'QM','ReportAtLogon')
@@ -268,7 +288,7 @@ end
 function opt.CreateLabel(parent, relativeParent, x, y, text)
 	local fontFrame = CreateFrame('Frame', 'QOLUtils_FontFrame_' .. opt.GetUniqueID(), parent)
 	fontFrame:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
-	fontFrame:SetSize(500, 30)
+	fontFrame:SetSize(80, 10)
 	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. opt.GetUniqueID(), 'BACKGROUND', 'GameFontWhite')
 	fontString:SetPoint('TOPLEFT')
 	fontString:SetText(text)
@@ -290,7 +310,7 @@ end
 function opt.CreateSlider(parent, relativeParent, x, y, callback)
 	local slider = CreateFrame('Slider', 'QOLUtils_Slider_' .. opt.GetUniqueID(), parent, 'OptionsSliderTemplate')
 	slider:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
-	slider:SetSize(200, 20)
+	slider:SetSize(150, 20)
 	slider:SetOrientation('HORIZONTAL')
 	slider:SetMinMaxValues(0, 100)
 	slider:SetValueStep(1)
@@ -302,30 +322,35 @@ end
 
 function opt.CreatePreview(parent, relativeParent)
 	local preview = CreateFrame('Frame', 'QOL_Utils_Frame_' .. opt.GetUniqueID(), parent)
-	preview:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT')
-	preview:SetSize(100)
+	preview:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', 60, 0)
+	preview:SetSize(200, 150)
+	-- scrollchild.bg = scrollchild:CreateTexture(nil, 'BACKGROUND')
+	-- scrollchild.bg:SetAllPoints(true)
+	-- scrollchild.bg:SetColorTexture(0.4, 0, 0, 0.4)
 	preview.bg = preview:CreateTexture(nil, 'BACKGROUND')
-	preview.bg:SetGradient('VERTICAL', 0, 0, 0, 1, 1, 1)
-	local screenWidth = 100
-	local screenHeight = 100
-	local widthMiddle = math.floor(screenWidth / 2)
-	local heightMiddle = math.floor(screenHeight / 2)
-	local verticalLineLength = math.floor(screenHeight / 3)
-	local horizontalLineLength = math.floor(screenWidth / 3)
+	preview.bg:SetAllPoints(preview)
+	preview.bg:SetColorTexture(0, 0, 0, 1)
+	preview.bg:SetGradient('HORIZONTAL', 0, 1, 1, 1, 1, 0)
+	local maxWidth, maxHeight = preview:GetSize()
+	local widthMiddle = math.floor(maxWidth / 2)
+	local heightMiddle = math.floor(maxHeight / 2)
+	local verticalLineLength = math.floor(maxHeight / 3)
+	local horizontalLineLength = math.floor(maxWidth / 3)
 	local previewLines = {}
-	table.insert(previewLines, opt.CreateLine(widthMiddle, screenHeight, widthMiddle, screenHeight - verticalLineLength))
-	table.insert(previewLines, opt.CreateLine(widthMiddle, 0, widthMiddle, verticalLineLength))
-	table.insert(previewLines, opt.CreateLine(0, heightMiddle, horizontalLineLength, heightMiddle))
-	table.insert(previewLines, opt.CreateLine(screenWidth, heightMiddle, screenWidth - horizontalLineLength, heightMiddle))
+	table.insert(previewLines, opt.CreateLine(preview, widthMiddle, maxHeight, widthMiddle, maxHeight - verticalLineLength, maxWidth))
+	table.insert(previewLines, opt.CreateLine(preview, widthMiddle, 0, widthMiddle, verticalLineLength, maxWidth))
+	table.insert(previewLines, opt.CreateLine(preview, 0, heightMiddle, horizontalLineLength, heightMiddle, maxHeight))
+	table.insert(previewLines, opt.CreateLine(preview, maxWidth, heightMiddle, maxWidth - horizontalLineLength, heightMiddle, maxHeight))
 	return preview, previewLines
 end
 
-function opt.CreateLine(parent, startX, startY, endX, endY)
+function opt.CreateLine(parent, startX, startY, endX, endY, maxThickness)
 	local line = parent:CreateLine(nil, 'BACKGROUND')
 	line:SetStartPoint('BOTTOMLEFT', startX, startY)
 	line:SetEndPoint('BOTTOMLEFT', endX, endY)
 	line:SetColorTexture(1, 0, 0, 0.4)
-	line:SetThickness(3)
+	line.QOL_MaxThickness = maxThickness
+	line:SetThickness(line.QOL_MaxThickness * ((QOL_Config_Toon.Active and QOL_Config_Toon.MM.Thickness or QOL_Config_Acct.MM.Thickness) / 100))
 	return line
 end
 
@@ -378,23 +403,28 @@ function opt.UpdateEditBox(editBox, feature, setting)
 		value = QOLUtils.TableToStr(value)
 	end
 	editBox:SetText(tostring(value))
+	editBox:SetCursorPosition(0)
+end
+
+function opt.UpdateEditBoxWithNumber(editBox, feature, setting, numberFormat)
+	local value = QOL_Config_Acct[feature][setting]
+	if QOL_Config_Toon.Active then
+		value = QOL_Config_Toon[feature][setting]
+	end
+	editBox:SetText(format(numberFormat, value))
+	editBox:SetCursorPosition(0)
 end
 
 function opt.UpdatePreviewLines()
-	local red = QOL_Config_Acct.MM.Red
-	local green = QOL_Config_Acct.MM.Green
-	local blue = QOL_Config_Acct.MM.Blue
-	local alpha = QOL_Config_Acct.MM.Alpha
-	local thickness = QOL_Config_Acct.MM.Thickness
-	if QOL_Config_Toon.Active then
-		red = QOL_Config_Toon.MM.Red
-		green = QOL_Config_Toon.MM.Green
-		blue = QOL_Config_Toon.MM.Blue
-		alpha = QOL_Config_Toon.MM.Alpha
-		thickness = QOL_Config_Toon.MM.Thickness
-	end
-	for line in pairs(storage.MM.PreviewLines) do
+	local config = QOL_Config_Toon.Active and QOL_Config_Toon.MM or QOL_Config_Acct.MM
+	local red = config.Red / 100
+	local green = config.Green / 100
+	local blue = config.Blue / 100
+	local alpha = config.Alpha / 100
+	local thickness = config.Thickness / 100
+	for k, line in pairs(storage.MM.PreviewLines) do
 		line:SetColorTexture(red, green, blue, alpha)
-		line:SetThickness(thickness)
+		local finalThickness = line.QOL_MaxThickness * thickness
+		line:SetThickness(finalThickness < 1 and 1 or finalThickness)
 	end
 end
