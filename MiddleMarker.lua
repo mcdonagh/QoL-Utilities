@@ -137,7 +137,7 @@ function mm.GetEditBoxNum(editBox, slider)
 		if nums and nums[1] then
 			local num = tonumber(nums[1])
 			if num >= 0 and num <= 100 then
-				value = num
+				value = nums[1]
 			end
 		end
 	end

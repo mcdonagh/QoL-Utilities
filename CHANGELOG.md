@@ -1,6 +1,6 @@
 # QoL Utilities Change Log
 1. [Future Plans](#fp)
-1. [Latest Release (2021-07-21)](#c004)
+1. [Latest Release (2021-07-26)](#c004)
 1. [Previous Release (2021-07-06)](#c003)
 1. [Older](#c002)
 
@@ -8,6 +8,8 @@
 
 > *No dates available for any planned features. I work on this project in my spare time and will get to them when I get to them.*
 
+- Add ability to ignore specific mounts when summoning random mounts
+	- Possibly add same ignore ability for summoning random pets
 - Add *Auto Quest* feature to automatically accept/complete quests
 	- Lots of addons already do this, but I want one that is my own
 		- I currently use a modified version of **[Get to the Point](https://www.curseforge.com/wow/addons/get-to-the-point)** for my personal use
@@ -19,9 +21,10 @@
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
 
-<h2 id='c004'>Version 4.1.0 | 2021-07-21</h2>
+<h2 id='c004'>Version 4.1.0 | 2021-07-26</h2>
 
 - Reworked appearance of in-game configuration screen
+	- Toon specific checkbox now at the top of the configuration screen
 	- Account specific and Toon specific settings now share configuration items (checkboxes, editboxes, etc.)
 - Added ability to enabled/disable each feature to prevent potential conflicts with other addons and avoid unwanted behavior
 - Added color configuration to *Middle Marker*

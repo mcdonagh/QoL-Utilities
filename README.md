@@ -54,6 +54,12 @@ One to toggle on/off the report that is shown at player logon and on reload.
 And three to toggle on/off the ability to automatically confirm equipping different items.
 One for Refundable items, one for Tradeable items, and one for "Bind on Equip" items.
 
+**[Middle Marker's](#mm)** in-game configuration consists of five sliders.
+Three sliders to control the Red, Green, and Blue values of the line color.
+One slider to control the line opacity.
+And one slider to control the line thickness.
+Each slider also has a corresponding input field to manually enter a desired value between 0 and 100, inclusive.
+
 **[Quiet Mode's](#qm)** in-game configuration consists of three checkboxes.
 One to toggle on/off the report that is shown at player logon and on reload.
 And two to toggle on/off the ability to automatically decline certain requests.
@@ -205,6 +211,24 @@ Each line begins at the edge of the screen pointing towards the center of the sc
 Command Format: **\/qol mm**  
 Executing this command will toggle the visibility of the lines.  
 No text is printed to the chat window.  
+
+### Configuration Screen
+
+There are five sliders to control the percentages of the line's appearance settings.  
+Three for the color values: Red, Green, and Blue.  
+One for the opacity. And one for the line thickness.  
+Each slider goes from 0 to 100, along with the corresponding input fields.  
+
+***All five values are percentages.***
+
+> If you can't get the value just right via sliders, you can manually enter the desired value into the corresponding input field to the right of the slider.
+
+Example Settings
+> Fully opaque, red lines, covering the edges of the screen:  
+> Red = 100, Green = 0, Blue = 0, Opacity = 100, Thickness = 100  
+
+> Semi-transparent, purple, very thin lines:  
+> Red = 40, Green = 0, Blue = 100, Opacity = 50, Thickness = 0.3
 
 <h2 id='qm'>Quiet Mode</h2>
 
