@@ -1,5 +1,5 @@
 # QoL Utilities
-WoW addon for various minor quality of life changes.  
+A *World of Warcraft* addon that provides various minor quality of life changes.  
 1. [Configuration](#config)
 1. [Achievement Tracker Cleaner](#atc)
 	- [Usage](#atc-usage)
@@ -25,28 +25,49 @@ WoW addon for various minor quality of life changes.
 
 <h2 id='config'>Configuration</h2>
 
-The following features are available for configuration on a **per account** or **per character** basis.  
-Most configuration options present in the in-game configuration window are also available through slash commands.  
->Use the command **\/qol** to quickly open the in-game configuration window.
-
+All configuration is available on a **per account** or **per character** basis.  
 Turning *per character* settings on or off is only possible through the in-game configuration window.  
+Most configuration options present in the in-game configuration window are also available through slash commands.  
+> Use the command **\/qol** to quickly open the in-game configuration window.
+
 When using *per character* settings, Slash Commands only affect the current character's settings.  
 See the feature's details for more information on the corresponding slash commands.
-> *Features not mentioned in this section have no configuration associated with them*  
+
+### Enabling Individual Features
+Individual features are only enabled/disabled via the in-game configuration window.  
+Certain features are **disabled** by default to avoid potential conflicts with other addons and to avoid unwanted behavior.
+
+Features disabled by default | 
+:---: |
+Volume Cycler | 
+
+Feature enabling ***is*** affected by the **per character** setting.  
+> *Say you wanted Volume Cycler enabled on only one character and not others.*
+> *On the character you wanted it enabled, you would make sure the setting \"USE CHARACTER SPECIFIC SETTINGS\" is checked.*
+> *Then you would scroll down to Volume Cycler and make sure the setting \"Feature enabled\" is checked.*
+
+### Feature Specific Configuration
+> ***Features not mentioned in this section have no additional configuration associated with them***	  
 
 **[Auto Confirm's](#ac)** in-game configuration consists of four checkboxes.
-The first is to toggle on/off the report that is shown at player logon and on reload.
-The other three are to toggle on/off the ability to automatically confirm equipping different items.
+One to toggle on/off the report that is shown at player logon and on reload.
+And three to toggle on/off the ability to automatically confirm equipping different items.
 One for Refundable items, one for Tradeable items, and one for "Bind on Equip" items.
 
+**[Middle Marker's](#mm)** in-game configuration consists of five sliders.
+Three sliders to control the Red, Green, and Blue values of the line color.
+One slider to control the line opacity.
+And one slider to control the line thickness.
+Each slider also has a corresponding input field to manually enter a desired value between 0 and 100, inclusive.
+
 **[Quiet Mode's](#qm)** in-game configuration consists of three checkboxes.
-The first is to toggle on/off the report that is shown at player logon and on reload.
-The other two are to toggle on/off the ability to automatically decline certain requests.
+One to toggle on/off the report that is shown at player logon and on reload.
+And two to toggle on/off the ability to automatically decline certain requests.
 One for decling Party Invites, and one for declining Duel Requests.
 
 **[Summoning Mounts & Battle Pets'](#smn)** in-game configuration consists of three checkboxes.
-The first is to toggle on/off the report that is shown at player logon and on reload.
-The other two are to toggle on/off the restriction of summoning to favorited summons.
+One to toggle on/off the report that is shown at player logon and on reload.
+And two to toggle on/off the *favorite* restriction for different summons.
 One for mounts, and one for battle pets.
 
 **[Volume Cycler's](#vc)** in-game configuration consists of a single input field.
@@ -56,10 +77,10 @@ A list of preset volume percentages that you will be able to cycle through, in t
 
 Exactly what it says on the tin: Cleans the in-game achievement tracker by untracking completed achievements.  
 
-*Ever run into the issue of trying to track an achievement and get the message that you can only track 10 achievements at a time?
-And you only see 6 achievements being tracked?
-That means there's completed achievements that the game, for whatever reason, did not auto untrack.  
-This removes those hidden, but still tracked completed achievements from the tracker.*
+*Ever run into the issue of trying to track an achievement and get the message that you can only track 10 achievements at a time?*
+*And you only see 6 achievements being tracked?*  
+*That means there's completed achievements that the game, for whatever reason, did not auto untrack.*  
+*This removes those hidden, but still tracked completed achievements from the tracker.*
 
 <h3 id='atc-usage'>Usage & Output</h3>
 
@@ -85,12 +106,14 @@ Example Output:
 Allows you to quickly send your current target's life percentage and location to the designated chat.  
 Does not trigger automatically; use the command **\/qol at** to trigger the message.
 *See below on how to use the optional arguments for the different chat destinations.*  
+> *Personally, I put the command ****\/qol at**** in a macro and keep it on my bars and click it to let other players know that a rare is up.*
 
-Because of WoW's api limitations, the coordinates used are the player's current coordinates when the message is triggered.
+**\*\* Important:** Because of WoW's api limitations, the coordinates used in the report and for the map pin are the player's current coordinates when the message is triggered.
 
 <h3 id='at-usage'>Usage & Output</h3>
 
 The command **\/qol at w** will announce your targets life and location through a whisper to yourself.  
+> *I also put this command in a rare targetting macro to let myself know a rare has spawned when I'm idly rare camping.*
 
 Output Format:  
 > *\<target name\>* \[*\<target life percentage\>*\] near \(*\<player coords\>*\) *\<map pin\>*  
@@ -188,6 +211,24 @@ Each line begins at the edge of the screen pointing towards the center of the sc
 Command Format: **\/qol mm**  
 Executing this command will toggle the visibility of the lines.  
 No text is printed to the chat window.  
+
+### Configuration Screen
+
+There are five sliders to control the percentages of the line's appearance settings.  
+Three for the color values: Red, Green, and Blue.  
+One for the opacity. And one for the line thickness.  
+Each slider goes from 0 to 100, along with the corresponding input fields.  
+
+***All five values are percentages.***
+
+> If you can't get the value just right via sliders, you can manually enter the desired value into the corresponding input field to the right of the slider.
+
+Example Settings
+> Fully opaque, red lines, covering the edges of the screen:  
+> Red = 100, Green = 0, Blue = 0, Opacity = 100, Thickness = 100  
+
+> Semi-transparent, purple, very thin lines:  
+> Red = 40, Green = 0, Blue = 100, Opacity = 50, Thickness = 0.3
 
 <h2 id='qm'>Quiet Mode</h2>
 

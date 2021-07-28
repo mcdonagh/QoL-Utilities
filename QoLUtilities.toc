@@ -1,9 +1,10 @@
 ## Interface: 90100
 ## Title: QoL Utilities
+## Notes: Minor Quality of Life changes (Summoning, Auto Confirming to equip, etc.)
 ## Author: redbeard923
-## SavedVariables: QOL_Config
+## SavedVariables: QOL_Config_Acct, QOL_Config
 ## SavedVariablesPerCharacter: QOL_Config_Toon
-## Version: 4.0.0
+## Version: 4.1.0
 
 Common.lua
 Constants.lua
