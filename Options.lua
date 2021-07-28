@@ -104,6 +104,9 @@ function opt.GenerateDefaults(config)
 	if config.SMN.Enabled == nil then
 		config.SMN.Enabled = true
 	end
+	if config.SMN.IgnoredMounts == nil then
+		config.SMN.IgnoredMounts = {}
+	end
 	if config.SMN.ReportAtLogon == nil then
 		config.SMN.ReportAtLogon = false
 	end
