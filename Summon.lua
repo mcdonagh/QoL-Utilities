@@ -11,13 +11,23 @@ end
 
 hooksecurefunc('MountOptionsMenu_Init', function(self, level)
     print('hooked', self, level)
+	if type(self) == 'table' then
+		for k, v in pairs(self) do
+			print('k = ', k, ' v = ', v)
+		end
+	end
     local info = UIDropDownMenu_CreateInfo();
-    info.text = '[QOL-SMN] Ignore Mount'
+    -- info.text = smn.GetDropDownText()
     info.func = function()
         print('clicked')
     end
     UIDropDownMenu_AddButton(info, level)
 end)
+
+function smn.GetDropdDownText(mountID)
+	local config = QOLUtils.GetConfig(feature)
+	return '[QOL-SMN] ' .. config.IgnoredMounts[mountID] and 'Un-Ignore Mount' or 'Ignore Mount'
+end
 
 function smn.IsEnabled()
 	return QOLUtils.SettingIsTrue(feature, 'Enabled')
@@ -61,7 +71,7 @@ function smn.ProcessState(state, Toggle, Report)
 end
 
 function smn.Pet()
-	if not UnitAffectingCombat('PLAYER') and not InCombatLockdown() then
+	if smn.CanSummon() then
 		local onlyFavorites = QOLUtils.SettingIsTrue(feature, 'OnlyFavoritePets')
 		C_PetJournal.SummonRandomPet(onlyFavorites)
 	end
@@ -96,7 +106,7 @@ smn.Types.LowLevel = {
 function smn.Mount()
 	if IsMounted() then
 		Dismount()
-	elseif not UnitAffectingCombat('PLAYER') and not InCombatLockdown() then
+	elseif smn.CanSummon() then
 		local usableMounts = {}
 		local lowLevel = not smn.HasRidingSkill()
 		local underwater = smn.IsUnderWater()
@@ -122,27 +132,7 @@ function smn.Mount()
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 		end
 		if QOLUtils.TableIsNilOrEmpty(usableMounts) then
-			if QOLUtils.SettingIsTrue(feature, 'OnlyFavoriteMounts') then
-				if lowLevel then
-					smn.Log('No favorited mount available for pre riding skill use.')
-				elseif underwater then
-					smn.Log('No favorited mount available for underwater use.')
-				elseif flyable and hasFlight then
-					smn.Log('No favorited mount available for flying.')
-				else
-					smn.Log('No favorited mount available for ground use.')
-				end
-			else
-				if lowLevel then
-					smn.Log('No mount available for pre riding skill use.')
-				elseif underwater then
-					smn.Log('No mount available for underwater use.')
-				elseif flyable and hasFlight then
-					smn.Log('No mount available for flying.')
-				else
-					smn.Log('No mount available for ground use.')
-				end
-			end
+			smn.NoMountReport(lowLevel, underwater, flyable, hasFlight)
 		else
 			for i = #usableMounts, 2, -1 do
 				local j = math.random(i)
@@ -151,6 +141,10 @@ function smn.Mount()
 			C_MountJournal.SummonByID(usableMounts[math.random(#usableMounts)])
 		end
 	end
+end
+
+function smn.CanSummon()
+	return not UnitAffectingCombat('PLAYER') and not InCombatLockdown()
 end
 
 function smn.HasRidingSkill()
@@ -200,7 +194,32 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
 end
 
 function smn.IsIgnored(mountID)
-	local config = QOL
+	local config = QOLUtils.GetConfig(feature)
+	return config.IgnoredMounts[mountID]
+end
+
+function smn.NoMountReport(lowLevel, underwater, flyable, hasFlight)
+	if QOLUtils.SettingIsTrue(feature, 'OnlyFavoriteMounts') then
+		if lowLevel then
+			smn.Log('No favorited mount available for pre riding skill use.')
+		elseif underwater then
+			smn.Log('No favorited mount available for underwater use.')
+		elseif flyable and hasFlight then
+			smn.Log('No favorited mount available for flying.')
+		else
+			smn.Log('No favorited mount available for ground use.')
+		end
+	else
+		if lowLevel then
+			smn.Log('No mount available for pre riding skill use.')
+		elseif underwater then
+			smn.Log('No mount available for underwater use.')
+		elseif flyable and hasFlight then
+			smn.Log('No mount available for flying.')
+		else
+			smn.Log('No mount available for ground use.')
+		end
+	end
 end
 
 function smn.ToggleIgnoreMount(mountID)
