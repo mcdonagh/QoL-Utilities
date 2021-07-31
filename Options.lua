@@ -107,14 +107,20 @@ function opt.GenerateDefaults(config)
 	if config.SMN.IgnoredMounts == nil then
 		config.SMN.IgnoredMounts = {}
 	end
-	if config.SMN.ReportAtLogon == nil then
-		config.SMN.ReportAtLogon = false
+	if config.SMN.JournalShowIgnored == nil then
+		config.SMN.JournalShowIgnored = true
+	end
+	if config.SMN.JournalShowUsable == nil then
+		config.SMN.JournalShowUsable = true
 	end
 	if config.SMN.OnlyFavoritePets == nil then
 		config.SMN.OnlyFavoritePets = false
 	end
 	if config.SMN.OnlyFavoriteMounts == nil then
 		config.SMN.OnlyFavoriteMounts = false
+	end
+	if config.SMN.ReportAtLogon == nil then
+		config.SMN.ReportAtLogon = false
 	end
 	if config.VC == nil then
 		config.VC = {}
