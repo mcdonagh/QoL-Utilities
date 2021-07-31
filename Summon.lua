@@ -9,24 +9,22 @@ function smn.Load()
 	storage = QOLUtils.OPT.Storage.SMN
 end
 
-hooksecurefunc('MountOptionsMenu_Init', function(self, level)
-    print('hooked', self, level)
-	if type(self) == 'table' then
-		for k, v in pairs(self) do
-			print('k = ', k, ' v = ', v)
+for k, mountButton in pairs(MountJournalListScrollFrame.buttons) do
+	mountButton:HookScript('OnClick', function(clickedMountButton, button, down)
+		if button == 'RightButton' then
+			local invis = UIDropDownMenu_CreateInfo()
+			invis.notCheckable = true
+			invis.notClickable = true
+			UIDropDownMenu_AddButton(invis)
+			local info = UIDropDownMenu_CreateInfo()
+			info.text = '[QoLUtils] Ignore Mount'
+			info.checked = smn.IsIgnored(clickedMountButton.mountID)
+			info.func = function(menuItem)
+				smn.ToggleIgnoreMount(clickedMountButton.mountID)
+			end
+			UIDropDownMenu_AddButton(info)
 		end
-	end
-    local info = UIDropDownMenu_CreateInfo();
-    -- info.text = smn.GetDropDownText()
-    info.func = function()
-        print('clicked')
-    end
-    UIDropDownMenu_AddButton(info, level)
-end)
-
-function smn.GetDropdDownText(mountID)
-	local config = QOLUtils.GetConfig(feature)
-	return '[QOL-SMN] ' .. config.IgnoredMounts[mountID] and 'Un-Ignore Mount' or 'Ignore Mount'
+	end)
 end
 
 function smn.IsEnabled()
