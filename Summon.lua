@@ -11,51 +11,30 @@ end
 
 for k, mountButton in pairs(MountJournalListScrollFrame.buttons) do
 	mountButton:HookScript('OnClick', function(clickedMountButton, button, down)
-		print(clickedMountButton.mountID)
 		if button == 'RightButton' and smn.IsEnabled() then
 			local invis = UIDropDownMenu_CreateInfo()
 			invis.notCheckable = true
 			invis.notClickable = true
 			UIDropDownMenu_AddButton(invis)
-			local info = UIDropDownMenu_CreateInfo()
-			info.text = '[QoLUtils] Ignore Mount'
-			info.isNotRadio = true
-			info.checked = smn.IsIgnored(clickedMountButton.mountID)
-			info.func = function(menuItem)
+			local infoID = UIDropDownMenu_CreateInfo()
+			infoID.text = 'MountID = ' .. clickedMountButton.mountID
+			infoID.notCheckable = true
+			infoID.func = function()
+				local mountName = C_MountJournal.GetMountInfoByID(clickedMountButton.mountID)
+				smn.Log(format('MountID for %s = %d', mountName, clickedMountButton.mountID))
+			end
+			UIDropDownMenu_AddButton(infoID)
+			local infoIgnore = UIDropDownMenu_CreateInfo()
+			infoIgnore.text = '[QoLUtils] Ignore Mount'
+			infoIgnore.isNotRadio = true
+			infoIgnore.checked = smn.IsIgnored(clickedMountButton.mountID)
+			infoIgnore.func = function()
 				smn.ToggleIgnoreMount(clickedMountButton.mountID)
 			end
-			UIDropDownMenu_AddButton(info)
+			UIDropDownMenu_AddButton(infoIgnore)
 		end
 	end)
 end
-
-MountJournalFilterButton:HookScript('OnClick', function()
-	if smn.IsEnabled() then
-		local config = QOLUtils.GetConfig(feature)
-		local invis = UIDropDownMenu_CreateInfo()
-		invis.notCheckable = true
-		invis.notClickable = true
-		UIDropDownMenu_AddButton(invis)
-		local ignored = UIDropDownMenu_CreateInfo()
-		ignored.text = '[QoLUtils] Ignored'
-		ignored.isNotRadio = true
-		ignored.keepShownOnClick = true
-		ignored.checked = config.JournalShowIgnored
-		ignored.func = function(menuItem)
-			config.JournalShowIgnored = not config.JournalShowIgnored
-		end
-		UIDropDownMenu_AddButton(ignored)
-		local usable = UIDropDownMenu_CreateInfo()
-		usable.text = '[QoLUtils] Usable'
-		usable.isNotRadio = true
-		usable.keepShownOnClick = true
-		usable.checked = config.JournalShowUsable
-		usable.func = function(menuItem)
-			config.JournalShowUsable = not config.JournalShowUsable
-		end
-		UIDropDownMenu_AddButton(usable)
-	end
-end)
 
 function smn.IsEnabled()
 	return QOLUtils.SettingIsTrue(feature, 'Enabled')

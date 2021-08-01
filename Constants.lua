@@ -1,5 +1,17 @@
 local addonName, QOLUtils = ...
 
+QOLUtils.Points = {}
+local pnts = QOLUtils.Points
+pnts.T = 'TOP'
+pnts.B = 'BOTTOM'
+pnts.L = 'LEFT'
+pnts.R = 'RIGHT'
+pnts.C = 'CENTER'
+pnts.TL = 'TOPLEFT'
+pnts.TR = 'TOPRIGHT'
+pnts.BL = 'BOTTOMLEFT'
+pnts.BR = 'BOTTOMRIGHT'
+
 QOLUtils.Patterns = {}
 local ptrs = QOLUtils.Patterns
 ptrs.Words = '%w+'
@@ -17,9 +29,10 @@ fmts.NumberPrecision2 = '%.2f'
 
 QOLUtils.ConfigSpacing = {}
 local spc = QOLUtils.ConfigSpacing
-spc.SectionGap = 40
-spc.HeaderGap = 30
-spc.ItemGap = 20
+spc.GapHuge = 40
+spc.GapLarge = 20
+spc.GapMedium = 10
+spc.GapSmall = 2
 spc.Indent = 30
 
 QOLUtils.Labels = {}
@@ -66,6 +79,7 @@ smn.Header = 'Summon Mounts & Pets (SMN)'
 smn.Report = 'Report Summon status at player logon and on reload'
 smn.OnlyFavoritePets = 'Only summon favorite pets when summoning a random pet'
 smn.OnlyFavoriteMounts = 'Only summon favorite mounts when summoning a mount'
+smn.IgnoredList = 'Ignored Mounts'
 
 QOLUtils.Labels.VC = {}
 local vc = QOLUtils.Labels.VC
