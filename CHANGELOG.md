@@ -1,15 +1,15 @@
 # QoL Utilities Change Log
 1. [Future Plans](#fp)
-1. [Latest Release (2021-07-26)](#c004)
-1. [Previous Release (2021-07-06)](#c003)
-1. [Older](#c002)
+1. [Latest Release (2022-11-02)](#c005)
+1. [Previous Release (2021-07-26)](#c004)
+1. [Older](#c003)
 
 <h2 id='fp'>Future Plans</h2>
 
 > *No dates available for any planned features. I work on this project in my spare time and will get to them when I get to them.*
 
 - Add ability to ignore specific mounts when summoning random mounts
-	- Possibly add same ignore ability for summoning random pets
+	- Possibly add same ignore ability for summoning random pets; need to research if it's at all possible for pets
 - Add *Auto Quest* feature to automatically accept/complete quests
 	- Lots of addons already do this, but I want one that is my own
 		- I currently use a modified version of **[Get to the Point](https://www.curseforge.com/wow/addons/get-to-the-point)** for my personal use
@@ -20,6 +20,10 @@
 #### Leave a Suggestion
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
+
+<h2 id='c005'>Version 4.1.1 | 2022-11-02</h2>
+
+- Updating API calls for Dragonflight
 
 <h2 id='c004'>Version 4.1.0 | 2021-07-26</h2>
 
