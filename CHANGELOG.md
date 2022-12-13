@@ -1,13 +1,14 @@
 # QoL Utilities Change Log
 1. [Future Plans](#fp)
-1. [Latest Release (2022-11-02)](#c005)
-1. [Previous Release (2021-07-26)](#c004)
-1. [Older](#c003)
+1. [Latest Release (2022-12-13)](#c006)
+1. [Previous Release (2022-11-02)](#c005)
+1. [Older](#c004)
 
 <h2 id='fp'>Future Plans</h2>
 
 > *No dates available for any planned features. I work on this project in my spare time and will get to them when I get to them.*
 
+- Add option to prefer normal flying mounts over dragonriding mounts when both are available
 - Add ability to ignore specific mounts when summoning random mounts
 	- Possibly add same ignore ability for summoning random pets; need to research if it's at all possible for pets
 - Add *Auto Quest* feature to automatically accept/complete quests
@@ -21,9 +22,13 @@
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
 
+<h2 id='c006'>Version 4.2.0 | 2022-12-13</h2>
+
+- Added functionality for summoning Dragonriding mounts when available
+
 <h2 id='c005'>Version 4.1.1 | 2022-11-02</h2>
 
-- Updating API calls for Dragonflight
+- Updated API calls for Dragonflight
 
 <h2 id='c004'>Version 4.1.0 | 2021-07-26</h2>
 

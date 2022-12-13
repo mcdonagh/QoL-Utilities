@@ -96,10 +96,13 @@ function smn.Mount()
 		local flyable = IsFlyableArea()
 		local hasFlight = smn.HasRidingSkillFlight()
 		local inAhnqiraj = GetZoneText() == 'Ahn\'Qiraj'
+		local canUseDragonRiding = smn.CanUseDragonRiding()
 		if lowLevel then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.LowLevel, smn.Types.Ground)
 		elseif underwater then
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Water)
+		elseif canUseDragonRiding then
+			usableMounts = smn.ScanJournal(usableMounts, nil, nil, true)
 		elseif flyable then 
 			if not hasFlight then
 				usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
@@ -146,6 +149,13 @@ function smn.Mount()
 	end
 end
 
+function smn.CanUseDragonRiding()
+	local knowsDragonRidingBasics = IsSpellKnown(376777)
+	local canSummonRenewedProtoDrake = IsUsableSpell(368896)
+	local result = knowsDragonRidingBasics and canSummonRenewedProtoDrake
+	return result
+end
+
 function smn.HasRidingSkill()
 	return smn.HasRidingSkillGround()
 		or smn.HasRidingSkillFlight()
@@ -173,16 +183,18 @@ hooksecurefunc('AscendStop', function()
 	smn.AtOrAboveSurface = not IsSubmerged()
 end)
 
-function smn.ScanJournal(existingMounts, validTypeA, validTypeB)
+function smn.ScanJournal(existingMounts, validTypeA, validTypeB, checkDragonRiding)
 	local usableMounts = {}
 	for k, mountID in pairs(existingMounts) do
 		table.insert(usableMounts, mountID)
 	end
 	local onlyFavorites = QOLUtils.SettingIsTrue(feature, 'OnlyFavoriteMounts')
 	for k, mountID in pairs(C_MountJournal.GetMountIDs()) do
-		local _, _, _, _, isUsable, _, isFavorite = C_MountJournal.GetMountInfoByID(mountID)
+		local _, _, _, _, isUsable, _, isFavorite, _, _, _, _, _, isForDragonRiding = C_MountJournal.GetMountInfoByID(mountID)
 		local _, _, _, _, typeID = C_MountJournal.GetMountInfoExtraByID(mountID)
-		if isUsable and ((validTypeA and validTypeA[typeID]) or (validTypeB and validTypeB[typeID])) and ((onlyFavorites and isFavorite) or not onlyFavorites) then
+		if isUsable
+		and ((validTypeA and validTypeA[typeID]) or (validTypeB and validTypeB[typeID]) or (checkDragonRiding and isForDragonRiding))
+		and ((onlyFavorites and isFavorite) or not onlyFavorites) then
 			table.insert(usableMounts, mountID)
 		end
 	end
