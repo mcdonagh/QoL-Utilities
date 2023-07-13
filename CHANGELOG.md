@@ -1,19 +1,20 @@
 # QoL Utilities Change Log
 1. [Future Plans](#fp)
-1. [Latest Release (2022-12-13)](#c006)
-1. [Previous Release (2022-11-02)](#c005)
-1. [Older](#c004)
+1. [Latest Release (2023-07-12)](#c007)
+1. [Previous Release (2022-12-13)](#c006)
+1. [Older](#c005)
 
 <h2 id='fp'>Future Plans</h2>
 
 > *No dates available for any planned features. I work on this project in my spare time and will get to them when I get to them.*
 
+- Make the color in the addon's display messages customizable
 - Add option to prefer normal flying mounts over dragonriding mounts when both are available
 - Add ability to ignore specific mounts when summoning random mounts
 	- Possibly add same ignore ability for summoning random pets; need to research if it's at all possible for pets
 - Add *Auto Quest* feature to automatically accept/complete quests
 	- Lots of addons already do this, but I want one that is my own
-		- I currently use a modified version of **[Get to the Point](https://www.curseforge.com/wow/addons/get-to-the-point)** for my personal use
+		- I currently use a modified version of **[Get to the Point](https://www.curseforge.com/wow/addons/get-to-the-point)** for my personal use and will likely just copy it over and fine tune it
 	- This feature will be disabled by default; I don't want it interfering with peoples' existing auto questing addons
 - Add the option to screen requests for *Quiet Mode* to allow the option for different level of requests to come through
 	- Such as allowing requests from guildies only, or requests from guildies and people on your friends list
@@ -21,6 +22,15 @@
 #### Leave a Suggestion
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
+
+<h2 id='c007'>Version 4.3.0 | 2023-07-12</h2>
+
+- Updated API calls for Dragonflight 10.1.5
+- Adjusted how the addon's Log function works
+- Reorganized how the addon loads saved values
+- Adjusted how the addon handles new feature/feature changed alerts
+	- This is an alert that is displayed only a set number of times on logon/reload when a new feature is added or an existing feature is changed
+- Added a color to the addon name in the addon's display messages
 
 <h2 id='c006'>Version 4.2.0 | 2022-12-13</h2>
 

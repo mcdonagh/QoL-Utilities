@@ -170,6 +170,6 @@ function ac.CheckBoxReport_OnClick()
 	end
 end
 
-function ac.Log(message)
-	QOLUtils.Log(message, feature)
+function ac.Log(...)
+	QOLUtils.Log(feature, ...)
 end

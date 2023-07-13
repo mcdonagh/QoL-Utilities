@@ -145,6 +145,6 @@ function qm.CheckBoxReport_OnClick()
 	end
 end
 
-function qm.Log(message)
-	QOLUtils.Log(message, feature)
+function qm.Log(...)
+	QOLUtils.Log(feature, ...)
 end

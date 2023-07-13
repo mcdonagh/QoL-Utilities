@@ -8,126 +8,63 @@ local spacing = QOLUtils.ConfigSpacing
 local labels = QOLUtils.Labels
 
 function opt.LoadDefaults()
-	if QOL_Config_Acct == nil then
-		QOL_Config_Acct = QOL_Config or {}
-	end
+	QOL_Config_Acct = QOL_Config_Acct or QOL_Config or {}
 	opt.GenerateDefaults(QOL_Config_Acct)
 	opt.SetupAttention()
-	if QOL_Config_Toon == nil then
-		QOL_Config_Toon = {}
-	end
+	QOL_Config_Toon = QOL_Config_Toon or {}
 	opt.GenerateDefaults(QOL_Config_Toon)
-	if QOL_Config_Toon.Active == nil then
-		QOL_Config_Toon.Active = false
-	end
+	QOL_Config_Toon.Active = QOL_Config_Toon.Active or false
 end
 
 function opt.SetupAttention()
-	if QOL_Config_Acct.Attention == nil then
+	QOL_Config_Acct.Attention = QOL_Config_Acct.Attention or {}	
+	if QOLUtils.Alert and not QOL_Config_Acct.Attention[QOLUtils.Alert] then
 		QOL_Config_Acct.Attention = {}
-	end
-	if QOL_Config_Acct.Attention.FeatureEnabling == nil then
-		QOL_Config_Acct.Attention.FeatureEnabling = 3
+		QOL_Config_Acct.Attention[QOLUtils.Alert] = {}
+		QOL_Config_Acct.Attention[QOLUtils.Alert].Count = 3
+		QOL_Config_Acct.Attention[QOLUtils.Alert].Message = 'placeholder text; you should not be seeing this.'
 	end
 end
 
 function opt.GenerateDefaults(config)
-	if config.ATC == nil then
-		config.ATC = {}
-	end
-	if config.ATC.Enabled == nil then
-		config.ATC.Enabled = true
-	end
-	if config.AT == nil then
-		config.AT = {}
-	end
-	if config.AT.Enabled == nil then
-		config.AT.Enabled = true
-	end
-	if config.AC == nil then
-		config.AC = {}
-	end
-	if config.AC.Enabled == nil then
-		config.AC.Enabled = true
-	end
-	if config.AC.ReportAtLogon == nil then
-		config.AC.ReportAtLogon = true
-	end
-	if config.AC.RefundableActive == nil then
-		config.AC.RefundableActive = false
-	end
-	if config.AC.TradeableActive == nil then
-		config.AC.TradeableActive = false
-	end
-	if config.AC.BindableActive == nil then
-		config.AC.BindableActive = false
-	end
-	if config.MM == nil then
-		config.MM = {}
-	end
-	if config.MM.Enabled == nil then
-		config.MM.Enabled = true
-	end
-	if config.MM.Red == nil then
-		config.MM.Red = 100
-	end
-	if config.MM.Green == nil then
-		config.MM.Green = 0
-	end
-	if config.MM.Blue == nil then
-		config.MM.Blue = 0
-	end
-	if config.MM.Alpha == nil then
-		config.MM.Alpha = 40
-	end
-	if config.MM.Thickness == nil then
-		config.MM.Thickness = 0.3
-	end
-	if config.QM == nil then
-		config.QM = {}
-	end
-	if config.QM.Enabled == nil then
-		config.QM.Enabled = true
-	end
-	if config.QM.ReportAtLogon == nil then
-		config.QM.ReportAtLogon = true
-	end
-	if config.QM.PartyActive == nil then
-		config.QM.PartyActive = false
-	end
-	if config.QM.DuelActive == nil then
-		config.QM.DuelActive = false
-	end
-	if config.SMN == nil then
-		config.SMN = {}
-	end
-	if config.SMN.Enabled == nil then
-		config.SMN.Enabled = true
-	end
-	if config.SMN.ReportAtLogon == nil then
-		config.SMN.ReportAtLogon = false
-	end
-	if config.SMN.OnlyFavoritePets == nil then
-		config.SMN.OnlyFavoritePets = false
-	end
-	if config.SMN.OnlyFavoriteMounts == nil then
-		config.SMN.OnlyFavoriteMounts = false
-	end
-	if config.VC == nil then
-		config.VC = {}
-	end
-	if config.VC.Enabled == nil then
-		config.VC.Enabled = false
-	end
-	if config.VC.Levels == nil then
-		config.VC.Levels = {}
-		table.insert(config.VC.Levels, 80)
-		table.insert(config.VC.Levels, 20)
-		table.insert(config.VC.Levels, 5)
-	end
-	if config.VC.Index == nil then
-		config.VC.Index = 1
-	end
+	-- Achievement Tracker Cleaner
+	config.ATC = config.ATC or {}
+	config.ATC.Enabled = config.ATC.Enabled or true
+	-- Announce Target
+	config.AT = config.AT or {}
+	config.AT.Enabled = config.AT.Enabled or true
+	-- Auto Confirm
+	config.AC = config.AC or {}
+	config.AC.Enabled = config.AC.Enabled or true
+	config.AC.ReportAtLogon = config.AC.ReportAtLogon or true
+	config.AC.RefundableActive = config.AC.RefundableActive or false
+	config.AC.TradeableActive = config.AC.TradeableActive or false
+	config.AC.BindableActive = config.AC.BindableActive or false
+	-- Middle Marker
+	config.MM = config.MM or {}
+	config.MM.Enabled = config.MM.Enabled or true
+	config.MM.Red = config.MM.Red or 100
+	config.MM.Green = config.MM.Green or 0
+	config.MM.Blue = config.MM.Blue or 0
+	config.MM.Alpha = config.MM.Alpha or 40
+	config.MM.Thickness = config.MM.Thickness or 0.3
+	-- Quiet Mode
+	config.QM = config.QM or {}
+	config.QM.Enabled = config.QM.Enabled or true
+	config.QM.ReportAtLogon = config.QM.ReportAtLogon or true
+	config.QM.PartyActive = config.QM.PartyActive or false
+	config.QM.DuelActive = config.QM.DuelActive or false
+	-- Summon
+	config.SMN = config.SMN or {}
+	config.SMN.Enabled = config.SMN.Enabled or true
+	config.SMN.ReportAtLogon = config.SMN.ReportAtLogon or false
+	config.SMN.OnlyFavoritePets = config.SMN.OnlyFavoritePets or false
+	config.SMN.OnlyFavoriteMounts = config.SMN.OnlyFavoriteMounts or false
+	-- Volume Cycler
+	config.VC = config.VC or {}
+	config.VC.Enabled = config.VC.Enabled or false
+	config.VC.Levels = config.VC.Levels or { 80, 20, 5}
+	config.VC.Index = config.VC.Index or 1
 end
 
 function opt.LoadFeatures()

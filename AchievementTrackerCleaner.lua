@@ -24,21 +24,22 @@ function atc.CheckBoxEnabled_OnClick()
 end
 
 function atc.Clean(printRemoved)
-	local trackedAchievements = { GetTrackedAchievements() }
+	local trackingType = 2	-- 0 = Appearance; 1 = Mount; 2 = Achievement
+	local trackedAchievements = C_ContentTracking.GetTrackedIDs(trackingType)
 	local removedCount = 0
 	for k, trackedAchievement in ipairs(trackedAchievements) do
-		local achievementID, _, _, completed = GetAchievementInfo(trackedAchievement)	
+		local achievementID, name, _, completed = GetAchievementInfo(trackedAchievement)
 		if completed then
-			RemoveTrackedAchievement(achievementID)
+			C_ContentTracking.StopTracking(trackingType, achievementID)
 			removedCount = removedCount + 1
-			atc.Log('Stopped tracking ' .. GetAchievementLink(achievementID))			
+			atc.Log('Stopped tracking', GetAchievementLink(achievementID))			
 		end
 	end
 	if removedCount > 0 or printRemoved then
-		atc.Log(removedCount .. ' completed achievements untracked.')
+		atc.Log(removedCount, 'completed achievements untracked.')
 	end
 end
 
-function atc.Log(message)
-	QOLUtils.Log(message, feature)
+function atc.Log(...)
+	QOLUtils.Log(feature, ...)
 end

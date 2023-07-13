@@ -32,7 +32,7 @@ function QOLUtils.Events.PLAYER_ENTERING_WORLD(...)
 		if QOLUtils.VC.IsEnabled() then
 			QOLUtils.VC.LoadInitialVolume()
 		end
-		QOLUtils.Attention('FeatureEnabling')
+		QOLUtils.Attention(QOLUtils.Alert)
 	end
 end
 

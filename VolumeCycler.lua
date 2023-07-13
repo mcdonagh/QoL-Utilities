@@ -50,9 +50,9 @@ function vc.Cycle(args)
 	vc.SetVolume(level)
 end
 
-function vc.ValidLevel(l)
-	local level = tonumber(l)
-	return level >= 0 and level <= 100
+function vc.ValidLevel(level)
+	local num = tonumber(level)
+	return num >= 0 and num <= 100
 end
 
 function vc.SetVolume(level)
@@ -62,6 +62,6 @@ function vc.SetVolume(level)
 	end
 end
 
-function vc.Log(message)
-	QOLUtils.Log(message, feature)
+function vc.Log(...)
+	QOLUtils.Log(feature, ...)
 end

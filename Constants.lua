@@ -1,5 +1,7 @@
 local addonName, QOLUtils = ...
 
+QOLUtils.Alert = nil
+
 QOLUtils.Patterns = {}
 local ptrs = QOLUtils.Patterns
 ptrs.Words = '%w+'

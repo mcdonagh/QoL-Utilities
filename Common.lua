@@ -1,26 +1,25 @@
 local addonName, QOLUtils = ...
 
-function QOLUtils.Attention(setting)
-	if QOL_Config_Acct.Attention[setting] > 0 then
-		local repeatsLeft = QOL_Config_Acct.Attention[setting] - 1
-		QOL_Config_Acct.Attention[setting] = repeatsLeft
+function QOLUtils.Attention(alert)
+	if alert and QOL_Config_Acct.Attention[alert] and QOL_Config_Acct.Attention[alert].Count > 0 and QOL_Config_Acct.Attention[alert].Message then
+		local repeatsLeft = QOL_Config_Acct.Attention[alert].Count - 1
+		QOL_Config_Acct.Attention[alert].Count = repeatsLeft
 		local repeatMessage
 		if repeatsLeft > 0 then
 			repeatMessage = 'This message will display ' .. repeatsLeft .. ' more ' .. (repeatsLeft == 1 and 'time.' or 'times.')
 		else
 			repeatMessage = 'This message will NOT display again.'
 		end
-		QOLUtils.Log('|cFFFF0000ATTENTION|r: Due to a recent update, some features of QoL Utilities are now disabled by default to prevent potential conflicts with other addons and to avoid unwanted behavior. Turn features on/off through the in-game configuration window. ' .. repeatMessage)
+		QOLUtils.Log(nil, '!! |cFFFF0000ATTENTION|r !! ', QOL_Config_Acct.Attention[alert].Message, repeatMessage)
 	end
 end
 
-function QOLUtils.Log(message, subID)
-	local ID = '[QoLUtils]'
-	if not QOLUtils.IsNilOrWhitespace(subID) then
-		ID = format('[QoL Utils - %s]', subID)
-	end
-	message = QOLUtils.ValueOrDefault(message)
-	print(format('%s  %s  %s', date('%H:%M'), ID, message))
+function QOLUtils.Log(subID, ...)
+	local ID = subID and format('[QOL Utils - %s]', subID) or '[QOL Utils]'
+	ID = '|cFF4ba4d1' .. ID .. '|r'
+	--4ba4d1
+	--c573ff
+	print(date('%H:%M'), ID, ...)
 end
 
 function QOLUtils.IsNilOrWhitespace(val)

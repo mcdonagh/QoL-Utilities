@@ -260,6 +260,6 @@ function smn.CheckBoxReport_OnClick()
 	end
 end
 
-function smn.Log(msg)
-	QOLUtils.Log(msg, feature)
+function smn.Log(...)
+	QOLUtils.Log(feature, ...)
 end
