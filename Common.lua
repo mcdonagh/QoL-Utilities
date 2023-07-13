@@ -14,11 +14,13 @@ function QOLUtils.Attention(alert)
 	end
 end
 
+function QOLUtils.Debug(...)
+	QOLUtils.Log('DEBUG', ...)
+end
+
 function QOLUtils.Log(subID, ...)
 	local ID = subID and format('[QOL Utils - %s]', subID) or '[QOL Utils]'
 	ID = '|cFF4ba4d1' .. ID .. '|r'
-	--4ba4d1
-	--c573ff
 	print(date('%H:%M'), ID, ...)
 end
 
@@ -83,18 +85,19 @@ function QOLUtils.SettingIsTrue(feature, setting)
 end
 
 function QOLUtils.ToggleSetting(state, checkBox, feature, setting)
-	if QOL_Config_Toon.Active then
-		if state == nil then
-			QOL_Config_Toon[feature][setting] = not QOL_Config_Toon[feature][setting]
-		else
-			QOL_Config_Toon[feature][setting] = state
-		end
+	local config = QOLUtils.GetConfig(feature)
+	if state == nil then
+		config[setting] = not config[setting]
 	else
-		if state == nil then
-			QOL_Config_Acct[feature][setting] = not QOL_Config_Acct[feature][setting]
-		else
-			QOL_Config_Acct[feature][setting] = state
-		end
+		config[setting] = state
 	end
 	QOLUtils.OPT.UpdateCheckBox(checkBox, feature, setting)
+end
+
+function QOLUtils.GetConfig(feature)
+	if QOL_Config_Toon.Active then
+		return feature and QOL_Config_Toon[feature] or QOL_Config_Toon
+	else
+		return feature and QOL_Config_Acct[feature] or QOL_Config_Acct
+	end
 end

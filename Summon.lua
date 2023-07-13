@@ -3,11 +3,9 @@ local addonName, QOLUtils = ...
 QOLUtils.SMN = {}
 local smn = QOLUtils.SMN
 local feature = 'SMN'
-local configAcct, configToon, storage
+local storage
 
 function smn.Load()
-	configAcct = QOL_Config_Acct.SMN
-	configToon = QOL_Config_Toon.SMN
 	storage = QOLUtils.OPT.Storage.SMN
 end
 
@@ -16,11 +14,8 @@ function smn.IsEnabled()
 end
 
 function smn.CheckBoxEnabled_OnClick()
-	if QOL_Config_Toon.Active then
-		configToon.Enabled = storage.CheckBoxEnabled:GetChecked()
-	else
-		configAcct.Enabled = storage.CheckBoxEnabled:GetChecked()
-	end
+	local config = QOLUtils.GetConfig(feature)
+	config.Enabled = storage.CheckBoxEnabled:GetChecked()
 end
 
 function smn.Summon(args)
@@ -56,8 +51,10 @@ function smn.ProcessState(state, Toggle, Report)
 end
 
 function smn.Pet()
-	local onlyFavorites = QOLUtils.SettingIsTrue(feature, 'OnlyFavoritePets')
-	C_PetJournal.SummonRandomPet(onlyFavorites)
+	if smn.CanSummon() then
+		local onlyFavorites = QOLUtils.SettingIsTrue(feature, 'OnlyFavoritePets')
+		C_PetJournal.SummonRandomPet(onlyFavorites)
+	end
 end
 
 smn.Types = {}
@@ -89,7 +86,7 @@ smn.Types.LowLevel = {
 function smn.Mount()
 	if IsMounted() then
 		Dismount()
-	elseif not UnitAffectingCombat('PLAYER') and not InCombatLockdown() then
+	elseif smn.CanSummon() then
 		local usableMounts = {}
 		local lowLevel = not smn.HasRidingSkill()
 		local underwater = smn.IsUnderWater()
@@ -118,27 +115,7 @@ function smn.Mount()
 			usableMounts = smn.ScanJournal(usableMounts, smn.Types.Ground)
 		end
 		if QOLUtils.TableIsNilOrEmpty(usableMounts) then
-			if QOLUtils.SettingIsTrue(configAcct.OnlyFavoriteMounts, configToon.OnlyFavoriteMounts) then
-				if lowLevel then
-					smn.Log('No favorited mount available for pre riding skill use.')
-				elseif underwater then
-					smn.Log('No favorited mount available for underwater use.')
-				elseif flyable and hasFlight then
-					smn.Log('No favorited mount available for flying.')
-				else
-					smn.Log('No favorited mount available for ground use.')
-				end
-			else
-				if lowLevel then
-					smn.Log('No mount available for pre riding skill use.')
-				elseif underwater then
-					smn.Log('No mount available for underwater use.')
-				elseif flyable and hasFlight then
-					smn.Log('No mount available for flying.')
-				else
-					smn.Log('No mount available for ground use.')
-				end
-			end
+			smn.NoMountReport(lowLevel, underwater, flyable, hasFlight)
 		else
 			for i = #usableMounts, 2, -1 do
 				local j = math.random(i)
@@ -147,6 +124,10 @@ function smn.Mount()
 			C_MountJournal.SummonByID(usableMounts[math.random(#usableMounts)])
 		end
 	end
+end
+
+function smn.CanSummon()
+	return not UnitAffectingCombat('PLAYER') and not InCombatLockdown()
 end
 
 function smn.CanUseDragonRiding()
@@ -201,6 +182,30 @@ function smn.ScanJournal(existingMounts, validTypeA, validTypeB, checkDragonRidi
 	return usableMounts
 end
 
+function smn.NoMountReport(lowLevel, underwater, flyable, hasFlight)
+	if QOLUtils.SettingIsTrue(feature, 'OnlyFavoriteMounts') then
+		if lowLevel then
+			smn.Log('No favorited mount available for pre riding skill use.')
+		elseif underwater then
+			smn.Log('No favorited mount available for underwater use.')
+		elseif flyable and hasFlight then
+			smn.Log('No favorited mount available for flying.')
+		else
+			smn.Log('No favorited mount available for ground use.')
+		end
+	else
+		if lowLevel then
+			smn.Log('No mount available for pre riding skill use.')
+		elseif underwater then
+			smn.Log('No mount available for underwater use.')
+		elseif flyable and hasFlight then
+			smn.Log('No mount available for flying.')
+		else
+			smn.Log('No mount available for ground use.')
+		end
+	end
+end
+
 function smn.ToggleFavoritePets(state)
 	QOLUtils.ToggleSetting(state, storage.CheckBoxPets, feature, 'OnlyFavoritePets')
 end
@@ -237,27 +242,18 @@ function smn.ReportInitial()
 end
 
 function smn.CheckBoxPets_OnClick()
-	if QOL_Config_Toon.Active then
-		configToon.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
-	else
-		configAcct.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
-	end
+	local config = QOLUtils.GetConfig(feature)
+	config.OnlyFavoritePets = storage.CheckBoxPets:GetChecked()
 end
 
 function smn.CheckBoxMounts_OnClick()
-	if QOL_Config_Toon.Active then
-		configToon.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
-	else
-		configAcct.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
-	end	
+	local config = QOLUtils.GetConfig(feature)
+	config.OnlyFavoriteMounts = storage.CheckBoxMounts:GetChecked()
 end
 
 function smn.CheckBoxReport_OnClick()
-	if QOL_Config_Toon.Active then
-		configToon.ReportAtLogon = storage.CheckBoxReport:GetChecked()
-	else
-		configAcct.ReportAtLogon = storage.CheckBoxReport:GetChecked()
-	end
+	local config = QOLUtils.GetConfig(feature)
+	config.ReportAtLogon = storage.CheckBoxReport:GetChecked()
 end
 
 function smn.Log(...)

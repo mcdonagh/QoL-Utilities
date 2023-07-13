@@ -6,6 +6,7 @@ local opt = QOLUtils.OPT
 local storage = opt.Storage
 local spacing = QOLUtils.ConfigSpacing
 local labels = QOLUtils.Labels
+local points = QOLUtils.Points
 
 function opt.LoadDefaults()
 	QOL_Config_Acct = QOL_Config_Acct or QOL_Config or {}
@@ -78,64 +79,63 @@ function opt.LoadFeatures()
 end
 
 function opt.OpenConfig()
-	InterfaceOptionsFrame_Show()
-	InterfaceOptionsFrame_OpenToCategory(opt.Panel)
+	Settings.OpenToCategory(labels.Header)
 end
 
 function opt.CreateConfig()
-	local scroller, scrollchild = opt.CreateScrollFrame(labels.Header)
-	storage.CheckBoxToonActive = opt.CreateCheckBox(scrollchild, scrollchild, spacing.Indent, -spacing.SectionGap, labels.UseToon, opt.CheckBoxToonActive_OnClick)
+	local scroller, scrollchild = opt.CreateScrollFrame(labels.Header, UIParent, false)
+	storage.CheckBoxToonActive = opt.CreateCheckBox(scrollchild, points.TL, scrollchild, points.TL, spacing.Indent, -spacing.GapHuge, labels.UseToon, opt.CheckBoxToonActive_OnClick)
 	storage.ATC = {}
-	local atcHeader = opt.CreateHeader(scrollchild, storage.CheckBoxToonActive, 0, -spacing.SectionGap, labels.ATC.Header)
-	storage.ATC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, atcHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.ATC.CheckBoxEnabled_OnClick)
+	local atcHeader = opt.CreateHeader(scrollchild, points.TL, storage.CheckBoxToonActive, points.BL, 0, -spacing.GapLarge, labels.ATC.Header)
+	storage.ATC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, points.TL, atcHeader, points.BL, spacing.Indent, -spacing.GapSmall, labels.Enabled, QOLUtils.ATC.CheckBoxEnabled_OnClick)
 	storage.AT = {}
-	local atHeader = opt.CreateHeader(scrollchild, storage.ATC.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.AT.Header)
-	storage.AT.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, atHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.AT.CheckBoxEnabled_OnClick)
+	local atHeader = opt.CreateHeader(scrollchild, points.TL, storage.ATC.CheckBoxEnabled, points.BL, -spacing.Indent, -spacing.GapMedium, labels.AT.Header)
+	storage.AT.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, points.TL, atHeader, points.BL, spacing.Indent, -spacing.GapSmall, labels.Enabled, QOLUtils.AT.CheckBoxEnabled_OnClick)
 	storage.AC = {}
-	local acHeader = opt.CreateHeader(scrollchild, storage.AT.CheckBoxEnabled, -spacing.Indent, -spacing.HeaderGap, labels.AC.Header)
-	storage.AC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, acHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.AC.CheckBoxEnabled_OnClick)
-	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxEnabled, 0, -spacing.ItemGap, labels.AC.Report, QOLUtils.AC.CheckBoxReport_OnClick)
-	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxReport, 0, -spacing.ItemGap, labels.AC.Refundable, QOLUtils.AC.CheckBoxRefundable_OnClick)
-	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxRefundable, 0, -spacing.ItemGap, labels.AC.Tradeable, QOLUtils.AC.CheckBoxTradeable_OnClick)
-	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, storage.AC.CheckBoxTradeable, 0, -spacing.ItemGap, labels.AC.Bindable, QOLUtils.AC.CheckBoxBindable_OnClick)
+	local acHeader = opt.CreateHeader(scrollchild, points.TL, storage.AT.CheckBoxEnabled, points.BL, -spacing.Indent, -spacing.GapMedium, labels.AC.Header)
+	storage.AC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, points.TL, acHeader, points.BL, spacing.Indent, -spacing.GapSmall, labels.Enabled, QOLUtils.AC.CheckBoxEnabled_OnClick)
+	storage.AC.CheckBoxReport = opt.CreateCheckBox(scrollchild, points.TL, storage.AC.CheckBoxEnabled, points.BL, 0, -spacing.GapSmall, labels.AC.Report, QOLUtils.AC.CheckBoxReport_OnClick)
+	storage.AC.CheckBoxRefundable = opt.CreateCheckBox(scrollchild, points.TL, storage.AC.CheckBoxReport, points.BL, 0, -spacing.GapSmall, labels.AC.Refundable, QOLUtils.AC.CheckBoxRefundable_OnClick)
+	storage.AC.CheckBoxTradeable = opt.CreateCheckBox(scrollchild, points.TL, storage.AC.CheckBoxRefundable, points.BL, 0, -spacing.GapSmall, labels.AC.Tradeable, QOLUtils.AC.CheckBoxTradeable_OnClick)
+	storage.AC.CheckBoxBindable = opt.CreateCheckBox(scrollchild, points.TL, storage.AC.CheckBoxTradeable, points.BL, 0, -spacing.GapSmall, labels.AC.Bindable, QOLUtils.AC.CheckBoxBindable_OnClick)
 	storage.MM = {}
-	local mmHeader = opt.CreateHeader(scrollchild, storage.AC.CheckBoxBindable, -spacing.Indent, -spacing.HeaderGap, labels.MM.Header)
-	storage.MM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, mmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.MM.CheckBoxEnabled_OnClick)
-	local rLabel = opt.CreateLabel(scrollchild, storage.MM.CheckBoxEnabled, 0, -spacing.HeaderGap, labels.MM.Red)
-	local gLabel = opt.CreateLabel(scrollchild, rLabel, 0, -spacing.Indent, labels.MM.Green)
-	local bLabel = opt.CreateLabel(scrollchild, gLabel, 0, -spacing.Indent, labels.MM.Blue)
-	local aLabel = opt.CreateLabel(scrollchild, bLabel, 0, -spacing.Indent, labels.MM.Alpha)
-	local tLabel = opt.CreateLabel(scrollchild, aLabel, 0, -spacing.Indent, labels.MM.Thickness)
-	local sliderX, sliderY = 100, 0
-	local editBoxX, editBoxY, editBoxW = 170, 0, 50
-	storage.MM.SliderRed = opt.CreateSlider(scrollchild, rLabel, sliderX, sliderY, QOLUtils.MM.SliderRed_OnValueChanged)
-	storage.MM.SliderGreen = opt.CreateSlider(scrollchild, gLabel, sliderX, sliderY, QOLUtils.MM.SliderGreen_OnValueChanged)
-	storage.MM.SliderBlue = opt.CreateSlider(scrollchild, bLabel, sliderX, sliderY, QOLUtils.MM.SliderBlue_OnValueChanged)
-	storage.MM.SliderAlpha = opt.CreateSlider(scrollchild, aLabel, sliderX, sliderY, QOLUtils.MM.SliderAlpha_OnValueChanged)
-	storage.MM.SliderThickness = opt.CreateSlider(scrollchild, tLabel, sliderX, sliderY, QOLUtils.MM.SliderThickness_OnValueChanged)
-	storage.MM.EditBoxRed = opt.CreateEditBox(scrollchild, storage.MM.SliderRed, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxRed_OnEditFocusLost)
-	storage.MM.EditBoxGreen = opt.CreateEditBox(scrollchild, storage.MM.SliderGreen, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxGreen_OnEditFocusLost)
-	storage.MM.EditBoxBlue = opt.CreateEditBox(scrollchild, storage.MM.SliderBlue, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxBlue_OnEditFocusLost)
-	storage.MM.EditBoxAlpha = opt.CreateEditBox(scrollchild, storage.MM.SliderAlpha, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxAlpha_OnEditFocusLost)
-	storage.MM.EditBoxThickness = opt.CreateEditBox(scrollchild, storage.MM.SliderThickness, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxThickness_OnEditFocusLost)
-	storage.MM.Preview, storage.MM.PreviewLines = opt.CreatePreview(scrollchild, storage.MM.EditBoxRed)
+	local mmHeader = opt.CreateHeader(scrollchild, points.TL, storage.AC.CheckBoxBindable, points.BL, -spacing.Indent, -spacing.GapMedium, labels.MM.Header)
+	storage.MM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, points.TL, mmHeader, points.BL, spacing.Indent, -spacing.GapSmall, labels.Enabled, QOLUtils.MM.CheckBoxEnabled_OnClick)
+	local rLabel = opt.CreateLabel(scrollchild, points.TL, storage.MM.CheckBoxEnabled, points.BL, 0, -spacing.GapMedium, labels.MM.Red)
+	local gLabel = opt.CreateLabel(scrollchild, points.TL, rLabel, points.BL, 0, -spacing.Indent, labels.MM.Green)
+	local bLabel = opt.CreateLabel(scrollchild, points.TL, gLabel, points.BL, 0, -spacing.Indent, labels.MM.Blue)
+	local aLabel = opt.CreateLabel(scrollchild, points.TL, bLabel, points.BL, 0, -spacing.Indent, labels.MM.Alpha)
+	local tLabel = opt.CreateLabel(scrollchild, points.TL, aLabel, points.BL, 0, -spacing.Indent, labels.MM.Thickness)
+	local sliderX, sliderY, sliderPoint, sliderRelPoint = 0, 0, points.L, points.R
+	local editBoxX, editBoxY, editBoxW, editBoxPoint, editBoxRelPoint = 20, 0, 50, points.L, points.R
+	storage.MM.SliderRed = opt.CreateSlider(scrollchild, sliderPoint, rLabel, sliderRelPoint, sliderX, sliderY, QOLUtils.MM.SliderRed_OnValueChanged)
+	storage.MM.SliderGreen = opt.CreateSlider(scrollchild, sliderPoint, gLabel, sliderRelPoint, sliderX, sliderY, QOLUtils.MM.SliderGreen_OnValueChanged)
+	storage.MM.SliderBlue = opt.CreateSlider(scrollchild, sliderPoint, bLabel, sliderRelPoint, sliderX, sliderY, QOLUtils.MM.SliderBlue_OnValueChanged)
+	storage.MM.SliderAlpha = opt.CreateSlider(scrollchild, sliderPoint, aLabel, sliderRelPoint, sliderX, sliderY, QOLUtils.MM.SliderAlpha_OnValueChanged)
+	storage.MM.SliderThickness = opt.CreateSlider(scrollchild, sliderPoint, tLabel, sliderRelPoint, sliderX, sliderY, QOLUtils.MM.SliderThickness_OnValueChanged)
+	storage.MM.EditBoxRed = opt.CreateEditBox(scrollchild, editBoxPoint, storage.MM.SliderRed, editBoxRelPoint, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxRed_OnEditFocusLost)
+	storage.MM.EditBoxGreen = opt.CreateEditBox(scrollchild, editBoxPoint, storage.MM.SliderGreen, editBoxRelPoint, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxGreen_OnEditFocusLost)
+	storage.MM.EditBoxBlue = opt.CreateEditBox(scrollchild, editBoxPoint, storage.MM.SliderBlue, editBoxRelPoint, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxBlue_OnEditFocusLost)
+	storage.MM.EditBoxAlpha = opt.CreateEditBox(scrollchild, editBoxPoint, storage.MM.SliderAlpha, editBoxRelPoint, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxAlpha_OnEditFocusLost)
+	storage.MM.EditBoxThickness = opt.CreateEditBox(scrollchild, editBoxPoint, storage.MM.SliderThickness, editBoxRelPoint, editBoxX, editBoxY, editBoxW, QOLUtils.MM.EditBoxThickness_OnEditFocusLost)
+	storage.MM.Preview, storage.MM.PreviewLines = opt.CreatePreview(scrollchild, points.L, storage.MM.EditBoxBlue, points.R, 10, 0)
 	storage.QM = {}
-	local qmHeader = opt.CreateHeader(scrollchild, tLabel, -spacing.Indent, -spacing.SectionGap, labels.QM.Header)
-	storage.QM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, qmHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.QM.CheckBoxEnabled_OnClick)
-	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxEnabled, 0, -spacing.ItemGap, labels.QM.Report, QOLUtils.QM.CheckBoxReport_OnClick)
-	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxReport, 0, -spacing.ItemGap, labels.QM.Party, QOLUtils.QM.CheckBoxParty_OnClick)
-	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, storage.QM.CheckBoxParty, 0, -spacing.ItemGap, labels.QM.Duel, QOLUtils.QM.CheckBoxDuel_OnClick)
+	local qmHeader = opt.CreateHeader(scrollchild, points.TL, tLabel, points.BL, -spacing.Indent, -spacing.GapLarge, labels.QM.Header)
+	storage.QM.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, points.TL, qmHeader, points.BL, spacing.Indent, -spacing.GapSmall, labels.Enabled, QOLUtils.QM.CheckBoxEnabled_OnClick)
+	storage.QM.CheckBoxReport = opt.CreateCheckBox(scrollchild, points.TL, storage.QM.CheckBoxEnabled, points.BL, 0, -spacing.GapSmall, labels.QM.Report, QOLUtils.QM.CheckBoxReport_OnClick)
+	storage.QM.CheckBoxParty = opt.CreateCheckBox(scrollchild, points.TL, storage.QM.CheckBoxReport, points.BL, 0, -spacing.GapSmall, labels.QM.Party, QOLUtils.QM.CheckBoxParty_OnClick)
+	storage.QM.CheckBoxDuel = opt.CreateCheckBox(scrollchild, points.TL, storage.QM.CheckBoxParty, points.BL, 0, -spacing.GapSmall, labels.QM.Duel, QOLUtils.QM.CheckBoxDuel_OnClick)
 	storage.SMN = {}
-	local smnHeader = opt.CreateHeader(scrollchild, storage.QM.CheckBoxDuel, -spacing.Indent, -spacing.HeaderGap, labels.SMN.Header)
-	storage.SMN.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, smnHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.SMN.CheckBoxEnabled_OnClick)
-	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxEnabled, 0, -spacing.ItemGap, labels.SMN.Report, QOLUtils.SMN.CheckBoxReport_OnClick)
-	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxReport, 0, -spacing.ItemGap, labels.SMN.OnlyFavoritePets, QOLUtils.SMN.CheckBoxPets_OnClick)
-	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, storage.SMN.CheckBoxPets, 0, -spacing.ItemGap, labels.SMN.OnlyFavoriteMounts, QOLUtils.SMN.CheckBoxMounts_OnClick)
+	local smnHeader = opt.CreateHeader(scrollchild, points.TL, storage.QM.CheckBoxDuel, points.BL, -spacing.Indent, -spacing.GapMedium, labels.SMN.Header)
+	storage.SMN.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, points.TL, smnHeader, points.BL, spacing.Indent, -spacing.GapSmall, labels.Enabled, QOLUtils.SMN.CheckBoxEnabled_OnClick)
+	storage.SMN.CheckBoxReport = opt.CreateCheckBox(scrollchild, points.TL, storage.SMN.CheckBoxEnabled, points.BL, 0, -spacing.GapSmall, labels.SMN.Report, QOLUtils.SMN.CheckBoxReport_OnClick)
+	storage.SMN.CheckBoxPets = opt.CreateCheckBox(scrollchild, points.TL, storage.SMN.CheckBoxReport, points.BL, 0, -spacing.GapSmall, labels.SMN.OnlyFavoritePets, QOLUtils.SMN.CheckBoxPets_OnClick)
+	storage.SMN.CheckBoxMounts = opt.CreateCheckBox(scrollchild, points.TL, storage.SMN.CheckBoxPets, points.BL, 0, -spacing.GapSmall, labels.SMN.OnlyFavoriteMounts, QOLUtils.SMN.CheckBoxMounts_OnClick)
 	storage.VC = {}
-	local vcHeader = opt.CreateHeader(scrollchild, storage.SMN.CheckBoxMounts, -spacing.Indent, -spacing.HeaderGap, labels.VC.Header)
-	storage.VC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, vcHeader, spacing.Indent, -spacing.ItemGap, labels.Enabled, QOLUtils.VC.CheckBoxEnabled_OnClick)
-	local vcLabel = opt.CreateLabel(scrollchild, storage.VC.CheckBoxEnabled, 0, -spacing.HeaderGap, labels.VC.Levels)
-	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, vcLabel, spacing.Indent, -10, 200, opt.EditBoxLevels_OnEditFocusLost)
+	local vcHeader = opt.CreateHeader(scrollchild, points.TL, storage.SMN.CheckBoxMounts, points.BL, -spacing.Indent, -spacing.GapMedium, labels.VC.Header)
+	storage.VC.CheckBoxEnabled = opt.CreateCheckBox(scrollchild, points.TL, vcHeader, points.BL, spacing.Indent, -spacing.GapSmall, labels.Enabled, QOLUtils.VC.CheckBoxEnabled_OnClick)
+	local vcLabel = opt.CreateLabel(scrollchild, points.TL, storage.VC.CheckBoxEnabled, points.BL, 0, -spacing.GapMedium, labels.VC.Levels)
+	storage.VC.EditBoxLevels = opt.CreateEditBox(scrollchild, points.TL, vcLabel, points.BL, spacing.Indent, 0, 200, opt.EditBoxLevels_OnEditFocusLost)
 	opt.Panel = scroller
 	InterfaceOptions_AddCategory(opt.Panel)
 end
@@ -182,8 +182,8 @@ function opt.UpdateConfig()
 	opt.UpdateEditBox(storage.VC.EditBoxLevels, 'VC', 'Levels')
 end
 
-function opt.CreateScrollFrame(name)
-	local scroller = CreateFrame('Frame', 'QOL_Utils_Frame_' .. opt.GetUniqueID(), UIParent)
+function opt.CreateScrollFrame(name, parent, setBG)
+	local scroller = CreateFrame('Frame', 'QOL_Utils_Frame_' .. opt.GetUniqueID(), parent)
 	scroller.name = name
 	scroller.ScrollFrame = CreateFrame('ScrollFrame', 'QOL_Utils_ScrollFrame_' .. opt.GetUniqueID(), scroller, 'UIPanelScrollFrameTemplate')
 	scroller.ScrollFrame:SetPoint('TOPLEFT', scroller, 'TOPLEFT')
@@ -191,6 +191,11 @@ function opt.CreateScrollFrame(name)
 	scroller.ScrollFrame.ScrollBar:ClearAllPoints()
 	scroller.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', scroller.ScrollFrame, 'TOPRIGHT', -5, -22)
 	scroller.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', scroller.ScrollFrame, 'BOTTOMRIGHT', -5, 22)
+	if setBG then
+		scroller.ScrollFrame.bg = scroller.ScrollFrame:CreateTexture(nil, 'BACKGROUND')
+		scroller.ScrollFrame.bg:SetAllPoints(true)
+		scroller.ScrollFrame.bg:SetColorTexture(0, 0, 0, 0.4)
+	end
 	local scrollchild = CreateFrame('Frame', 'QOL_Utils_ScrollChild_' .. opt.GetUniqueID(), scroller.ScrollFrame)
 	-----------------------------
 	-- scrollchild.bg = scrollchild:CreateTexture(nil, 'BACKGROUND')
@@ -203,10 +208,10 @@ function opt.CreateScrollFrame(name)
 	return scroller, scrollchild
 end
 
-function opt.CreateHeader(parent, relativeParent, x, y, text)
+function opt.CreateHeader(parent, point, relativeParent, relativePoint, x, y, text)
 	local fontFrame = CreateFrame('Frame', 'QOL_Utils_FontFrame_' .. opt.GetUniqueID(), parent)
-	fontFrame:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
-	fontFrame:SetSize(500, 10)
+	fontFrame:SetPoint(point, relativeParent, relativePoint, x, y)
+	fontFrame:SetSize(500, 20)
 	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. opt.GetUniqueID(), 'BACKGROUND', 'GameFontWhite')
 	fontString:SetPoint('TOPLEFT')
 	fontString:SetText(text)
@@ -214,18 +219,18 @@ function opt.CreateHeader(parent, relativeParent, x, y, text)
 	return fontFrame
 end
 
-function opt.CreateCheckBox(parent, relativeParent, x, y, text, callback)
+function opt.CreateCheckBox(parent, point, relativeParent, relativePoint, x, y, text, callback)
 	local checkBox = CreateFrame('CheckButton', 'QOLUtils_CheckBox_' .. opt.GetUniqueID(), parent, 'ChatConfigCheckButtonTemplate')
-	checkBox:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
+	checkBox:SetPoint(point, relativeParent, relativePoint, x, y)
 	getglobal(checkBox:GetName() .. 'Text'):SetText(text)
 	checkBox:SetScript('OnClick', callback)
 	return checkBox
 end
 
-function opt.CreateLabel(parent, relativeParent, x, y, text)
+function opt.CreateLabel(parent, point, relativeParent, relativePoint, x, y, text)
 	local fontFrame = CreateFrame('Frame', 'QOLUtils_FontFrame_' .. opt.GetUniqueID(), parent)
-	fontFrame:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
-	fontFrame:SetSize(80, 10)
+	fontFrame:SetPoint(point, relativeParent, relativePoint, x, y)
+	fontFrame:SetSize(100, 20)
 	local fontString = fontFrame:CreateFontString('QOLUtils_FontString_' .. opt.GetUniqueID(), 'BACKGROUND', 'GameFontWhite')
 	fontString:SetPoint('TOPLEFT')
 	fontString:SetText(text)
@@ -233,20 +238,21 @@ function opt.CreateLabel(parent, relativeParent, x, y, text)
 	return fontFrame
 end
 
-function opt.CreateEditBox(parent, relativeParent, x, y, w, callback)
+function opt.CreateEditBox(parent, point, relativeParent, relativePoint, x, y, w, callback)
 	local editBox = CreateFrame('EditBox', 'QOLUtils_EditBox_' .. opt.GetUniqueID(), parent, 'InputBoxTemplate')
-	editBox:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
+	editBox:SetPoint(point, relativeParent, relativePoint, x, y)
 	editBox:SetSize(w, 30)
 	editBox:SetMultiLine(false)
 	editBox:SetAutoFocus(false)
 	editBox:SetCursorPosition(0)
 	editBox:SetScript('OnEditFocusLost', callback)
+	editBox:SetScript('OnEnterPressed', callback)
 	return editBox
 end
 
-function opt.CreateSlider(parent, relativeParent, x, y, callback)
+function opt.CreateSlider(parent, point, relativeParent, relativePoint, x, y, callback)
 	local slider = CreateFrame('Slider', 'QOLUtils_Slider_' .. opt.GetUniqueID(), parent, 'OptionsSliderTemplate')
-	slider:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', x, y)
+	slider:SetPoint(point, relativeParent, relativePoint, x, y)
 	slider:SetSize(150, 20)
 	slider:SetOrientation('HORIZONTAL')
 	slider:SetMinMaxValues(0, 100)
@@ -256,9 +262,9 @@ function opt.CreateSlider(parent, relativeParent, x, y, callback)
 	return slider
 end
 
-function opt.CreatePreview(parent, relativeParent)
+function opt.CreatePreview(parent, point, relativeParent, relativePoint, x, y)
 	local preview = CreateFrame('Frame', 'QOL_Utils_Frame_' .. opt.GetUniqueID(), parent)
-	preview:SetPoint('TOPLEFT', relativeParent, 'TOPLEFT', 60, 0)
+	preview:SetPoint(point, relativeParent, relativePoint, x, y)
 	preview:SetSize(200, 150)
 	-- scrollchild.bg = scrollchild:CreateTexture(nil, 'BACKGROUND')
 	-- scrollchild.bg:SetAllPoints(true)
@@ -302,16 +308,16 @@ function opt.CheckBoxToonActive_OnClick()
 end
 
 function opt.EditBoxLevels_OnEditFocusLost(self)
-	local configLevels = self == opt.Acct.VC.EditBoxLevels and QOL_Config_Acct.VC.Levels or QOL_Config_Toon.VC.Levels
+	local config = QOLUtils.GetConfig('VC')
 	local enteredPresets = QOLUtils.StrToTable(self:GetText(), QOLUtils.Patterns.Numbers)
 	local validPresets = {}
-	for i = 1, table.getn(enteredPresets) do
+	for i = 1, #enteredPresets do
 		if QOLUtils.VC.ValidLevel(enteredPresets[i]) then
 			table.insert(validPresets, enteredPresets[i])
 		end
 	end
-	configLevels = validPresets
-	self:SetText(QOLUtils.TableToStr(configLevels))
+	config.Levels = validPresets
+	self:SetText(QOLUtils.TableToStr(config.Levels))
 end
 
 function opt.UpdateCheckBox(checkBox, feature, setting)

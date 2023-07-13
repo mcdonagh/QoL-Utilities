@@ -1,8 +1,8 @@
 # QoL Utilities Change Log
 1. [Future Plans](#fp)
-1. [Latest Release (2023-07-12)](#c007)
-1. [Previous Release (2022-12-13)](#c006)
-1. [Older](#c005)
+1. [Latest Release (2023-07-13)](#c008)
+1. [Previous Release (2023-07-12)](#c007)
+1. [Older](#c006)
 
 <h2 id='fp'>Future Plans</h2>
 
@@ -22,6 +22,11 @@
 #### Leave a Suggestion
 If there's anything you'd like to see added or changed, please leave a [feature request on GitHub](https://github.com/mcdonagh/QoL-Utilities/issues)!  
 > *Not all suggestions will be implemented, but they all will be taken into consideration.*
+
+<h2 id='c008'>Version 4.3.1 | 2023-07-13</h2>
+
+- Merged backend changes from a stable alpha build
+- Fixed an issue where values were not being read/saved properly when changing the Volume Cycler presets
 
 <h2 id='c007'>Version 4.3.0 | 2023-07-12</h2>
 
